@@ -20,7 +20,7 @@ const App: SFC<{}> = () => {
         <GitHubCorner url="https://github.com/wellyshen/react-cool-inview" />
         <h1 css={title}>React Cool Inview</h1>
         <p css={subtitle}>
-          React hook to monitor an element enters or exists the viewport (or
+          React hook to monitor an element enters or leaves the viewport (or
           another element).
         </p>
       </div>
