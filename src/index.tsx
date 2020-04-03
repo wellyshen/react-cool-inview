@@ -17,17 +17,16 @@ interface Options {
 interface Return {
   readonly inView: boolean;
   readonly entry: IntersectionObserverEntry | null;
-  readonly observer: IntersectionObserver | null;
 }
 
 const useInView = (
   ref: RefObject<HTMLElement>,
   { ssr = false, root, rootMargin, threshold, onChange }: Options = {}
 ): Return => {
-  const [inView, setInView] = useState(ssr);
-  const entryRef = useRef(null);
-  const observerRef = useRef(null);
-  const onChangeRef = useRef(null);
+  const [inView, setInView] = useState<boolean>(ssr);
+  const entryRef = useRef<IntersectionObserverEntry>(null);
+  const observerRef = useRef<IntersectionObserver>(null);
+  const onChangeRef = useRef<Callback>(null);
 
   useEffect(() => {
     if (!onChangeRef.current) onChangeRef.current = onChange;
@@ -61,7 +60,7 @@ const useInView = (
     };
   }, [root, rootMargin, threshold, ref]);
 
-  return { inView, entry: entryRef.current, observer: observerRef.current };
+  return { inView, entry: entryRef.current };
 };
 
 export default useInView;
