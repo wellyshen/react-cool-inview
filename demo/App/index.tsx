@@ -8,7 +8,7 @@ import { root, container, title, subtitle, el } from './styles';
 
 const App: SFC<{}> = () => {
   const ref = useRef();
-  const { inView, entry } = useInView(ref, {
+  const { inView } = useInView(ref, {
     // ssr: true,
     // threshold: [0.25, 0.5, 0.75, 1],
     onChange: () => {
