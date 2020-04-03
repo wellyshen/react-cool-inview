@@ -25,13 +25,13 @@ const cjs = {
   file: isDist ? pkg.main : 'demo/.dev/bundle.js',
   format: 'cjs',
   sourcemap: isDev,
-  exports: 'named'
+  exports: 'named',
 };
 
 const esm = {
   file: pkg.module,
   format: 'esm',
-  exports: 'named'
+  exports: 'named',
 };
 
 const extensions = ['.js', '.ts', '.tsx', '.json'];
@@ -40,12 +40,14 @@ const plugins = [
   commonjs({
     namedExports: {
       react: Object.keys(React),
-      'react-dom': Object.keys(ReactDOM)
-    }
+      'react-dom': Object.keys(ReactDOM),
+    },
   }),
   babel({ exclude: 'node_modules/**', extensions }),
   replace({
-    'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production')
+    'process.env.NODE_ENV': JSON.stringify(
+      isDev ? 'development' : 'production'
+    ),
   }),
   !isDist && url(),
   !isDist && postcss({ extract: true, sourceMap: isDev, minimize: !isDev }),
@@ -53,8 +55,8 @@ const plugins = [
   !isDist &&
     copy({
       targets: [
-        { src: 'demo/static/site_assets', dest: 'demo/.dev', rename: 'assets' }
-      ]
+        { src: 'demo/static/site_assets', dest: 'demo/.dev', rename: 'assets' },
+      ],
     }),
   isDev && serve('demo/.dev'),
   isDev && livereload(),
@@ -63,7 +65,7 @@ const plugins = [
   isDemo &&
     copy({
       targets: [{ src: 'demo/.dev', dest: '.', rename: 'public' }],
-      hook: 'writeBundle'
+      hook: 'writeBundle',
     }),
   isDist &&
     copy({
@@ -71,15 +73,15 @@ const plugins = [
         {
           src: 'src/react-cool-inview.d.ts',
           dest: pkg.types.split('/')[0],
-          rename: 'index.d.ts'
-        }
-      ]
-    })
+          rename: 'index.d.ts',
+        },
+      ],
+    }),
 ];
 
 export default {
   input: isDist ? 'src' : 'demo',
   output: isDist ? [cjs, esm] : [cjs],
   plugins,
-  external: isDist ? Object.keys(pkg.peerDependencies) : []
+  external: isDist ? Object.keys(pkg.peerDependencies) : [],
 };
