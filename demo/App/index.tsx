@@ -8,13 +8,13 @@ import { root, container, title, subtitle, el } from './styles';
 
 const App: SFC<{}> = () => {
   const ref = useRef();
-  const { inView, entry, observer } = useInView(ref, {
-    ssr: true,
-    threshold: [0.5, 0.75, 1],
+  const { inView, entry } = useInView(ref, {
+    // ssr: true,
+    // threshold: [0.25, 0.5, 0.75, 1],
+    onChange: () => {
+      // console.log('LOG ===> Hi!');
+    },
   });
-
-  console.log('LOG ===> entry: ', entry);
-  console.log('LOG ===> observer: ', observer);
 
   return (
     <>
