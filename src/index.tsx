@@ -59,7 +59,7 @@ const useInView = (
     return (): void => {
       observerRef.current.disconnect();
     };
-  }, [ref, root, rootMargin, threshold, onChange]);
+  }, [root, rootMargin, threshold, ref]);
 
   return { inView, entry: entryRef.current, observer: observerRef.current };
 };
