@@ -73,26 +73,6 @@ const useInView = (
     isObserveRef.current = false;
   }, []);
 
-  const callback = useCallback(
-    ([entry]: IntersectionObserverEntry[]): void => {
-      const { isIntersecting } = entry;
-      const e = { entry, unobserve };
-
-      if (onEnterRef.current && isIntersecting && !inViewRef.current)
-        onEnterRef.current(e);
-
-      if (onLeaveRef.current && !isIntersecting && inViewRef.current)
-        onLeaveRef.current(e);
-
-      if (onChangeRef.current)
-        onChangeRef.current({ ...e, inView: isIntersecting });
-
-      setState({ inView: isIntersecting, entry });
-      inViewRef.current = isIntersecting;
-    },
-    [unobserve, onChangeRef, onEnterRef, onLeaveRef]
-  );
-
   useEffect(() => {
     if (!window.IntersectionObserver) {
       console.error(observerErr);
@@ -101,11 +81,29 @@ const useInView = (
 
     unobserve();
 
-    observerRef.current = new IntersectionObserver(callback, {
-      root,
-      rootMargin,
-      threshold,
-    });
+    observerRef.current = new IntersectionObserver(
+      ([entry]) => {
+        const { isIntersecting } = entry;
+        const e = { entry, unobserve };
+
+        if (onEnterRef.current && isIntersecting && !inViewRef.current)
+          onEnterRef.current(e);
+
+        if (onLeaveRef.current && !isIntersecting && inViewRef.current)
+          onLeaveRef.current(e);
+
+        if (onChangeRef.current)
+          onChangeRef.current({ ...e, inView: isIntersecting });
+
+        setState({ inView: isIntersecting, entry });
+        inViewRef.current = isIntersecting;
+      },
+      {
+        root,
+        rootMargin,
+        threshold,
+      }
+    );
 
     observe();
 
@@ -120,7 +118,6 @@ const useInView = (
     JSON.stringify(threshold),
     observe,
     unobserve,
-    callback,
   ]);
 
   return {
