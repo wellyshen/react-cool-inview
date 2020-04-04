@@ -37,7 +37,7 @@ export const subtitle = css`
 `;
 
 export const el = css`
-  margin-top: 800px;
+  margin-top: 750px;
   height: 500px;
   background: #ccc;
 `;

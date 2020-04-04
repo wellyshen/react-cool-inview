@@ -8,13 +8,24 @@ import { root, container, title, subtitle, el } from './styles';
 
 const App: SFC<{}> = () => {
   const ref = useRef();
-  const { inView } = useInView(ref, {
+  const { inView, isObserve, unobserve, observe } = useInView(ref, {
     // ssr: true,
-    // threshold: [0.25, 0.5, 0.75, 1],
-    onChange: () => {
-      // console.log('LOG ===> Hi!');
+    threshold: [0.2, 0.5],
+    onChange: ({ inView: view, entry }) => {
+      // console.log('LOG ===> ', view);
+      // console.log('LOG ===> ', entry.intersectionRatio);
+    },
+    onEnter: ({ unobserve: un }) => {
+      // un();
+      console.log('LOG ===> onEnter');
+    },
+    onLeave: ({ unobserve: un }) => {
+      un();
+      console.log('LOG ===> onLeave');
     },
   });
+
+  // console.log('LOG ===> ', inView);
 
   return (
     <>
@@ -31,6 +42,22 @@ const App: SFC<{}> = () => {
           React hook to monitor an element enters or leaves the viewport (or
           another element).
         </p>
+        <button
+          type="button"
+          onClick={() => {
+            unobserve();
+          }}
+        >
+          Unobserve
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            observe();
+          }}
+        >
+          Observe
+        </button>
         <div css={el} ref={ref}>
           {`I am ${inView ? 'visible' : 'hidden'}`}
         </div>
