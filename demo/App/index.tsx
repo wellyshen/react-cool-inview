@@ -10,8 +10,9 @@ const App: SFC<{}> = () => {
   const ref = useRef();
   const { inView, isObserve, unobserve, observe } = useInView(ref, {
     // ssr: true,
-    threshold: [0.2, 0.5],
+    threshold: [0.2, 0.4],
     onChange: ({ inView: view, entry }) => {
+      console.log('LOG ===> onChange');
       // console.log('LOG ===> ', view);
       // console.log('LOG ===> ', entry.intersectionRatio);
     },
@@ -20,7 +21,7 @@ const App: SFC<{}> = () => {
       console.log('LOG ===> onEnter');
     },
     onLeave: ({ unobserve: un }) => {
-      un();
+      // un();
       console.log('LOG ===> onLeave');
     },
   });
