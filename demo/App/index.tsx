@@ -12,7 +12,7 @@ const App: SFC<{}> = () => {
     // ssr: true,
     threshold: [0.2, 0.4],
     onChange: ({ inView: view }) => {
-      // console.log('LOG ===> onChange');
+      console.log('LOG ===> onChange');
       // console.log('LOG ===> ', view);
       // console.log('LOG ===> ', entry.intersectionRatio);
     },
