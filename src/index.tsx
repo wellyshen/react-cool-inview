@@ -1,5 +1,7 @@
 import { RefObject, useState, useRef, useEffect, useCallback } from 'react';
 
+import useMemoRef from './useMemoRef';
+
 // FIXME: Make sure URL is correct
 export const observerErr =
   "💡react-cool-inview: this browser doesn't support IntersectionObserver, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersectionobserver-polyfill";
@@ -49,21 +51,9 @@ const useInView = (
   const isObserveRef = useRef<boolean>(false);
   const entryRef = useRef<IntersectionObserverEntry>(null);
   const observerRef = useRef<IntersectionObserver>(null);
-  const onChangeRef = useRef<OnChange>(null);
-  const onEnterRef = useRef<CallBack>(null);
-  const onLeaveRef = useRef<CallBack>(null);
-
-  useEffect(() => {
-    if (!onChangeRef.current) onChangeRef.current = onChange;
-  }, [onChange]);
-
-  useEffect(() => {
-    if (!onEnterRef.current) onEnterRef.current = onEnter;
-  }, [onEnter]);
-
-  useEffect(() => {
-    if (!onLeaveRef.current) onLeaveRef.current = onLeave;
-  }, [onLeave]);
+  const onChangeRef = useMemoRef<OnChange>(onChange);
+  const onEnterRef = useMemoRef<CallBack>(onEnter);
+  const onLeaveRef = useMemoRef<CallBack>(onLeave);
 
   const observe = useCallback((): void => {
     if (isObserveRef.current || !ref.current || !observerRef.current) return;
@@ -104,7 +94,7 @@ const useInView = (
 
       entryRef.current = entry;
     },
-    [unobserve]
+    [unobserve, onChangeRef, onEnterRef, onLeaveRef]
   );
 
   useEffect(() => {
