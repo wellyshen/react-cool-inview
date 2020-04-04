@@ -27,6 +27,8 @@
     "inviewport",
     "in-view",
     "in-viewport",
+    "intersection",
+    "observer",
     "intersection-observer",
     "intersection-observer-api",
     "lazy",
