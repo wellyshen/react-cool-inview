@@ -87,13 +87,13 @@ const useInView = (
       if (isIntersecting && !inViewRef.current) {
         setInView(true);
         inViewRef.current = true;
-        onEnterRef.current(e);
+        if (onEnterRef.current) onEnterRef.current(e);
       }
 
       if (!isIntersecting && inViewRef.current) {
         setInView(false);
         inViewRef.current = false;
-        onLeaveRef.current(e);
+        if (onLeaveRef.current) onLeaveRef.current(e);
       }
 
       if (onChangeRef.current)
