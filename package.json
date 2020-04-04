@@ -214,7 +214,7 @@
     "@testing-library/react-hooks": "^3.2.1",
     "@types/jest": "^25.1.4",
     "@types/react": "^16.9.25",
-    "@types/react-dom": "^16.9.5",
+    "@types/react-dom": "^16.9.6",
     "@types/vfile-message": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
