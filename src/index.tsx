@@ -13,10 +13,10 @@ interface BaseEvent {
 interface ChangeEvent extends BaseEvent {
   inView?: boolean;
 }
-type OnChange = CallBack<ChangeEvent>;
 interface CallBack<T = BaseEvent> {
   (event?: T): void;
 }
+type OnChange = CallBack<ChangeEvent>;
 interface Options {
   ssr?: boolean;
   root?: HTMLElement;
@@ -26,12 +26,17 @@ interface Options {
   onEnter?: CallBack;
   onLeave?: CallBack;
 }
+type Entry = IntersectionObserverEntry | {};
 interface Return {
   readonly inView: boolean;
-  readonly entry: IntersectionObserverEntry | null;
+  readonly entry: Entry;
   readonly isObserve: boolean;
   readonly observe: () => void;
   readonly unobserve: () => void;
+}
+interface State {
+  inView: boolean;
+  entry: Entry;
 }
 
 const useInView = (
@@ -46,10 +51,9 @@ const useInView = (
     onLeave,
   }: Options = {}
 ): Return => {
-  const [inView, setInView] = useState<boolean>(ssr);
+  const [state, setState] = useState<State>({ inView: ssr, entry: {} });
   const inViewRef = useRef<boolean>(ssr);
   const isObserveRef = useRef<boolean>(false);
-  const entryRef = useRef<IntersectionObserverEntry>(null);
   const observerRef = useRef<IntersectionObserver>(null);
   const onChangeRef = useLatest<OnChange>(onChange);
   const onEnterRef = useLatest<CallBack>(onEnter);
@@ -74,25 +78,17 @@ const useInView = (
       const { isIntersecting } = entry;
       const e = { entry, unobserve };
 
-      if (isIntersecting && !inViewRef.current) {
-        setInView(true);
-        inViewRef.current = true;
-        if (onEnterRef.current) onEnterRef.current(e);
-      }
+      if (onEnterRef.current && isIntersecting && !inViewRef.current)
+        onEnterRef.current(e);
 
-      if (!isIntersecting && inViewRef.current) {
-        setInView(false);
-        inViewRef.current = false;
-        if (onLeaveRef.current) onLeaveRef.current(e);
-      }
+      if (onLeaveRef.current && !isIntersecting && inViewRef.current)
+        onLeaveRef.current(e);
 
       if (onChangeRef.current)
-        onChangeRef.current({
-          ...e,
-          inView: isIntersecting,
-        });
+        onChangeRef.current({ ...e, inView: isIntersecting });
 
-      entryRef.current = entry;
+      setState({ inView: isIntersecting, entry });
+      inViewRef.current = isIntersecting;
     },
     [unobserve, onChangeRef, onEnterRef, onLeaveRef]
   );
@@ -128,8 +124,8 @@ const useInView = (
   ]);
 
   return {
-    inView,
-    entry: entryRef.current,
+    inView: state.inView,
+    entry: state.entry,
     isObserve: isObserveRef.current,
     observe,
     unobserve,
