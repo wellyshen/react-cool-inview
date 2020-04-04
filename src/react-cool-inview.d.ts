@@ -1,16 +1,16 @@
 declare module 'react-cool-inview' {
   import { RefObject } from 'react';
 
-  interface Event {
+  export interface BaseEvent {
     entry?: IntersectionObserverEntry;
     unobserve?: () => void;
   }
 
-  export interface ChangeEvent extends Event {
+  export interface ChangeEvent extends BaseEvent {
     inView?: boolean;
   }
 
-  export interface CallBack<T = Event> {
+  export interface CallBack<T = BaseEvent> {
     (event?: T): void;
   }
 
