@@ -4,10 +4,19 @@ import useLatest from './useLatest';
 
 // FIXME: Make sure URL is correct
 export const observerErr =
-  "💡react-cool-inview: this browser doesn't support IntersectionObserver, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersectionobserver-polyfill";
+  "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersectionobserver-polyfill";
+export const observerWarn =
+  "💡react-cool-inview: the browser doesn't support Intersection Observer v2.";
 
+interface IntersectionObserverInitV2 extends IntersectionObserverInit {
+  readonly trackVisibility?: boolean;
+  readonly delay?: number;
+}
+interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
+  readonly isVisible?: boolean;
+}
 interface BaseEvent {
-  entry?: IntersectionObserverEntry;
+  entry?: IntersectionObserverEntryV2;
   unobserve?: () => void;
 }
 interface ChangeEvent extends BaseEvent {
@@ -18,42 +27,52 @@ interface CallBack<T = BaseEvent> {
 }
 type OnChange = CallBack<ChangeEvent>;
 interface Options {
-  ssr?: boolean;
-  unobserveOnEnter?: boolean;
   root?: HTMLElement;
   rootMargin?: string;
   threshold?: number | number[];
+  trackVisibility?: boolean;
+  delay?: number;
+  unobserveOnEnter?: boolean;
   onChange?: OnChange;
   onEnter?: CallBack;
   onLeave?: CallBack;
 }
-type Entry = IntersectionObserverEntry | null;
+type Entry = IntersectionObserverEntryV2 | null;
 interface Return {
   readonly inView: boolean;
+  readonly isVisible: boolean | null;
   readonly entry: Entry;
   readonly observe: () => void;
   readonly unobserve: () => void;
 }
 interface State {
   inView: boolean;
+  isVisible: boolean | null;
   entry: Entry;
 }
+
+const initState: State = {
+  inView: false,
+  isVisible: null,
+  entry: null,
+};
 
 const useInView = (
   ref: RefObject<HTMLElement>,
   {
-    ssr = false,
-    unobserveOnEnter = false,
     root,
     rootMargin,
     threshold,
+    trackVisibility,
+    delay,
+    unobserveOnEnter = false,
     onChange,
     onEnter,
     onLeave,
   }: Options = {}
 ): Return => {
-  const [state, setState] = useState<State>({ inView: ssr, entry: null });
-  const inViewRef = useRef<boolean>(ssr);
+  const [state, setState] = useState<State>(initState);
+  const inViewRef = useRef<boolean>(initState.inView);
   const isObserveRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
   const onChangeRef = useLatest<OnChange>(onChange);
@@ -85,8 +104,8 @@ const useInView = (
     unobserve();
 
     observerRef.current = new IntersectionObserver(
-      ([entry]) => {
-        const { isIntersecting } = entry;
+      ([entry]: IntersectionObserverEntryV2[]) => {
+        const { isIntersecting, isVisible } = entry;
         const e = { entry, unobserve };
 
         if (onEnterRef.current && isIntersecting && !inViewRef.current) {
@@ -100,14 +119,27 @@ const useInView = (
         if (onChangeRef.current)
           onChangeRef.current({ ...e, inView: isIntersecting });
 
-        setState({ inView: isIntersecting, entry });
+        if (
+          trackVisibility &&
+          isVisible === undefined &&
+          process.env.NODE_ENV !== 'production'
+        )
+          console.warn(observerWarn);
+
+        setState({
+          inView: isIntersecting,
+          isVisible: isVisible !== undefined ? isVisible : initState.isVisible,
+          entry,
+        });
         inViewRef.current = isIntersecting;
       },
       {
         root,
         rootMargin,
         threshold,
-      }
+        trackVisibility,
+        delay,
+      } as IntersectionObserverInitV2
     );
 
     observe();
@@ -117,10 +149,16 @@ const useInView = (
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    ref,
+    unobserveOnEnter,
     root,
     rootMargin,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     JSON.stringify(threshold),
+    trackVisibility,
+    delay,
+    observe,
+    unobserve,
   ]);
 
   return { ...state, observe, unobserve };

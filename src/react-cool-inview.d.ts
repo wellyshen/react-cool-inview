@@ -1,8 +1,12 @@
 declare module 'react-cool-inview' {
   import { RefObject } from 'react';
 
+  interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
+    readonly isVisible?: boolean;
+  }
+
   export interface BaseEvent {
-    entry?: IntersectionObserverEntry;
+    entry?: IntersectionObserverEntryV2;
     unobserve?: () => void;
   }
 
@@ -15,11 +19,12 @@ declare module 'react-cool-inview' {
   }
 
   interface Options {
-    ssr?: boolean;
-    unobserveOnEnter?: boolean;
     root?: HTMLElement;
     rootMargin?: string;
     threshold?: number | number[];
+    trackVisibility?: boolean;
+    delay?: number;
+    unobserveOnEnter?: boolean;
     onChange?: CallBack<ChangeEvent>;
     onEnter?: CallBack;
     onLeave?: CallBack;
@@ -27,14 +32,25 @@ declare module 'react-cool-inview' {
 
   interface Return {
     readonly inView: boolean;
-    readonly entry: IntersectionObserverEntry | null;
+    readonly isVisible: boolean | null;
+    readonly entry: IntersectionObserverEntryV2 | null;
     readonly observe: () => void;
     readonly unobserve: () => void;
   }
 
   const useInView: (
     ref: RefObject<HTMLElement>,
-    { ssr, root, rootMargin, threshold, onChange, onEnter, onLeave }?: Options
+    {
+      root,
+      rootMargin,
+      threshold,
+      trackVisibility,
+      delay,
+      unobserveOnEnter,
+      onChange,
+      onEnter,
+      onLeave,
+    }?: Options
   ) => Return;
 
   export default useInView;
