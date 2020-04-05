@@ -32,6 +32,7 @@ interface Options {
   threshold?: number | number[];
   trackVisibility?: boolean;
   delay?: number;
+  ssr?: boolean;
   unobserveOnEnter?: boolean;
   onChange?: OnChange;
   onEnter?: CallBack;
@@ -51,10 +52,14 @@ interface State {
   entry: Entry;
 }
 
-const initState: State = {
-  inView: false,
-  isVisible: null,
-  entry: null,
+const getInitState = (ssr = false): State => {
+  const serverSideRender = ssr && typeof window === 'undefined';
+
+  return {
+    inView: serverSideRender || false,
+    isVisible: serverSideRender || null,
+    entry: null,
+  };
 };
 
 const useInView = (
@@ -65,14 +70,15 @@ const useInView = (
     threshold,
     trackVisibility,
     delay,
+    ssr = false,
     unobserveOnEnter = false,
     onChange,
     onEnter,
     onLeave,
   }: Options = {}
 ): Return => {
-  const [state, setState] = useState<State>(initState);
-  const inViewRef = useRef<boolean>(initState.inView);
+  const [state, setState] = useState<State>(getInitState(ssr));
+  const inViewRef = useRef<boolean>(getInitState(ssr).inView);
   const isObserveRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
   const onChangeRef = useLatest<OnChange>(onChange);
@@ -128,7 +134,8 @@ const useInView = (
 
         setState({
           inView: isIntersecting,
-          isVisible: isVisible !== undefined ? isVisible : initState.isVisible,
+          isVisible:
+            isVisible !== undefined ? isVisible : getInitState().isVisible,
           entry,
         });
         inViewRef.current = isIntersecting;

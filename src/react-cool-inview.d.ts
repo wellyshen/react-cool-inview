@@ -24,6 +24,7 @@ declare module 'react-cool-inview' {
     threshold?: number | number[];
     trackVisibility?: boolean;
     delay?: number;
+    ssr?: boolean;
     unobserveOnEnter?: boolean;
     onChange?: CallBack<ChangeEvent>;
     onEnter?: CallBack;
@@ -46,6 +47,7 @@ declare module 'react-cool-inview' {
       threshold,
       trackVisibility,
       delay,
+      ssr,
       unobserveOnEnter,
       onChange,
       onEnter,
