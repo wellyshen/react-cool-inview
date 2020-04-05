@@ -30,7 +30,6 @@ type Entry = IntersectionObserverEntry | {};
 interface Return {
   readonly inView: boolean;
   readonly entry: Entry;
-  readonly isObserve: boolean;
   readonly observe: () => void;
   readonly unobserve: () => void;
 }
@@ -60,7 +59,7 @@ const useInView = (
   const onLeaveRef = useLatest<CallBack>(onLeave);
 
   const observe = useCallback((): void => {
-    if (isObserveRef.current || !ref.current || !observerRef.current) return;
+    if (isObserveRef.current || !observerRef.current || !ref.current) return;
 
     observerRef.current.observe(ref.current);
     isObserveRef.current = true;
@@ -116,17 +115,9 @@ const useInView = (
     rootMargin,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     JSON.stringify(threshold),
-    observe,
-    unobserve,
   ]);
 
-  return {
-    inView: state.inView,
-    entry: state.entry,
-    isObserve: isObserveRef.current,
-    observe,
-    unobserve,
-  };
+  return { ...state, observe, unobserve };
 };
 
 export default useInView;

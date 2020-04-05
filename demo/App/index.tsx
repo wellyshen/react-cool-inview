@@ -8,13 +8,14 @@ import { root, container, title, subtitle, el } from './styles';
 
 const App: SFC<{}> = () => {
   const ref = useRef();
-  const { inView, entry, isObserve, unobserve, observe } = useInView(ref, {
+  const { inView, entry, unobserve, observe } = useInView(ref, {
     // ssr: true,
     threshold: [0.2, 0.4],
-    onChange: ({ inView: view }) => {
-      console.log('LOG ===> onChange');
+    onChange: ({ inView: view, entry: en, unobserve: un }) => {
+      // un();
       // console.log('LOG ===> ', view);
-      // console.log('LOG ===> ', entry.intersectionRatio);
+      // console.log('LOG ===> ', en);
+      // console.log('LOG ===> onChange');
     },
     onEnter: ({ unobserve: un }) => {
       // un();
