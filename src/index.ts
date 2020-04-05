@@ -4,9 +4,10 @@ import useLatest from './useLatest';
 
 // FIXME: Make sure URL is correct
 export const observerErr =
-  "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersectionobserver-polyfill";
+  "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersection-observer-polyfill";
+// FIXME: Make sure URL is correct
 export const observerWarn =
-  "💡react-cool-inview: the browser doesn't support Intersection Observer v2.";
+  "💡react-cool-inview: the browser doesn't support Intersection Observer v2, please refer to: https://github.com/wellyshen/react-cool-inview#intersection-observer-v2";
 
 interface IntersectionObserverInitV2 extends IntersectionObserverInit {
   readonly trackVisibility?: boolean;
@@ -125,11 +126,7 @@ const useInView = (
         if (onChangeRef.current)
           onChangeRef.current({ ...e, inView: isIntersecting });
 
-        if (
-          trackVisibility &&
-          isVisible === undefined &&
-          process.env.NODE_ENV !== 'production'
-        )
+        if (trackVisibility && isVisible === undefined)
           console.warn(observerWarn);
 
         setState({
