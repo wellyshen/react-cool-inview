@@ -19,6 +19,7 @@ interface CallBack<T = BaseEvent> {
 type OnChange = CallBack<ChangeEvent>;
 interface Options {
   ssr?: boolean;
+  unobserveOnEnter?: boolean;
   root?: HTMLElement;
   rootMargin?: string;
   threshold?: number | number[];
@@ -26,7 +27,7 @@ interface Options {
   onEnter?: CallBack;
   onLeave?: CallBack;
 }
-type Entry = IntersectionObserverEntry | {};
+type Entry = IntersectionObserverEntry | null;
 interface Return {
   readonly inView: boolean;
   readonly entry: Entry;
@@ -42,6 +43,7 @@ const useInView = (
   ref: RefObject<HTMLElement>,
   {
     ssr = false,
+    unobserveOnEnter = false,
     root,
     rootMargin,
     threshold,
@@ -50,7 +52,7 @@ const useInView = (
     onLeave,
   }: Options = {}
 ): Return => {
-  const [state, setState] = useState<State>({ inView: ssr, entry: {} });
+  const [state, setState] = useState<State>({ inView: ssr, entry: null });
   const inViewRef = useRef<boolean>(ssr);
   const isObserveRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
@@ -87,8 +89,10 @@ const useInView = (
         const { isIntersecting } = entry;
         const e = { entry, unobserve };
 
-        if (onEnterRef.current && isIntersecting && !inViewRef.current)
+        if (onEnterRef.current && isIntersecting && !inViewRef.current) {
+          if (unobserveOnEnter) unobserve();
           onEnterRef.current(e);
+        }
 
         if (onLeaveRef.current && !isIntersecting && inViewRef.current)
           onLeaveRef.current(e);

@@ -16,6 +16,7 @@ declare module 'react-cool-inview' {
 
   interface Options {
     ssr?: boolean;
+    unobserveOnEnter?: boolean;
     root?: HTMLElement;
     rootMargin?: string;
     threshold?: number | number[];
