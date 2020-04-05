@@ -86,8 +86,7 @@ const useInView = (
   const onLeaveRef = useLatest<CallBack>(onLeave);
 
   const observe = useCallback((): void => {
-    if (isObserveRef.current || !observerRef.current || !ref || !ref.current)
-      return;
+    if (isObserveRef.current || !observerRef.current) return;
 
     observerRef.current.observe(ref.current);
     isObserveRef.current = true;
@@ -102,6 +101,7 @@ const useInView = (
 
   useEffect(() => {
     if (!ref || !ref.current) return (): void => null;
+
     if (!window.IntersectionObserver) {
       console.error(observerErr);
       return (): void => null;
