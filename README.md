@@ -28,6 +28,10 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - [ ] Typescript type definition
 - [ ] Documentation
 
+## Features
+
+Coming soon...
+
 ## Requirement
 
 To use `react-cool-inview`, you must use `react@16.8.0` or greater which includes hooks.
