@@ -20,7 +20,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - [x] Detect an element is in-view or not
 - [x] `onEnter`, `onLeave`, `onChange` events
 - [x] Trigger once feature
-- [x] Support server-side rendering
+- [x] Server-side rendering compatibility
 - [x] Support [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2)
 - [ ] Unit testing
 - [ ] Demo app
