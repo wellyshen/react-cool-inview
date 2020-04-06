@@ -33,8 +33,8 @@ declare module 'react-cool-inview' {
 
   interface Return {
     readonly inView: boolean;
-    readonly isVisible: boolean | null;
-    readonly entry: IntersectionObserverEntryV2 | null;
+    readonly isVisible: boolean;
+    readonly entry: IntersectionObserverEntryV2 | {};
     readonly observe: () => void;
     readonly unobserve: () => void;
   }

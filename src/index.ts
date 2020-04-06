@@ -39,7 +39,7 @@ interface Options {
   onEnter?: CallBack;
   onLeave?: CallBack;
 }
-type Entry = IntersectionObserverEntryV2 | null;
+type Entry = IntersectionObserverEntryV2 | {};
 interface Return {
   readonly inView: boolean;
   readonly isVisible: boolean | null;
@@ -54,12 +54,12 @@ interface State {
 }
 
 const getInitState = (ssr = false): State => {
-  const serverSideRender = ssr && typeof window === 'undefined';
+  const isSsr = ssr && typeof window === 'undefined';
 
   return {
-    inView: serverSideRender || false,
-    isVisible: serverSideRender || null,
-    entry: null,
+    inView: isSsr,
+    isVisible: isSsr,
+    entry: {},
   };
 };
 
