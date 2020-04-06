@@ -33,7 +33,6 @@ interface Options {
   threshold?: number | number[];
   trackVisibility?: boolean;
   delay?: number;
-  ssr?: boolean;
   unobserveOnEnter?: boolean;
   onChange?: OnChange;
   onEnter?: CallBack;
@@ -52,12 +51,6 @@ interface State {
   entry?: IntersectionObserverEntryV2;
 }
 
-const getInitState = (ssr = false): State => {
-  const isSsr = ssr && typeof window === 'undefined';
-
-  return { inView: isSsr, isVisible: isSsr || undefined };
-};
-
 const useInView = (
   ref: RefObject<HTMLElement>,
   {
@@ -66,15 +59,14 @@ const useInView = (
     threshold,
     trackVisibility,
     delay,
-    ssr = false,
     unobserveOnEnter = false,
     onChange,
     onEnter,
     onLeave,
   }: Options = {}
 ): Return => {
-  const [state, setState] = useState<State>(getInitState(ssr));
-  const inViewRef = useRef<boolean>(getInitState(ssr).inView);
+  const [state, setState] = useState<State>({ inView: false });
+  const inViewRef = useRef<boolean>(false);
   const isObserveRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
   const onChangeRef = useLatest<OnChange>(onChange);
@@ -124,12 +116,7 @@ const useInView = (
         if (trackVisibility && isVisible === undefined)
           console.warn(observerWarn);
 
-        setState({
-          inView: isIntersecting,
-          isVisible:
-            isVisible !== undefined ? isVisible : getInitState().isVisible,
-          entry,
-        });
+        setState({ inView: isIntersecting, isVisible, entry });
         inViewRef.current = isIntersecting;
       },
       {
