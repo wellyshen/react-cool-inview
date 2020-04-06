@@ -39,28 +39,23 @@ interface Options {
   onEnter?: CallBack;
   onLeave?: CallBack;
 }
-type Entry = IntersectionObserverEntryV2 | {};
 interface Return {
   readonly inView: boolean;
-  readonly isVisible: boolean | null;
-  readonly entry: Entry;
+  readonly isVisible?: boolean;
+  readonly entry?: IntersectionObserverEntryV2;
   readonly observe: () => void;
   readonly unobserve: () => void;
 }
 interface State {
   inView: boolean;
-  isVisible: boolean | null;
-  entry: Entry;
+  isVisible?: boolean;
+  entry?: IntersectionObserverEntryV2;
 }
 
 const getInitState = (ssr = false): State => {
   const isSsr = ssr && typeof window === 'undefined';
 
-  return {
-    inView: isSsr,
-    isVisible: isSsr,
-    entry: {},
-  };
+  return { inView: isSsr, isVisible: isSsr || undefined };
 };
 
 const useInView = (
