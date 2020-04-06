@@ -76,7 +76,7 @@ const App = () => {
 };
 ```
 
-## Lazy-loading Images
+### Lazy-loading Images
 
 Coming soon...
 
