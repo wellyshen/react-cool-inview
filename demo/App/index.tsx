@@ -29,7 +29,7 @@ const App: SFC<{}> = () => {
     },
   });
 
-  console.log('LOG ===> ', inView, isVisible);
+  console.log('LOG ===> ', inView, isVisible, entry);
 
   return (
     <>
