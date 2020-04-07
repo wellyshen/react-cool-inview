@@ -2,7 +2,7 @@
 
 # React Cool Inview
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can help you do many things, like [lazy-loading images](#lazy-loading-images), scrolling to load content, triggering animations, tracking advertisement impressions etc. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can help you do many things, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, triggering animations, tracking advertisement impressions etc. Try it you will 👍🏻 it!
 
 [![build status](https://img.shields.io/travis/wellyshen/react-cool-inview/master?style=flat-square)](https://travis-ci.org/wellyshen/react-cool-inview)
 [![coverage status](https://img.shields.io/coveralls/github/wellyshen/react-cool-inview?style=flat-square)](https://coveralls.io/github/wellyshen/react-cool-inview?branch=master)
@@ -78,6 +78,33 @@ const App = () => {
 
 ### Lazy-loading Images
 
+It's super easy to build an image lazy-loading component with `react-cool-inview` to boost the performance of your web app.
+
+```js
+import React, { useRef } from 'react';
+import useInView from 'react-cool-inview';
+
+const LazyImage = ({ width, height, ...rest }) => {
+  const ref = useRef();
+  const { inView } = useInView(ref, {
+    // Stop observe when meet the threshold, so "inView" only triggered once
+    unobserveOnEnter: true,
+    // Grow the root element's bounding box, so image will start load before entering the viewport
+    rootMargin: '50px',
+  });
+
+  return (
+    <div className="placeholder" style={{ width, height }} ref={ref}>
+      {inView && <img {...rest} />}
+    </div>
+  );
+};
+```
+
+> 💡 Looking for a comprehensive image component? Try [react-cool-img](https://github.com/wellyshen/react-cool-img), it's my other component library.
+
+### Infinite Scrolling
+
 Coming soon...
 
 ## API
@@ -109,3 +136,21 @@ if (!window.IntersectionObserver) require('intersection-observer');
 ```
 
 [Polyfill.io](https://polyfill.io/v3) is an alternative way to add the polyfill when needed.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4" width="100px;" alt=""/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
