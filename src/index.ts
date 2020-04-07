@@ -2,7 +2,6 @@ import { RefObject, useState, useRef, useEffect, useCallback } from 'react';
 
 import useLatest from './useLatest';
 
-// FIXME: Make sure URL is correct
 export const observerErr =
   "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersection-observer-polyfill";
 // FIXME: Make sure URL is correct
