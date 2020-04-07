@@ -87,9 +87,9 @@ import useInView from 'react-cool-inview';
 const LazyImage = ({ width, height, ...rest }) => {
   const ref = useRef();
   const { inView } = useInView(ref, {
-    // Stop observe when meet the threshold, so "inView" only triggered once
+    // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Grow the root element's bounding box, so image will start load before entering the viewport
+    // Grow the root element's bounding box, so the image will start load before entering the viewport
     rootMargin: '50px',
   });
 
