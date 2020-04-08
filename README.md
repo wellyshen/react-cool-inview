@@ -2,7 +2,7 @@
 
 # React Cool Inview
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can help you do many things, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, triggering animations, tracking advertisement impressions etc. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can help you do many things, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, running animations, tracking advertisement impressions etc. Try it you will 👍🏻 it!
 
 [![build status](https://img.shields.io/travis/wellyshen/react-cool-inview/master?style=flat-square)](https://travis-ci.org/wellyshen/react-cool-inview)
 [![coverage status](https://img.shields.io/coveralls/github/wellyshen/react-cool-inview?style=flat-square)](https://coveralls.io/github/wellyshen/react-cool-inview?branch=master)
@@ -70,6 +70,7 @@ const App = () => {
     onLeave: ({ entry, unobserve }) => {
       // Triggered when the target leaves the browser viewport (end intersecting)
     },
+    // More useful options...
   });
 
   return <div ref={ref}>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
@@ -89,7 +90,7 @@ const LazyImage = ({ width, height, ...rest }) => {
   const { inView } = useInView(ref, {
     // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Grow the root element's bounding box, so the image will start load before entering the viewport
+    // Extend the root margin out, so the image will start load before it comes to the viewport
     rootMargin: '50px',
   });
 
