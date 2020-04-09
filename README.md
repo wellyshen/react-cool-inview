@@ -64,10 +64,10 @@ const App = () => {
   const ref = useRef();
   const { inView, entry } = useInView(ref, {
     threshold: 0.25, // Default is 0
-    onEnter: ({ entry, unobserve }) => {
+    onEnter: ({ entry, observe, unobserve }) => {
       // Triggered when the target enters the browser viewport (start intersecting)
     },
-    onLeave: ({ entry, unobserve }) => {
+    onLeave: ({ entry, observe, unobserve }) => {
       // Triggered when the target leaves the browser viewport (end intersecting)
     },
     // More useful options...
@@ -106,7 +106,40 @@ const LazyImage = ({ width, height, ...rest }) => {
 
 ### Infinite Scrolling
 
-Coming soon...
+Infinite scrolling is a popular design technique like Facebook’s timeline and Twitter’s live feed, new content being loaded as you scroll down a page.
+
+```js
+import React, { useRef, useState } from 'react';
+import useInView from 'react-cool-inview';
+import axios from 'axios';
+
+const App = () => {
+  const [todos, setTodos] = useState(['some data']);
+  const ref = useRef();
+  const { inView } = useInView(ref, {
+    // When the loading indicator comes to the viewport
+    onEnter: ({ unobserve, observe }) => {
+      // Pause observe when loading data
+      unobserve();
+      // Load more data
+      axios.get('/todos').then((res) => {
+        setTodos([...todos, ...res.todos]);
+        // Resume observe after loading data
+        observe();
+      });
+    },
+  });
+
+  return (
+    <div>
+      {todos.map((todo) => (
+        <div>{todo}</div>
+      ))}
+      <div ref={ref}>Loading...</div>
+    </div>
+  );
+};
+```
 
 ## API
 
