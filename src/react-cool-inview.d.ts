@@ -7,6 +7,7 @@ declare module 'react-cool-inview' {
 
   export interface BaseEvent {
     entry?: IntersectionObserverEntryV2;
+    observe?: () => void;
     unobserve?: () => void;
   }
 

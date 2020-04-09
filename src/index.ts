@@ -17,6 +17,7 @@ interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
 }
 interface BaseEvent {
   entry?: IntersectionObserverEntryV2;
+  observe?: () => void;
   unobserve?: () => void;
 }
 interface ChangeEvent extends BaseEvent {
@@ -99,7 +100,7 @@ const useInView = (
     observerRef.current = new IntersectionObserver(
       ([entry]: IntersectionObserverEntryV2[]) => {
         const { isIntersecting, isVisible } = entry;
-        const e = { entry, unobserve };
+        const e = { entry, observe, unobserve };
 
         if (onEnterRef.current && isIntersecting && !inViewRef.current) {
           if (unobserveOnEnter) unobserve();
