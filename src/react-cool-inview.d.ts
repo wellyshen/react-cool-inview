@@ -39,20 +39,7 @@ declare module 'react-cool-inview' {
     readonly unobserve: () => void;
   }
 
-  const useInView: (
-    ref: RefObject<HTMLElement>,
-    {
-      root,
-      rootMargin,
-      threshold,
-      trackVisibility,
-      delay,
-      unobserveOnEnter,
-      onChange,
-      onEnter,
-      onLeave,
-    }?: Options
-  ) => Return;
+  const useInView: (ref: RefObject<HTMLElement>, options?: Options) => Return;
 
   export default useInView;
 }
