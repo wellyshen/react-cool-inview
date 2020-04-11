@@ -141,7 +141,7 @@ const App = () => {
 };
 ```
 
-Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. No worries, we can combine [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
+Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. We can use [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
 
 ```js
 import React, { useRef, useState } from 'react';
