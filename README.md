@@ -2,7 +2,7 @@
 
 # React Cool Inview
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can help you do many things, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, running animations, tracking advertisement impressions etc. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can help you do many things, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions) etc. Try it you will 👍🏻 it!
 
 [![build status](https://img.shields.io/travis/wellyshen/react-cool-inview/master?style=flat-square)](https://travis-ci.org/wellyshen/react-cool-inview)
 [![coverage status](https://img.shields.io/coveralls/github/wellyshen/react-cool-inview?style=flat-square)](https://coveralls.io/github/wellyshen/react-cool-inview?branch=master)
@@ -90,7 +90,7 @@ const LazyImage = ({ width, height, ...rest }) => {
   const { inView } = useInView(ref, {
     // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Extend the root margin out, so the image will start load before it comes to the viewport
+    // Grow the root margin, so the image will start load before it comes to the viewport
     rootMargin: '50px',
   });
 
@@ -106,7 +106,7 @@ const LazyImage = ({ width, height, ...rest }) => {
 
 ### Infinite Scrolling
 
-Infinite scrolling is a popular design technique like Facebook’s timeline and Twitter’s live feed, new content being loaded as you scroll down a page.
+Infinite scrolling is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
 
 ```js
 import React, { useRef, useState } from 'react';
@@ -114,7 +114,7 @@ import useInView from 'react-cool-inview';
 import axios from 'axios';
 
 const App = () => {
-  const [todos, setTodos] = useState(['some data']);
+  const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
   const ref = useRef();
   const { inView } = useInView(ref, {
     // When the loading indicator comes to the viewport
@@ -140,6 +140,75 @@ const App = () => {
   );
 };
 ```
+
+Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. No worries, we can combine [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
+
+```js
+import React, { useRef, useState } from 'react';
+import useInView from 'react-cool-inview';
+import { FixedSizeList as List } from 'react-window';
+import axios from 'axios';
+
+const App = () => {
+  const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
+  const ref = useRef();
+  const { inView } = useInView(ref, {
+    onEnter: ({ unobserve, observe }) => {
+      unobserve();
+
+      axios.get('/todos').then((res) => {
+        setTodos([...todos, ...res.todos]);
+        observe();
+      });
+    },
+  });
+
+  const renderItems = () => (
+    <>
+      {todos.map((todo) => (
+        <div>{todo}</div>
+      ))}
+      <div ref={ref}>Loading...</div>
+    </>
+  );
+
+  // Leverage the power of react-window to help us address the performance bottleneck
+  return (
+    <List height={150} itemCount={1000} itemSize={35} width={300}>
+      {renderItems()}
+    </List>
+  );
+};
+```
+
+### Trigger Animations
+
+Another great use case is to trigger CSS animations once they are visible to the users.
+
+```js
+import React, { useRef } from 'react';
+import useInView from 'react-cool-inview';
+
+const App = () => {
+  const ref = useRef();
+  const { inView } = useInView(ref, {
+    // Stop observe when meet the threshold, so the "inView" only triggered once
+    unobserveOnEnter: true,
+    // Shrink the root margin, so the animation will be triggered once an element reach a fixed amount of visible
+    rootMargin: '-100px 0',
+  });
+
+  return (
+    <div className="container" ref={ref}>
+      <div className={inView ? 'fade-in' : ''}>I'm a 🍟</div>
+    </div>
+  );
+};
+```
+
+### Track Impressions
+
+Coming soon...
 
 ## API
 
