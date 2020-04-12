@@ -90,7 +90,7 @@ const LazyImage = ({ width, height, ...rest }) => {
   const { inView } = useInView(ref, {
     // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Grow the root margin, so the image will start load before it comes to the viewport
+    // Grow the root margin, so the image will be started loading before it comes to the viewport (better UX)
     rootMargin: '50px',
   });
 
@@ -116,7 +116,10 @@ import axios from 'axios';
 const App = () => {
   const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
   const ref = useRef();
-  const { inView } = useInView(ref, {
+
+  useInView(ref, {
+    // Grow the root margin, so the data will be started loading before user see the loading indicator (better UX)
+    rootMargin: '50px 0',
     // When the loading indicator comes to the viewport
     onEnter: ({ unobserve, observe }) => {
       // Pause observe when loading data
@@ -141,7 +144,7 @@ const App = () => {
 };
 ```
 
-<!-- Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. We can use [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
+Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. We can use [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
 
 ```js
 import React, { useRef, useState } from 'react';
@@ -149,37 +152,50 @@ import useInView from 'react-cool-inview';
 import { FixedSizeList as List } from 'react-window';
 import axios from 'axios';
 
-const App = () => {
-  const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
+const Row = ({ index, data, style }) => {
+  const isLast = index === todos.length;
+  const { todos, setTodos, isFetching, setIsFetching } = data;
   const ref = useRef();
-  const { inView } = useInView(ref, {
-    onEnter: ({ unobserve, observe }) => {
-      unobserve();
 
-      axios.get('/todos').then((res) => {
-        setTodos([...todos, ...res.todos]);
-        observe();
-      });
+  useInView(ref, {
+    rootMargin: '50px 0',
+    onEnter: () => {
+      // Row component is dynamically created by react-window, so use the "isFetching" to avoid re-fetching data
+      if (!isFetching)
+        axios.get('/todos').then((res) => {
+          setTodos((prevTodos) => [...prevTodos, ...res.todos]);
+          setIsFetching(false);
+        });
+
+      setIsFetching(true);
     },
   });
 
-  const renderItems = () => (
-    <>
-      {todos.map((todo) => (
-        <div>{todo}</div>
-      ))}
-      <div ref={ref}>Loading...</div>
-    </>
+  return (
+    <div style={style} ref={isLast ? ref : null}>
+      {isLast ? 'Loading...' : todos[index]}
+    </div>
   );
+};
+
+const App = () => {
+  const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
+  const [isFetching, setIsFetching] = useState(false);
 
   // Leverage the power of react-window to help us address the performance bottleneck
   return (
-    <List height={150} itemCount={1000} itemSize={35} width={300}>
-      {renderItems()}
+    <List
+      height={150}
+      itemCount={todos.length + 1} // Last one is for the loading indicator
+      itemSize={35}
+      width={300}
+      itemData={{ todos, setTodos, isFetching, setIsFetching }}
+    >
+      {Row}
     </List>
   );
 };
-``` -->
+```
 
 ### Trigger Animations
 
