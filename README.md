@@ -90,7 +90,7 @@ const LazyImage = ({ width, height, ...rest }) => {
   const { inView } = useInView(ref, {
     // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Grow the root margin, so the image will be started loading before it comes to the viewport (better UX)
+    // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
     rootMargin: '50px',
   });
 
@@ -118,7 +118,7 @@ const App = () => {
   const ref = useRef();
 
   useInView(ref, {
-    // Grow the root margin, so the data will be started loading before user see the loading indicator (better UX)
+    // For better UX, we can grow the root margin so the data will be fetched before user see the loading indicator
     rootMargin: '50px 0',
     // When the loading indicator comes to the viewport
     onEnter: ({ unobserve, observe }) => {
@@ -153,23 +153,11 @@ import { FixedSizeList as List } from 'react-window';
 import axios from 'axios';
 
 const Row = ({ index, data, style }) => {
+  const { todos, handleLoadingInView } = data;
   const isLast = index === todos.length;
-  const { todos, setTodos, isFetching, setIsFetching } = data;
   const ref = useRef();
 
-  useInView(ref, {
-    rootMargin: '50px 0',
-    onEnter: () => {
-      // Row component is dynamically created by react-window, so use the "isFetching" to avoid re-fetching data
-      if (!isFetching)
-        axios.get('/todos').then((res) => {
-          setTodos((prevTodos) => [...prevTodos, ...res.todos]);
-          setIsFetching(false);
-        });
-
-      setIsFetching(true);
-    },
-  });
+  useInView(ref, { onEnter: handleLoadingInView });
 
   return (
     <div style={style} ref={isLast ? ref : null}>
@@ -182,6 +170,18 @@ const App = () => {
   const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
   const [isFetching, setIsFetching] = useState(false);
 
+  const handleLoadingInView = () => {
+      // Row component is dynamically created by react-window, we need to use the "isFetching" flag
+      // instead of unobserve/observe to avoid re-fetching data
+      if (!isFetching)
+        axios.get('/todos').then((res) => {
+          setTodos([...todos, ...res.todos]);
+          setIsFetching(false);
+        });
+
+      setIsFetching(true);
+    },
+
   // Leverage the power of react-window to help us address the performance bottleneck
   return (
     <List
@@ -189,7 +189,7 @@ const App = () => {
       itemCount={todos.length + 1} // Last one is for the loading indicator
       itemSize={35}
       width={300}
-      itemData={{ todos, setTodos, isFetching, setIsFetching }}
+      itemData={{ todos, handleLoadingInView }}
     >
       {Row}
     </List>
