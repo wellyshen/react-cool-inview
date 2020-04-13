@@ -118,7 +118,7 @@ const App = () => {
   const ref = useRef();
 
   useInView(ref, {
-    // For better UX, we can grow the root margin so the data will be fetched before user see the loading indicator
+    // For better UX, we can grow the root margin so the data will be loaded before a user sees the loading indicator
     rootMargin: '50px 0',
     // When the loading indicator comes to the viewport
     onEnter: ({ unobserve, observe }) => {
@@ -224,7 +224,28 @@ const App = () => {
 
 ### Track Impressions
 
-Coming soon...
+`react-cool-inview` can also play as an impression tracker, helps you fire an analytic event when a user sees an element or advertisement.
+
+```js
+import React, { useRef } from 'react';
+import useInView from 'react-cool-inview';
+
+const App = () => {
+  const ref = useRef();
+  useInView(ref, {
+    // For an element to be considered "seen", we'll say it must be 100% in the viewport
+    threshold: 1,
+    onEnter: ({ unobserve }) => {
+      // Stop observe when meet the threshold, so the "onEnter" only triggered once
+      unobserve();
+      // Fire an analytic event to your tracking service
+      someTrackingService.send('🍋 is seen');
+    },
+  });
+
+  return <div ref={ref}>I'm a 🍋</div>;
+};
+```
 
 ## API
 
