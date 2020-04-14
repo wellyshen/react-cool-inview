@@ -265,7 +265,8 @@ import useInView from 'react-cool-inview';
 
 const App = () => {
   const ref = useRef();
-  const { inView, isVisible } = useInView(ref, {
+  // The "isVisible" not only tells you the target is intersecting with the root, but also guarantees the element is visible on the page
+  const { isVisible, inView } = useInView(ref, {
     // Track the actual visibility of the element
     trackVisibility: true,
     // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
