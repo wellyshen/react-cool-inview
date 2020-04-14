@@ -1534,16 +1534,6 @@
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.27.0":
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.27.0.tgz#801a952c10b58e486c9a0b36cf21e2aab1e9e01a"
-  integrity sha512-vOsYzjwJlY6E0NJRXPTeCGqjv5OHgRU1kzxHKWJVPjDYGbPgLudBXjIlc+OD1hDBZ4l1DLbOc5VjofKahsu9Jw==
-  dependencies:
-    "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.27.0"
-    eslint-scope "^5.0.0"
-    eslint-utils "^2.0.0"
-
 "@typescript-eslint/experimental-utils@2.28.0":
   version "2.28.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.28.0.tgz#1fd0961cd8ef6522687b4c562647da6e71f8833d"
@@ -1563,19 +1553,6 @@
     "@typescript-eslint/experimental-utils" "2.28.0"
     "@typescript-eslint/typescript-estree" "2.28.0"
     eslint-visitor-keys "^1.1.0"
-
-"@typescript-eslint/typescript-estree@2.27.0":
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.27.0.tgz#a288e54605412da8b81f1660b56c8b2e42966ce8"
-  integrity sha512-t2miCCJIb/FU8yArjAvxllxbTiyNqaXJag7UOpB5DVoM3+xnjeOngtqlJkLRnMtzaRcJhe3CIR9RmL40omubhg==
-  dependencies:
-    debug "^4.1.1"
-    eslint-visitor-keys "^1.1.0"
-    glob "^7.1.6"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^6.3.0"
-    tsutils "^3.17.1"
 
 "@typescript-eslint/typescript-estree@2.28.0":
   version "2.28.0"
@@ -7953,9 +7930,9 @@ rollup-plugin-node-resolve@^5.2.0:
     rollup-pluginutils "^2.8.1"
 
 rollup-plugin-postcss@^2.5.0:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-postcss/-/rollup-plugin-postcss-2.6.1.tgz#67bfa6620f6925423c817b7164815dff22a6b74a"
-  integrity sha512-xYi4J3RVEsGL+cYMVT9VIovTa0bdriz2lDVLJQg+0Mdjael4DUZcqLnvIqZut9KfLJfcWLNWDI9zmFbX9n/srg==
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-postcss/-/rollup-plugin-postcss-2.6.2.tgz#1927bdaa5571432f01451dc44909611cdb5c8628"
+  integrity sha512-/ewXSvMbYPQrttSriTY1tYXV2sUm8ajKcEEmIV6htZ03yv01rlAYTe3vym7qjAJplyCysKq3aoMUmPY0u5fvWg==
   dependencies:
     chalk "^4.0.0"
     concat-with-sourcemaps "^1.1.0"
