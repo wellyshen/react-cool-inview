@@ -21,7 +21,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - [x] `onEnter`, `onLeave`, `onChange` events
 - [x] Trigger once feature
 - [x] Server-side rendering compatibility
-- [x] Support [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2)
+- [x] Support [Intersection Observer v2](#intersection-observer-v2)
 - [ ] Unit testing
 - [ ] Demo app
 - [ ] Demo code
@@ -244,6 +244,38 @@ const App = () => {
   });
 
   return <div ref={ref}>I'm a 🍋</div>;
+};
+```
+
+## Intersection Observer v2
+
+The Intersection Observer v1 can perfectly tell you when an element is scrolled into the viewport, but it doesn't tell you whether the element is covered by something else on the page or whether the element has any visual effects applied on it (like `transform`, `opacity`, `filter` etc.) that can make it invisible. The main concern that has surfaced is how this kind of knowledge could be helpful in preventing [clickjacking](https://en.wikipedia.org/wiki/Clickjacking) and UI redress attacks (read this [article](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) to learn more).
+
+If you want to track the click-through rate (CTR) or impression of an element, which is actually visible to a user, [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) can be the savior. Intersection Observer v2 introduces a new boolean field named `isVisible`. A `true` value guarantees that an element is visible on the page and has no visual effects applied on it. A `false` value is just the opposite. When using the v2, there're something we need to know:
+
+- Check [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2), if a browser doesn't support Intersection Observer v2 the `isVisible` will be `undefined`.
+- Understand [how visibility is calculated](https://w3c.github.io/IntersectionObserver/v2/#calculate-visibility-algo).
+- Visibility is much more expensive to compute than intersection, only use it when needed.
+
+To enable Intersection Observer v2, we need to set the `trackVisibility` and `delay` options.
+
+```js
+import React, { useRef } from 'react';
+import useInView from 'react-cool-inview';
+
+const App = () => {
+  const ref = useRef();
+  const { inView, isVisible } = useInView(ref, {
+    // Track the actual visibility of the element
+    trackVisibility: true,
+    // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
+    // For performance perspective, use the largest tolerable value as much as possible
+    delay: 100,
+  });
+  // If the browser doesn't support Intersection Observer v2, falling back to v1 behavior
+  const visible = isVisible || inView;
+
+  return <div ref={ref}>{visible ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
 };
 ```
 
