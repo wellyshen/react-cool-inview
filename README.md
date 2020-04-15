@@ -310,6 +310,14 @@ if (!window.IntersectionObserver) require('intersection-observer');
 
 [Polyfill.io](https://polyfill.io/v3) is an alternative way to add the polyfill when needed.
 
+## Performance Issues
+
+Be aware that the callback of the `onChange` event is executed on the main thread, it should operate as quickly as possible. If any time-consuming needs to be done, use [Window.requestIdleCallback()](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) or `setTimeout`.
+
+```js
+onChange = (event) => requestIdleCallback(() => this.handleChange(event));
+```
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
