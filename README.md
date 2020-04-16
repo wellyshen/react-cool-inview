@@ -312,7 +312,7 @@ if (!window.IntersectionObserver) require('intersection-observer');
 
 ## Performance Issues
 
-Be aware that the callback of the `onChange` event is executed on the main thread, it should operate as quickly as possible. If any time-consuming needs to be done, use [Window.requestIdleCallback()](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) or `setTimeout`.
+Be aware that the callback of the `onChange` event is executed on the main thread, it should operate as quickly as possible. If any time-consuming needs to be done, use [requestIdleCallback](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback) or [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).
 
 ```js
 onChange = (event) => requestIdleCallback(() => this.handleChange(event));
