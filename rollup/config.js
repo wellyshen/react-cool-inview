@@ -10,7 +10,7 @@ import html from '@rollup/plugin-html';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
-import { terser } from 'rollup-plugin-terser';
+// import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
 import pkg from '../package.json';
@@ -61,7 +61,7 @@ const plugins = [
   isDev && serve('demo/.dev'),
   isDev && livereload(),
   !isDev && sizeSnapshot(),
-  !isDev && terser(),
+  // !isDev && terser(),
   isDemo &&
     copy({
       targets: [{ src: 'demo/.dev', dest: '.', rename: 'public' }],
