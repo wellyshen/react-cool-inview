@@ -61,7 +61,8 @@ const plugins = [
   isDev && serve('demo/.dev'),
   isDev && livereload(),
   !isDev && sizeSnapshot(),
-  !isDev && terser(),
+  // Disable "module" to avoid the missing semicolon bug of .esm
+  !isDev && terser({ module: false }),
   isDemo &&
     copy({
       targets: [{ src: 'demo/.dev', dest: '.', rename: 'public' }],
