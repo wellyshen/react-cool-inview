@@ -12,7 +12,7 @@ export const root = css`
 
 export const container = css`
   padding: 5rem 5%;
-  height: 2000px;
+  height: 2500px;
   text-align: center;
   ${sm} {
     padding-left: 10%;

@@ -8,11 +8,11 @@ import { root, container, title, subtitle, el } from './styles';
 
 const App: SFC<{}> = () => {
   const ref = useRef();
-  const { inView, isVisible, entry, unobserve, observe } = useInView(ref, {
+  const { inView, entry, unobserve, observe } = useInView(ref, {
     // unobserveOnEnter: true,
-    threshold: [0.2, 0.4],
-    trackVisibility: true,
-    delay: 100,
+    threshold: 0.25,
+    // trackVisibility: true,
+    // delay: 100,
     onChange: ({ inView: view, entry: en, unobserve: un }) => {
       // console.log('LOG ===> onChange');
       // console.log('LOG ===> ', view);
@@ -20,16 +20,16 @@ const App: SFC<{}> = () => {
       // un();
     },
     onEnter: ({ unobserve: un }) => {
-      // console.log('LOG ===> onEnter');
+      console.log('LOG ===> onEnter');
       // un();
     },
     onLeave: ({ unobserve: un }) => {
-      // console.log('LOG ===> onLeave');
+      console.log('LOG ===> onLeave');
       // un();
     },
   });
 
-  console.log('LOG ===> ', inView, isVisible, entry);
+  // console.log('LOG ===> ', inView, entry);
 
   return (
     <>
