@@ -54,7 +54,7 @@ $ npm install --save react-cool-inview
 
 ### Basic Use Case
 
-To monitor an element enters or leaves the browser viewport by the `inView` state and useful sugar events.
+To monitor an element enters or leaves the viewport by the `inView` state and useful sugar events.
 
 ```js
 import React, { useRef } from 'react';
@@ -65,10 +65,10 @@ const App = () => {
   const { inView, entry } = useInView(ref, {
     threshold: 0.25, // Default is 0
     onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target enters the browser viewport (start intersecting)
+      // Triggered when the target enters the viewport
     },
     onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target leaves the browser viewport (end intersecting)
+      // Triggered when the target leaves the viewport
     },
     // More useful options...
   });
@@ -210,7 +210,7 @@ const App = () => {
   const { inView } = useInView(ref, {
     // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Shrink the root margin, so the animation will be triggered once an element reach a fixed amount of visible
+    // Shrink the root margin, so the animation will be triggered once the target reach a fixed amount of visible
     rootMargin: '-100px 0',
   });
 
@@ -251,9 +251,11 @@ const App = () => {
 
 The Intersection Observer v1 can perfectly tell you when an element is scrolled into the viewport, but it doesn't tell you whether the element is covered by something else on the page or whether the element has any visual effects applied on it (like `transform`, `opacity`, `filter` etc.) that can make it invisible. The main concern that has surfaced is how this kind of knowledge could be helpful in preventing [clickjacking](https://en.wikipedia.org/wiki/Clickjacking) and UI redress attacks (read this [article](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) to learn more).
 
-If you want to track the click-through rate (CTR) or impression of an element, which is actually visible to a user, [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) can be the savior. Which introduces a new boolean field named `isVisible`. A `true` value guarantees that an element is visible on the page and has no visual effects applied on it. A `false` value is just the opposite. When using the v2, there're something we need to know:
+If you want to track the click-through rate (CTR) or impression of an element, which is actually visible to a user, [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) can be the savior. Which introduces a new boolean field named [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible). A `true` value guarantees that an element is visible on the page and has no visual effects applied on it. A `false` value is just the opposite. The `isVisible` is integrated with the `inView` state to provide a better DX for you.
 
-- Check [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2), if a browser doesn't support Intersection Observer v2 the `isVisible` will be `undefined`.
+When using the v2, there're something we need to know:
+
+- Check [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). If a browser doesn't support the v2, we will fallback to the v1 behavior.
 - Understand [how visibility is calculated](https://w3c.github.io/IntersectionObserver/v2/#calculate-visibility-algo).
 - Visibility is much more expensive to compute than intersection, only use it when needed.
 
@@ -265,22 +267,44 @@ import useInView from 'react-cool-inview';
 
 const App = () => {
   const ref = useRef();
-  // The "isVisible" not only tells you the target is intersecting with the root, but also guarantees the element is visible on the page
-  const { isVisible, inView } = useInView(ref, {
-    // Track the actual visibility of the element
+  // With Intersection Observer v2, the "inView" not only tells you the target
+  // is intersecting with the root, but also guarantees it's visible on the page
+  const { inView } = useInView(ref, {
+    // Track the actual visibility of the target
     trackVisibility: true,
     // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
     // For performance perspective, use the largest tolerable value as much as possible
     delay: 100,
+    onEnter: ({ entry, observe, unobserve }) => {
+      // Triggered when the target enters the viewport and it's visible
+    },
+    onLeave: ({ entry, observe, unobserve }) => {
+      // Triggered when the target leaves the viewport
+    },
   });
-  // If the browser doesn't support Intersection Observer v2, falling back to v1 behavior
-  const visible = isVisible || inView;
 
-  return <div ref={ref}>{visible ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
+  return <div ref={ref}>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
 };
 ```
 
 ## API
+
+```js
+const return = useInView(ref: RefObject<HTMLElement>, options?: object);
+```
+
+### Return object
+
+It's returned with the following properties.
+
+| Key         | Type     | Default | Description                                                                                                                                                                                                                                                                          |
+| ----------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `inView`    | boolean  |         | The visible state of the target. If it's `true`, the target has become at least as visible as the threshold that was passed. If it's `false`, the target is no longer as visible as the given threshold. For Intersection Observer v2 see [this section](#intersection-observer-v2). |
+| `entry`     | object   |         | Coming soon...                                                                                                                                                                                                                                                                       |
+| `observe`   | function |         | Coming soon...                                                                                                                                                                                                                                                                       |
+| `unobserve` | function |         | Coming soon...                                                                                                                                                                                                                                                                       |
+
+### Parameters
 
 Coming soon...
 
