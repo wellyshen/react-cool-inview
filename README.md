@@ -259,7 +259,7 @@ When using the v2, there're something we need to know:
 - Understand [how visibility is calculated](https://w3c.github.io/IntersectionObserver/v2/#calculate-visibility-algo).
 - Visibility is much more expensive to compute than intersection, only use it when needed.
 
-To enable Intersection Observer v2, we need to set the `trackVisibility` and `delay` options.
+To enable Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
 
 ```js
 import React, { useRef } from 'react';
