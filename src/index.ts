@@ -4,9 +4,8 @@ import useLatest from './useLatest';
 
 export const observerErr =
   "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersection-observer-polyfill";
-// FIXME: Make sure URL is correct
 export const observerWarn =
-  "💡react-cool-inview: the browser doesn't support Intersection Observer v2. See: https://github.com/wellyshen/react-cool-inview#intersection-observer-v2";
+  "💡react-cool-inview: the browser doesn't support Intersection Observer v2, fallback to v1 behavior";
 
 interface IntersectionObserverInitV2 extends IntersectionObserverInit {
   readonly trackVisibility?: boolean;
@@ -40,14 +39,12 @@ interface Options {
 }
 interface Return {
   readonly inView: boolean;
-  readonly isVisible?: boolean;
   readonly entry?: IntersectionObserverEntryV2;
   readonly observe: () => void;
   readonly unobserve: () => void;
 }
 interface State {
   inView: boolean;
-  isVisible?: boolean;
   entry?: IntersectionObserverEntryV2;
 }
 
@@ -66,9 +63,10 @@ const useInView = (
   }: Options = {}
 ): Return => {
   const [state, setState] = useState<State>({ inView: false });
-  const inViewRef = useRef<boolean>(false);
+  const prevInViewRef = useRef<boolean>(false);
   const isObserveRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
+  const warnedRef = useRef<boolean>(false);
   const onChangeRef = useLatest<OnChange>(onChange);
   const onEnterRef = useLatest<CallBack>(onEnter);
   const onLeaveRef = useLatest<CallBack>(onLeave);
@@ -87,6 +85,18 @@ const useInView = (
     isObserveRef.current = false;
   }, []);
 
+  const getIsIntersecting = useCallback(
+    (
+      val: number | number[] = 0,
+      ratio: number,
+      intersecting: boolean
+    ): boolean => {
+      const min = Array.isArray(val) ? Math.min(...val) : val;
+      return min > 0 ? ratio >= min : intersecting;
+    },
+    []
+  );
+
   useEffect(() => {
     if (!ref || !ref.current) return (): void => null;
 
@@ -99,25 +109,34 @@ const useInView = (
 
     observerRef.current = new IntersectionObserver(
       ([entry]: IntersectionObserverEntryV2[]) => {
-        const { isIntersecting, isVisible } = entry;
         const e = { entry, observe, unobserve };
+        const { intersectionRatio, isIntersecting, isVisible } = entry;
+        let inView = getIsIntersecting(
+          threshold,
+          intersectionRatio,
+          isIntersecting
+        );
 
-        if (onEnterRef.current && isIntersecting && !inViewRef.current) {
+        if (trackVisibility) {
+          if (isVisible === undefined && !warnedRef.current) {
+            console.warn(observerWarn);
+            warnedRef.current = true;
+          }
+          if (isVisible !== undefined) inView = isVisible;
+        }
+
+        if (onEnterRef.current && inView && !prevInViewRef.current) {
           if (unobserveOnEnter) unobserve();
           onEnterRef.current(e);
         }
 
-        if (onLeaveRef.current && !isIntersecting && inViewRef.current)
+        if (onLeaveRef.current && !inView && prevInViewRef.current)
           onLeaveRef.current(e);
 
-        if (onChangeRef.current)
-          onChangeRef.current({ ...e, inView: isIntersecting });
+        if (onChangeRef.current) onChangeRef.current({ ...e, inView });
 
-        if (trackVisibility && isVisible === undefined)
-          console.warn(observerWarn);
-
-        setState({ inView: isIntersecting, isVisible, entry });
-        inViewRef.current = isIntersecting;
+        setState({ inView, entry });
+        prevInViewRef.current = inView;
       },
       {
         root,
