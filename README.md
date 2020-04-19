@@ -25,7 +25,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - [ ] Unit testing
 - [ ] Demo app
 - [ ] Demo code
-- [ ] Typescript type definition
+- [x] Typescript type definition
 - [ ] Documentation
 
 ## Features
@@ -290,7 +290,7 @@ const App = () => {
 ## API
 
 ```js
-const return = useInView(ref: RefObject<HTMLElement>, options?: object);
+const returnObj = useInView(ref: RefObject<HTMLElement>, options?: object);
 ```
 
 ### Return object
@@ -306,7 +306,19 @@ It's returned with the following properties.
 
 ### Parameters
 
-Coming soon...
+You must pass the `ref` to use this hook and the `options` provides the following configurations and event callbacks for you.
+
+| Key                | Type               | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------ | ------------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `root`             | HTMLElement        | `window` | The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if `null`.                                                                                                                                                                                                                                         |
+| `rootMargin`       | string             | `0px`    | Margin around the root. Can have values similar to the CSS [margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin`) property, e.g. `"10px 20px 30px 40px"` (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections.                                                                    |
+| `threshold`        | number \| number[] | `0`      | Indicate at what percentage of the target's visibility the observer's callback should be executed. If you only want to detect when visibility passes the 50% mark, you can use a value of 0.5. If you want the callback to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]. A value of 1.0 means that the threshold isn't considered passed until every pixel is visible. |
+| `trackVisibility`  | boolean            | `false`  | Coming soon...                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `delay`            | number             |          | Coming soon...                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `unobserveOnEnter` | boolean            | `false`  | Coming soon...                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `onChange`         | function           |          | Coming soon...                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `onEnter`          | function           |          | Coming soon...                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `onLeave`          | function           |          | Coming soon...                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ## Intersection Observer Polyfill
 
