@@ -65,10 +65,10 @@ const App = () => {
   const { inView, entry } = useInView(ref, {
     threshold: 0.25, // Default is 0
     onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target enters the viewport
+      // Triggered when the target element enters the viewport
     },
     onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target leaves the viewport
+      // Triggered when the target element leaves the viewport
     },
     // More useful options...
   });
@@ -210,7 +210,7 @@ const App = () => {
   const { inView } = useInView(ref, {
     // Stop observe when meet the threshold, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Shrink the root margin, so the animation will be triggered once the target reach a fixed amount of visible
+    // Shrink the root margin, so the animation will be triggered once the target element reach a fixed amount of visible
     rootMargin: '-100px 0',
   });
 
@@ -251,7 +251,7 @@ const App = () => {
 
 The Intersection Observer v1 can perfectly tell you when an element is scrolled into the viewport, but it doesn't tell you whether the element is covered by something else on the page or whether the element has any visual effects applied on it (like `transform`, `opacity`, `filter` etc.) that can make it invisible. The main concern that has surfaced is how this kind of knowledge could be helpful in preventing [clickjacking](https://en.wikipedia.org/wiki/Clickjacking) and UI redress attacks (read this [article](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) to learn more).
 
-If you want to track the click-through rate (CTR) or impression of an element, which is actually visible to a user, [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) can be the savior. Which introduces a new boolean field named [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible). A `true` value guarantees that an element is visible on the page and has no visual effects applied on it. A `false` value is just the opposite. The `isVisible` is integrated with the `inView` state to provide a better DX for you.
+If you want to track the click-through rate (CTR) or impression of an element, which is actually visible to a user, [Intersection Observer v2](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) can be the savior. Which introduces a new boolean field named [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible). A `true` value guarantees that an element is visible on the page and has no visual effects applied on it. A `false` value is just the opposite. The characteristic of the `isVisible` is integrated with the `inView` state and related events (like onEnter, onLeave etc.) to provide a better DX for you.
 
 When using the v2, there're something we need to know:
 
@@ -259,7 +259,7 @@ When using the v2, there're something we need to know:
 - Understand [how visibility is calculated](https://w3c.github.io/IntersectionObserver/v2/#calculate-visibility-algo).
 - Visibility is much more expensive to compute than intersection, only use it when needed.
 
-To enable Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
+To use Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
 
 ```js
 import React, { useRef } from 'react';
@@ -267,19 +267,19 @@ import useInView from 'react-cool-inview';
 
 const App = () => {
   const ref = useRef();
-  // With Intersection Observer v2, the "inView" not only tells you the target
+  // With Intersection Observer v2, the "inView" not only tells you the target element
   // is intersecting with the root, but also guarantees it's visible on the page
   const { inView } = useInView(ref, {
-    // Track the actual visibility of the target
+    // Track the actual visibility of the target element
     trackVisibility: true,
     // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
     // For performance perspective, use the largest tolerable value as much as possible
     delay: 100,
     onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target enters the viewport and it's visible
+      // Triggered when the target element enters the viewport and it's visible
     },
     onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target leaves the viewport
+      // Triggered when the target element leaves the viewport
     },
   });
 
@@ -297,12 +297,12 @@ const return = useInView(ref: RefObject<HTMLElement>, options?: object);
 
 It's returned with the following properties.
 
-| Key         | Type     | Default | Description                                                                                                                                                                                                                                                                          |
-| ----------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `inView`    | boolean  |         | The visible state of the target. If it's `true`, the target has become at least as visible as the threshold that was passed. If it's `false`, the target is no longer as visible as the given threshold. For Intersection Observer v2 see [this section](#intersection-observer-v2). |
-| `entry`     | object   |         | Coming soon...                                                                                                                                                                                                                                                                       |
-| `observe`   | function |         | Coming soon...                                                                                                                                                                                                                                                                       |
-| `unobserve` | function |         | Coming soon...                                                                                                                                                                                                                                                                       |
+| Key         | Type     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `inView`    | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. For Intersection Observer v2, please see [here](#intersection-observer-v2).                                                                                      |
+| `entry`     | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
+| `unobserve` | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
+| `observe`   | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
 
 ### Parameters
 
