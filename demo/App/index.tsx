@@ -10,7 +10,7 @@ const App: SFC<{}> = () => {
   const ref = useRef();
   const { inView, entry, unobserve, observe } = useInView(ref, {
     // unobserveOnEnter: true,
-    threshold: 0.25,
+    // threshold: 0.25,
     // trackVisibility: true,
     // delay: 100,
     onChange: ({ inView: view, entry: en, unobserve: un }) => {
