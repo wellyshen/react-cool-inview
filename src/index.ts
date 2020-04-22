@@ -100,7 +100,11 @@ const useInView = (
   useEffect(() => {
     if (!ref || !ref.current) return (): void => null;
 
-    if (!window.IntersectionObserver) {
+    if (
+      !window.IntersectionObserver ||
+      (window.IntersectionObserverEntry &&
+        !window.IntersectionObserverEntry.prototype.isIntersecting)
+    ) {
       console.error(observerErr);
       return (): void => null;
     }
