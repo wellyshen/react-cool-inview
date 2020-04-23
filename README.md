@@ -64,11 +64,14 @@ const App = () => {
   const ref = useRef();
   const { inView, entry } = useInView(ref, {
     threshold: 0.25, // Default is 0
+    onChange: ({ inView, entry, observe, unobserve }) => {
+      // Triggered whenever the target meets a threshold, e.g. [0.25, 0.5, ...]
+    },
     onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target element enters the viewport
+      // Triggered when the target enters the viewport
     },
     onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target element leaves the viewport
+      // Triggered when the target leaves the viewport
     },
     // More useful options...
   });
@@ -88,7 +91,7 @@ import useInView from 'react-cool-inview';
 const LazyImage = ({ width, height, ...rest }) => {
   const ref = useRef();
   const { inView } = useInView(ref, {
-    // Stop observe when meet the threshold, so the "inView" only triggered once
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
     // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
     rootMargin: '50px',
@@ -208,9 +211,9 @@ import useInView from 'react-cool-inview';
 const App = () => {
   const ref = useRef();
   const { inView } = useInView(ref, {
-    // Stop observe when meet the threshold, so the "inView" only triggered once
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
-    // Shrink the root margin, so the animation will be triggered once the target element reach a fixed amount of visible
+    // Shrink the root margin, so the animation will be triggered once the target reach a fixed amount of visible
     rootMargin: '-100px 0',
   });
 
@@ -236,7 +239,7 @@ const App = () => {
     // For an element to be considered "seen", we'll say it must be 100% in the viewport
     threshold: 1,
     onEnter: ({ unobserve }) => {
-      // Stop observe when meet the threshold, so the "onEnter" only triggered once
+      // Stop observe when the target enters the viewport, so the callback only triggered once
       unobserve();
       // Fire an analytic event to your tracking service
       someTrackingService.send('🍋 is seen');
@@ -267,19 +270,19 @@ import useInView from 'react-cool-inview';
 
 const App = () => {
   const ref = useRef();
-  // With Intersection Observer v2, the "inView" not only tells you the target element
+  // With Intersection Observer v2, the "inView" not only tells you the target
   // is intersecting with the root, but also guarantees it's visible on the page
   const { inView } = useInView(ref, {
-    // Track the actual visibility of the target element
+    // Track the actual visibility of the target
     trackVisibility: true,
     // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
     // For performance perspective, use the largest tolerable value as much as possible
     delay: 100,
     onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target element enters the viewport and it's visible
+      // Triggered when the target enters the viewport and it's visible
     },
     onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target element leaves the viewport
+      // Triggered when the target leaves the viewport
     },
   });
 
@@ -316,9 +319,9 @@ You must pass the `ref` to use this hook and the `options` provides the followin
 | `trackVisibility`  | boolean            | `false`  | Indicates whether the intersection observer will track changes in a target’s [visibility](https://w3c.github.io/IntersectionObserver/v2/#visibility). It's required when [using Intersection Observer v2](#intersection-observer-v2).                                                                                                                    |
 | `delay`            | number             |          | Indicates the minimum delay in milliseconds between notifications from the intersection observer for a given target. It's required when [using Intersection Observer v2](#intersection-observer-v2).                                                                                                                                                     |
 | `unobserveOnEnter` | boolean            | `false`  | Stops observe once the target element intersects with the intersection observer's root. It's useful when you only want to trigger the hook once, e.g. [scrolling to run animations](#trigger-animations).                                                                                                                                                |
-| `onChange`         | function           |          | Coming soon...                                                                                                                                                                                                                                                                                                                                           |
-| `onEnter`          | function           |          | Coming soon...                                                                                                                                                                                                                                                                                                                                           |
-| `onLeave`          | function           |          | Coming soon...                                                                                                                                                                                                                                                                                                                                           |
+| `onChange`         | function           |          | It's invoked whenever the target element meets a threshold specified for the intersection observer. The callback receives an event object which the same with the [return object](#return-object) of the hook.                                                                                                                                           |
+| `onEnter`          | function           |          | It's invoked when the target element enters the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`.                                                                                                                                                                 |  |
+| `onLeave`          | function           |          | It's invoked when the target element leaves the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`.                                                                                                                                                                 |
 
 ## Intersection Observer Polyfill
 
