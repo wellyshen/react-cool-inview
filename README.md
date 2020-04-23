@@ -279,10 +279,10 @@ const App = () => {
     // For performance perspective, use the largest tolerable value as much as possible
     delay: 100,
     onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target enters the viewport and it's visible
+      // Triggered when the target is visible and enters the viewport
     },
     onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target leaves the viewport
+      // Triggered when the target is visible and leaves the viewport
     },
   });
 
@@ -302,7 +302,7 @@ It's returned with the following properties.
 
 | Key         | Type     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       |
 | ----------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `inView`    | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. For Intersection Observer v2, please see [here](#intersection-observer-v2).                                                                                      |
+| `inView`    | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                  |
 | `entry`     | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
 | `unobserve` | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
 | `observe`   | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
@@ -320,8 +320,8 @@ You must pass the `ref` to use this hook and the `options` provides the followin
 | `delay`            | number             |          | Indicates the minimum delay in milliseconds between notifications from the intersection observer for a given target. It's required when [using Intersection Observer v2](#intersection-observer-v2).                                                                                                                                                     |
 | `unobserveOnEnter` | boolean            | `false`  | Stops observe once the target element intersects with the intersection observer's root. It's useful when you only want to trigger the hook once, e.g. [scrolling to run animations](#trigger-animations).                                                                                                                                                |
 | `onChange`         | function           |          | It's invoked whenever the target element meets a threshold specified for the intersection observer. The callback receives an event object which the same with the [return object](#return-object) of the hook.                                                                                                                                           |
-| `onEnter`          | function           |          | It's invoked when the target element enters the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`.                                                                                                                                                                 |  |
-| `onLeave`          | function           |          | It's invoked when the target element leaves the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`.                                                                                                                                                                 |
+| `onEnter`          | function           |          | It's invoked when the target element enters the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                 |  |
+| `onLeave`          | function           |          | It's invoked when the target element leaves the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                 |
 
 ## Intersection Observer Polyfill
 
