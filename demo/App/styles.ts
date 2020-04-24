@@ -12,7 +12,6 @@ export const root = css`
 
 export const container = css`
   padding: 5rem 5%;
-  height: 2500px;
   text-align: center;
   ${sm} {
     padding-left: 10%;
@@ -36,8 +35,10 @@ export const subtitle = css`
   margin: 0 0 2.5rem;
 `;
 
-export const el = css`
-  margin-top: 750px;
-  height: 500px;
-  background: #ccc;
+export const frame = css`
+  margin: 0 auto;
+  width: 90%;
+  max-width: 400px;
+  height: 300px;
+  background: orange;
 `;
