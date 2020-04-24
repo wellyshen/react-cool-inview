@@ -32,7 +32,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 
 - 🚀 Monitors elements with performant and non-main-thread blocking way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
 - 🎣 Easy to use, based on React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
-- 🔧 Super flexible [API](#api) to cover [all the cases](#usage) that you need.
+- 🔧 Super flexible [API](#api) design which can cover [all the cases](#usage) that you need.
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
 - 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
 - 🗄️ Server-side rendering compatibility.
