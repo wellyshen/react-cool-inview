@@ -35,10 +35,22 @@ export const subtitle = css`
   margin: 0 0 2.5rem;
 `;
 
+export const log = css`
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: grey;
+  ${md} {
+    font-size: 1.5rem;
+  }
+`;
+
 export const frame = css`
   margin: 0 auto;
+  padding: 0 10px;
   width: 90%;
-  max-width: 400px;
+  max-width: 350px;
   height: 300px;
-  background: orange;
+  border: 1px solid #777;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
