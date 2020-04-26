@@ -14,8 +14,13 @@ interface IntersectionObserverInitV2 extends IntersectionObserverInit {
 interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
   readonly isVisible?: boolean;
 }
+interface ScrollDirection {
+  vertical?: 'up' | 'down';
+  horizontal?: 'left' | 'right';
+}
 interface BaseEvent {
   entry?: IntersectionObserverEntryV2;
+  scrollDirection?: ScrollDirection;
   observe?: () => void;
   unobserve?: () => void;
 }
@@ -39,12 +44,14 @@ interface Options {
 }
 interface Return {
   readonly inView: boolean;
+  readonly scrollDirection: ScrollDirection;
   readonly entry?: IntersectionObserverEntryV2;
   readonly observe: () => void;
   readonly unobserve: () => void;
 }
 interface State {
   inView: boolean;
+  scrollDirection: ScrollDirection;
   entry?: IntersectionObserverEntryV2;
 }
 
@@ -62,8 +69,13 @@ const useInView = (
     onLeave,
   }: Options = {}
 ): Return => {
-  const [state, setState] = useState<State>({ inView: false });
+  const [state, setState] = useState<State>({
+    inView: false,
+    scrollDirection: {},
+  });
   const prevInViewRef = useRef<boolean>(false);
+  const prevXRef = useRef<number>();
+  const prevYRef = useRef<number>();
   const isObserveRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
   const warnedRef = useRef<boolean>(false);
@@ -113,13 +125,44 @@ const useInView = (
 
     observerRef.current = new IntersectionObserver(
       ([entry]: IntersectionObserverEntryV2[]) => {
-        const e = { entry, observe, unobserve };
-        const { intersectionRatio, isIntersecting, isVisible } = entry;
+        const {
+          intersectionRatio,
+          isIntersecting,
+          boundingClientRect: { x, y },
+          isVisible,
+        } = entry;
         let inView = getIsIntersecting(
           threshold,
           intersectionRatio,
           isIntersecting
         );
+        const scrollDirection: ScrollDirection = {};
+
+        if (!prevXRef.current) {
+          prevXRef.current = x;
+        } else if (x < prevXRef.current) {
+          scrollDirection.horizontal = 'left';
+          prevXRef.current = x;
+        } else if (x > prevXRef.current) {
+          scrollDirection.horizontal = 'right';
+          prevXRef.current = x;
+        } else {
+          delete scrollDirection.horizontal;
+        }
+
+        if (!prevYRef.current) {
+          prevYRef.current = y;
+        } else if (y < prevYRef.current) {
+          scrollDirection.vertical = 'up';
+          prevYRef.current = y;
+        } else if (y > prevYRef.current) {
+          scrollDirection.vertical = 'down';
+          prevYRef.current = y;
+        } else {
+          delete scrollDirection.vertical;
+        }
+
+        const e = { entry, scrollDirection, observe, unobserve };
 
         if (trackVisibility) {
           if (isVisible === undefined && !warnedRef.current) {
@@ -139,7 +182,7 @@ const useInView = (
 
         if (onChangeRef.current) onChangeRef.current({ ...e, inView });
 
-        setState({ inView, entry });
+        setState({ inView, scrollDirection, entry });
         prevInViewRef.current = inView;
       },
       {

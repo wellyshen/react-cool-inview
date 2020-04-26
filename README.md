@@ -2,7 +2,7 @@
 
 # React Cool Inview
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions) etc. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions) and more. Try it you will 👍🏻 it!
 
 [![build status](https://img.shields.io/travis/wellyshen/react-cool-inview/master?style=flat-square)](https://travis-ci.org/wellyshen/react-cool-inview)
 [![coverage status](https://img.shields.io/coveralls/github/wellyshen/react-cool-inview?style=flat-square)](https://coveralls.io/github/wellyshen/react-cool-inview?branch=master)
@@ -18,6 +18,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 ## Milestone
 
 - [x] Detect an element is in-view or not
+- [x] Detect the scrolling direction of the target element
 - [x] `onEnter`, `onLeave`, `onChange` events
 - [x] Trigger once feature
 - [x] Server-side rendering compatibility
@@ -33,10 +34,11 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - 🚀 Monitors elements with performant and non-main-thread blocking way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
 - 🎣 Easy to use, based on React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
 - 🎛 Super flexible [API](#api) design which can cover [all the cases](#usage) that you need.
+- 🖱️ Supports [scroll direction](#scroll-direction), cool right?
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
 - 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
 - 🗄️ Server-side rendering compatibility.
-- 🦠 Tiny size ([~ 1.7KB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
+- 🦠 Tiny size ([~ 1.8KB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
 
 ## Requirement
 
@@ -68,19 +70,22 @@ import useInView from 'react-cool-inview';
 
 const App = () => {
   const ref = useRef();
-  const { inView, entry } = useInView(ref, {
-    threshold: 0.25, // Default is 0
-    onChange: ({ inView, entry, observe, unobserve }) => {
-      // Triggered whenever the target meets a threshold, e.g. [0.25, 0.5, ...]
-    },
-    onEnter: ({ entry, observe, unobserve }) => {
-      // Triggered when the target enters the viewport
-    },
-    onLeave: ({ entry, observe, unobserve }) => {
-      // Triggered when the target leaves the viewport
-    },
-    // More useful options...
-  });
+  const { inView, scrollDirection, entry, observe, unobserve } = useInView(
+    ref,
+    {
+      threshold: 0.25, // Default is 0
+      onChange: ({ inView, scrollDirection, entry, observe, unobserve }) => {
+        // Triggered whenever the target meets a threshold, e.g. [0.25, 0.5, ...]
+      },
+      onEnter: ({ scrollDirection, entry, observe, unobserve }) => {
+        // Triggered when the target enters the viewport
+      },
+      onLeave: ({ scrollDirection, entry, observe, unobserve }) => {
+        // Triggered when the target leaves the viewport
+      },
+      // More useful options...
+    }
+  );
 
   return <div ref={ref}>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
 };
@@ -256,6 +261,38 @@ const App = () => {
 };
 ```
 
+## Scroll Direction
+
+`react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`.
+
+```js
+import React, { useRef } from 'react';
+import useInView from 'react-cool-inview';
+
+const App = () => {
+  const ref = useRef();
+  const {
+    inView,
+    scrollDirection: { vertical, horizontal },
+  } = useInView(ref, {
+    // Scroll direction is calculated whenever the target meets a threshold
+    // more trigger points the calculation will be more instant and accurate
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+    onChange: ({ scrollDirection }) => {
+      // We can also access the scroll direction from the event object
+      console.log('Scroll direction: ', scrollDirection.vertical);
+    },
+  });
+
+  return (
+    <div ref={ref}>
+      <div>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>
+      <div>{`You're scrolling ${vertical === 'up' ? '⬆️' : '⬇️'}`}</div>
+    </div>
+  );
+};
+```
+
 ## Intersection Observer v2
 
 The Intersection Observer v1 can perfectly tell you when an element is scrolled into the viewport, but it doesn't tell you whether the element is covered by something else on the page or whether the element has any visual effects applied on it (like `transform`, `opacity`, `filter` etc.) that can make it invisible. The main concern that has surfaced is how this kind of knowledge could be helpful in preventing [clickjacking](https://en.wikipedia.org/wiki/Clickjacking) and UI redress attacks (read this [article](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) to learn more).
@@ -284,10 +321,10 @@ const App = () => {
     // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
     // For performance perspective, use the largest tolerable value as much as possible
     delay: 100,
-    onEnter: ({ entry, observe, unobserve }) => {
+    onEnter: () => {
       // Triggered when the target is visible and enters the viewport
     },
-    onLeave: ({ entry, observe, unobserve }) => {
+    onLeave: () => {
       // Triggered when the target is visible and leaves the viewport
     },
   });
@@ -306,12 +343,13 @@ const returnObj = useInView(ref: RefObject<HTMLElement>, options?: object);
 
 It's returned with the following properties.
 
-| Key         | Type     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `inView`    | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                  |
-| `entry`     | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
-| `unobserve` | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
-| `observe`   | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
+| Key               | Type     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `inView`          | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                  |
+| `scrollDirection` | object   |         | The scroll direction of the target element. Which contains `vertical` and `horizontal` properties. See [scroll direction](#scroll-direction) for more information.                                                                                                                                                                                                                                |
+| `entry`           | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
+| `unobserve`       | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
+| `observe`         | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
 
 ### Parameters
 

@@ -5,8 +5,14 @@ declare module 'react-cool-inview' {
     readonly isVisible?: boolean;
   }
 
+  interface ScrollDirection {
+    vertical?: 'up' | 'down';
+    horizontal?: 'left' | 'right';
+  }
+
   export interface BaseEvent {
     entry?: IntersectionObserverEntryV2;
+    scrollDirection?: ScrollDirection;
     observe?: () => void;
     unobserve?: () => void;
   }
@@ -33,6 +39,7 @@ declare module 'react-cool-inview' {
 
   interface Return {
     readonly inView: boolean;
+    readonly scrollDirection: ScrollDirection;
     readonly entry?: IntersectionObserverEntryV2;
     readonly observe: () => void;
     readonly unobserve: () => void;
