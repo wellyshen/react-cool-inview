@@ -59,7 +59,7 @@ const App: SFC<{}> = () => {
           another element).
         </p>
         <div css={log}>
-          Halo! <Slider string={str} direction={dir} /> comes in.
+          Hello! <Slider string={str} direction={dir} /> comes in.
         </div>
         <div css={frame}>{renderCards()}</div>
       </div>

@@ -1,11 +1,8 @@
-> 🚧 This package is in-progress, [API](#api) may be changed frequently. I don't recommend you to use it now. If you're willing to be an early user. Please note any changes via [release](https://github.com/wellyshen/react-cool-inview/releases). Here's the [milestone](#milestone).
-
 # React Cool Inview
 
 A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions) and more. Try it you will 👍🏻 it!
 
 [![build status](https://img.shields.io/travis/wellyshen/react-cool-inview/master?style=flat-square)](https://travis-ci.org/wellyshen/react-cool-inview)
-[![coverage status](https://img.shields.io/coveralls/github/wellyshen/react-cool-inview?style=flat-square)](https://coveralls.io/github/wellyshen/react-cool-inview?branch=master)
 [![npm version](https://img.shields.io/npm/v/react-cool-inview?style=flat-square)](https://www.npmjs.com/package/react-cool-inview)
 [![npm downloads](https://img.shields.io/npm/dm/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
 [![npm downloads](https://img.shields.io/npm/dt/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
@@ -15,19 +12,9 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/react-cool-inview/blob/master/CONTRIBUTING.md)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Freact-cool-inview)](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩)
 
-## Milestone
+![demo](https://user-images.githubusercontent.com/21308003/80383298-fbac3500-88d5-11ea-9fde-4d8913ed258e.gif)
 
-- [x] Detect an element is in-view or not
-- [x] Detect the scrolling direction of the target element
-- [x] `onEnter`, `onLeave`, `onChange` events
-- [x] Trigger once feature
-- [x] Server-side rendering compatibility
-- [x] Support [Intersection Observer v2](#intersection-observer-v2)
-- [ ] Unit testing
-- [ ] Demo app
-- [ ] Demo code
-- [x] Typescript type definition
-- [ ] Documentation
+⚡️ Try yourself: https://react-cool-inview.netlify.app
 
 ## Features
 
@@ -401,6 +388,11 @@ Be aware that the callback of the `onChange` event is executed on the main threa
 ```js
 onChange = (event) => requestIdleCallback(() => this.handleChange(event));
 ```
+
+## To Do
+
+- [ ] Demo code
+- [ ] Unit testing
 
 ## Contributors ✨
 
