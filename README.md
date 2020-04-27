@@ -12,7 +12,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/react-cool-inview/blob/master/CONTRIBUTING.md)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Freact-cool-inview)](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩)
 
-![demo](https://user-images.githubusercontent.com/21308003/80383298-fbac3500-88d5-11ea-9fde-4d8913ed258e.gif)
+![demo](https://user-images.githubusercontent.com/21308003/80385250-6d857e00-88d8-11ea-95cd-7af7feade288.gif)
 
 ⚡️ Try yourself: https://react-cool-inview.netlify.app
 
