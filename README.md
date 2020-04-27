@@ -273,6 +273,7 @@ const App = () => {
   const ref = useRef();
   const {
     inView,
+    // vertical will be "up" or "down", horizontal will be "left" or "right"
     scrollDirection: { vertical, horizontal },
   } = useInView(ref, {
     // Scroll direction is calculated whenever the target meets a threshold
