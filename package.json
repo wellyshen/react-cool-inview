@@ -1,6 +1,6 @@
 {
   "name": "react-cool-inview",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "React hook to monitor an element enters or leaves the viewport (or another element).",
   "license": "MIT",
   "homepage": "https://react-cool-inview.netlify.com",
