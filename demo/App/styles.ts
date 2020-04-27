@@ -11,8 +11,10 @@ export const root = css`
 `;
 
 export const container = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 5rem 5%;
-  text-align: center;
   ${sm} {
     padding-left: 10%;
     padding-right: 10%;
@@ -36,16 +38,14 @@ export const subtitle = css`
 `;
 
 export const log = css`
-  margin-bottom: 0.75rem;
-  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
   color: grey;
-  ${md} {
-    font-size: 1.5rem;
-  }
 `;
 
 export const frame = css`
-  margin: 0 auto;
   padding: 0 10px;
   width: 90%;
   max-width: 350px;

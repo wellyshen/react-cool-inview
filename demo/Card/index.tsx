@@ -4,22 +4,22 @@ import useInView from '../../src';
 import { card, font } from './styles';
 
 interface Props {
-  emoji: string;
-  onEnter: (str: string) => void;
+  string: string;
+  onEnter: (str: string, dir: string) => void;
 }
 
-export default ({ emoji, onEnter }: Props): ReactElement => {
-  const ref = useRef();
+export default ({ string, onEnter }: Props): ReactElement => {
+  const ref = useRef<HTMLDivElement>();
   useInView(ref, {
     threshold: 0.5,
-    onEnter: () => {
-      onEnter(emoji);
+    onEnter: ({ scrollDirection }) => {
+      onEnter(string, scrollDirection.vertical || '');
     },
   });
 
   return (
     <div css={card} ref={ref}>
-      <span css={font}>{emoji}</span>
+      <span css={font}>{string}</span>
     </div>
   );
 };
