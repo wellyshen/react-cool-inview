@@ -33,6 +33,8 @@
     "intersection-observer-api",
     "performance",
     "monitor",
+    "scroll-direction",
+    "direction",
     "viewport",
     "visibility",
     "lazy",
