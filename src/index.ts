@@ -97,18 +97,6 @@ const useInView = (
     isObserveRef.current = false;
   }, []);
 
-  const getIsIntersecting = useCallback(
-    (
-      val: number | number[] = 0,
-      ratio: number,
-      intersecting: boolean
-    ): boolean => {
-      const min = Array.isArray(val) ? Math.min(...val) : val;
-      return min > 0 ? ratio >= min : intersecting;
-    },
-    []
-  );
-
   useEffect(() => {
     if (!ref || !ref.current) return (): void => null;
 
@@ -131,12 +119,11 @@ const useInView = (
           boundingClientRect: { x, y },
           isVisible,
         } = entry;
-        let inView = getIsIntersecting(
-          threshold,
-          intersectionRatio,
-          isIntersecting
-        );
         const scrollDirection: ScrollDirection = {};
+        const min = Array.isArray(threshold)
+          ? Math.min(...threshold)
+          : threshold;
+        let inView = min > 0 ? intersectionRatio >= min : isIntersecting;
 
         if (!prevXRef.current) {
           prevXRef.current = x;
