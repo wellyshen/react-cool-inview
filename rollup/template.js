@@ -14,9 +14,9 @@ export default ({ files }) => `
       <title>React Cool Inview</title>
       <meta property="og:title" content="React Cool Inview" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://react-cool-inview.netlify.com/assets/og_image.png" />
+      <meta property="og:image" content="https://react-cool-inview.netlify.app/assets/og_image.png" />
       <meta property="og:description" content="React hook to monitor an element enters or leaves the viewport (or another element)." />
-      <meta property="og:url" content="https://react-cool-inview.netlify.com" />
+      <meta property="og:url" content="https://react-cool-inview.netlify.app" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@react-cool-inview" />
       <meta name="twitter:creator" content="@wellyshen" />
