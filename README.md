@@ -1,6 +1,6 @@
 # React Cool Inview
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions) and more. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with performant and efficient way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions), and more. Try it you will 👍🏻 it!
 
 ❤️ it? ⭐️ it on [GitHub](https://github.com/wellyshen/react-cool-inview/stargazers) or [Tweet](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩) about it.
 
