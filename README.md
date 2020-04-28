@@ -393,7 +393,6 @@ onChange = (event) => requestIdleCallback(() => this.handleChange(event));
 
 ## To Do
 
-- [ ] Demo code
 - [ ] Unit testing
 
 ## Contributors ✨
