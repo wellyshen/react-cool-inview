@@ -112,14 +112,17 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
-      "prettier",
       "emotion",
-      "testing-library"
+      "jest",
+      "testing-library",
+      "prettier"
     ],
     "extends": [
       "airbnb",
       "airbnb/hooks",
       "plugin:@typescript-eslint/recommended",
+      "plugin:jest/recommended",
+      "plugin:jest/style",
       "plugin:testing-library/recommended",
       "plugin:prettier/recommended",
       "prettier/@typescript-eslint",
@@ -165,14 +168,14 @@
       ],
       "import/extensions": "off",
       "import/no-extraneous-dependencies": "off",
+      "@typescript-eslint/ban-ts-ignore": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "prettier/prettier": [
         "error",
         {
           "singleQuote": true
         }
-      ],
-      "@typescript-eslint/ban-ts-ignore": "off",
-      "@typescript-eslint/no-explicit-any": "off"
+      ]
     }
   },
   "eslintIgnore": [
@@ -236,6 +239,7 @@
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-emotion": "^10.0.27",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
