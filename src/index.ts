@@ -109,8 +109,6 @@ const useInView = (
       return (): void => null;
     }
 
-    unobserve();
-
     observerRef.current = new IntersectionObserver(
       ([entry]: IntersectionObserverEntryV2[]) => {
         const {
