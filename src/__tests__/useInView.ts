@@ -4,15 +4,18 @@ import useInView, { Options, observerErr } from '..';
 
 describe('useInView', () => {
   global.console.error = jest.fn();
-  const mockTarget = { current: document.createElement('div') };
+
+  const testHook = (
+    target = { current: document.createElement('div') },
+    opts: Options = {}
+  ): any => renderHook(() => useInView(target, opts));
+
   const observe = jest.fn();
   const disconnect = jest.fn();
   const mockIntersectionObserver = jest.fn(() => ({
     observe,
     disconnect,
   }));
-  const testHook = (target = mockTarget, opts: Options = {}): any =>
-    renderHook(() => useInView(target, opts));
 
   beforeAll(() => {
     // @ts-ignore
