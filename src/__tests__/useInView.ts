@@ -31,7 +31,6 @@ describe('useInView', () => {
   it("should not start observe if the target isn't set", () => {
     renderHelper(null);
     expect(observe).not.toHaveBeenCalled();
-    expect(disconnect).not.toHaveBeenCalled();
   });
 
   it('should throw observer error', () => {
@@ -59,5 +58,10 @@ describe('useInView', () => {
     renderHelper();
     expect(console.error).toHaveBeenCalledTimes(3);
     expect(console.error).toHaveBeenCalledWith(observerErr);
+  });
+
+  it('should stop observe when un-mount', () => {
+    renderHelper();
+    expect(disconnect).toHaveBeenCalled();
   });
 });
