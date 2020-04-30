@@ -75,17 +75,17 @@ describe('useInView', () => {
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ opts: { threshold: [0, 1] } });
-    expect(result.current.inView).toBeFalsy();
-    act(() => {
-      triggerCallback({ isIntersecting: true });
-    });
-    expect(result.current.inView).toBeTruthy();
-
     result = renderHelper({ opts: { threshold: 0.5 } });
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerCallback({ intersectionRatio: 0.6 });
+    });
+    expect(result.current.inView).toBeTruthy();
+
+    result = renderHelper({ opts: { threshold: [0, 1] } });
+    expect(result.current.inView).toBeFalsy();
+    act(() => {
+      triggerCallback({ isIntersecting: true });
     });
     expect(result.current.inView).toBeTruthy();
 
