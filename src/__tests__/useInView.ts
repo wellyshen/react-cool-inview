@@ -1,14 +1,14 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import useInView, { Options, observerErr } from '..';
+import useInView, { Options, Return as Current, observerErr } from '..';
 
 describe('useInView', () => {
   global.console.error = jest.fn();
 
-  const testHook = (
+  const renderHelper = (
     target = { current: document.createElement('div') },
     opts: Options = {}
-  ): any => renderHook(() => useInView(target, opts));
+  ): { current: Current } => renderHook(() => useInView(target, opts)).result;
 
   const observe = jest.fn();
   const disconnect = jest.fn();
@@ -32,17 +32,17 @@ describe('useInView', () => {
   });
 
   it("should not start observe if the target isn't set", () => {
-    testHook(null);
+    renderHelper(null);
     expect(observe).not.toHaveBeenCalled();
   });
 
   it('should throw observer error', () => {
-    testHook();
+    renderHelper();
     expect(console.error).not.toHaveBeenCalled();
 
     // @ts-ignore
     delete global.IntersectionObserver;
-    testHook();
+    renderHelper();
     expect(console.error).toHaveBeenCalledTimes(1);
     expect(console.error).toHaveBeenCalledWith(observerErr);
 
@@ -50,7 +50,7 @@ describe('useInView', () => {
     global.IntersectionObserver = mockIntersectionObserver;
     // @ts-ignore
     delete global.IntersectionObserverEntry;
-    testHook();
+    renderHelper();
     expect(console.error).toHaveBeenCalledTimes(2);
     expect(console.error).toHaveBeenCalledWith(observerErr);
 
@@ -58,13 +58,13 @@ describe('useInView', () => {
     global.IntersectionObserverEntry = jest.fn();
     // @ts-ignore
     delete global.IntersectionObserverEntry.prototype.isIntersecting;
-    testHook();
+    renderHelper();
     expect(console.error).toHaveBeenCalledTimes(3);
     expect(console.error).toHaveBeenCalledWith(observerErr);
   });
 
   it('should stop observe when un-mount', () => {
-    testHook();
+    renderHelper();
     expect(disconnect).toHaveBeenCalled();
   });
 });

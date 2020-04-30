@@ -42,7 +42,7 @@ export interface Options {
   onEnter?: CallBack;
   onLeave?: CallBack;
 }
-interface Return {
+export interface Return {
   readonly inView: boolean;
   readonly scrollDirection: ScrollDirection;
   readonly entry?: IntersectionObserverEntryV2;
