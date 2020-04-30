@@ -31,7 +31,7 @@ interface CallBack<T = BaseEvent> {
   (event?: T): void;
 }
 type OnChange = CallBack<ChangeEvent>;
-export interface Options {
+interface Options {
   root?: HTMLElement;
   rootMargin?: string;
   threshold?: number | number[];
@@ -157,12 +157,12 @@ const useInView = (
           if (isVisible !== undefined) inView = isVisible;
         }
 
-        if (onEnterRef.current && inView && !prevInViewRef.current) {
+        if (inView && !prevInViewRef.current) {
           if (unobserveOnEnter) unobserve();
-          onEnterRef.current(e);
+          if (onEnterRef.current) onEnterRef.current(e);
         }
 
-        if (onLeaveRef.current && !inView && prevInViewRef.current)
+        if (!inView && prevInViewRef.current && onLeaveRef.current)
           onLeaveRef.current(e);
 
         if (onChangeRef.current) onChangeRef.current({ ...e, inView });
