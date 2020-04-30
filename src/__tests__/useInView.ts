@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import useInView, { Return as Current, observerErr } from '..';
 
@@ -21,6 +21,19 @@ describe('useInView', () => {
     observe: observe(cb),
     disconnect,
   }));
+
+  interface Param {
+    intersectionRatio?: number;
+    isIntersecting?: boolean;
+    boundingClientRect?: { x: number; y: number };
+  }
+
+  const triggerCallback = ({
+    intersectionRatio = 0,
+    isIntersecting = false,
+    boundingClientRect = { x: 0, y: 0 },
+  }: Param): void =>
+    callback([{ intersectionRatio, isIntersecting, boundingClientRect }]);
 
   beforeAll(() => {
     // @ts-ignore
@@ -52,6 +65,36 @@ describe('useInView', () => {
     expect(mkIntersectionObserver.threshold).toBe(opts.threshold);
     expect(mkIntersectionObserver.trackVisibility).toBe(opts.trackVisibility);
     expect(mkIntersectionObserver.delay).toBe(opts.delay);
+  });
+
+  it('should return inView correctly', () => {
+    let result = renderHelper();
+    expect(result.current.inView).toBeFalsy();
+    act(() => {
+      triggerCallback({ isIntersecting: true });
+    });
+    expect(result.current.inView).toBeTruthy();
+
+    result = renderHelper({ opts: { threshold: [0, 1] } });
+    expect(result.current.inView).toBeFalsy();
+    act(() => {
+      triggerCallback({ isIntersecting: true });
+    });
+    expect(result.current.inView).toBeTruthy();
+
+    result = renderHelper({ opts: { threshold: 0.5 } });
+    expect(result.current.inView).toBeFalsy();
+    act(() => {
+      triggerCallback({ intersectionRatio: 0.6 });
+    });
+    expect(result.current.inView).toBeTruthy();
+
+    result = renderHelper({ opts: { threshold: [0.5, 1] } });
+    expect(result.current.inView).toBeFalsy();
+    act(() => {
+      triggerCallback({ intersectionRatio: 0.6 });
+    });
+    expect(result.current.inView).toBeTruthy();
   });
 
   it('should stop observe when un-mount', () => {
