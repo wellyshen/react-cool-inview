@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 
-import useInView, { Return as Current, observerErr } from '..';
+import useInView, { Return as Current, observerErr, observerWarn } from '..';
 
 describe('useInView', () => {
   const renderHelper = ({
@@ -32,7 +32,7 @@ describe('useInView', () => {
     intersectionRatio = 0,
     isIntersecting = false,
     boundingClientRect = { x: 0, y: 0 },
-  }: Event): void =>
+  }: Event = {}): void =>
     callback([{ intersectionRatio, isIntersecting, boundingClientRect }]);
 
   beforeAll(() => {
@@ -155,7 +155,19 @@ describe('useInView', () => {
     expect(disconnect).toHaveBeenCalled();
   });
 
-  it('should throw observer error', () => {
+  it('should throw intersection observer v2 warn', () => {
+    global.console.warn = jest.fn();
+
+    renderHelper({ opts: { trackVisibility: true } });
+    act(() => {
+      triggerCallback();
+      triggerCallback();
+    });
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith(observerWarn);
+  });
+
+  it('should throw intersection observer error', () => {
     global.console.error = jest.fn();
 
     renderHelper();
