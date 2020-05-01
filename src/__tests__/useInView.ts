@@ -25,7 +25,7 @@ describe('useInView', () => {
   interface Param {
     intersectionRatio?: number;
     isIntersecting?: boolean;
-    boundingClientRect?: { x: number; y: number };
+    boundingClientRect?: { x?: number; y?: number };
   }
 
   const triggerCallback = ({
@@ -95,6 +95,33 @@ describe('useInView', () => {
       triggerCallback({ intersectionRatio: 0.6 });
     });
     expect(result.current.inView).toBeTruthy();
+  });
+
+  it('should return scrollDidrection correctly', () => {
+    const result = renderHelper();
+    act(() => {
+      triggerCallback({ boundingClientRect: { y: 0 } });
+      triggerCallback({ boundingClientRect: { y: 10 } });
+    });
+    expect(result.current.scrollDirection.vertical).toBe('down');
+
+    act(() => {
+      triggerCallback({ boundingClientRect: { y: 0 } });
+      triggerCallback({ boundingClientRect: { y: -10 } });
+    });
+    expect(result.current.scrollDirection.vertical).toBe('up');
+
+    act(() => {
+      triggerCallback({ boundingClientRect: { x: 0 } });
+      triggerCallback({ boundingClientRect: { x: 10 } });
+    });
+    expect(result.current.scrollDirection.horizontal).toBe('right');
+
+    act(() => {
+      triggerCallback({ boundingClientRect: { x: 0 } });
+      triggerCallback({ boundingClientRect: { x: -10 } });
+    });
+    expect(result.current.scrollDirection.horizontal).toBe('left');
   });
 
   it('should stop observe when un-mount', () => {
