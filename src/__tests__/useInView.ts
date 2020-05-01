@@ -39,21 +39,33 @@ describe('useInView', () => {
     isVisible?: boolean;
   }
 
-  const defaultEvent: Event = {
+  const observerEvent: Event = {
     intersectionRatio: 0,
     isIntersecting: false,
-    boundingClientRect: { x: 0, y: 0 },
     isVisible: undefined,
+    boundingClientRect: { x: 0, y: 0 },
   };
-  const triggerCallback = ({
-    intersectionRatio = defaultEvent.intersectionRatio,
-    isIntersecting = defaultEvent.isIntersecting,
-    boundingClientRect = defaultEvent.boundingClientRect,
-    isVisible = defaultEvent.isVisible,
-  } = {}): void =>
+  const triggerObserverCb = ({
+    intersectionRatio = observerEvent.intersectionRatio,
+    isIntersecting = observerEvent.isIntersecting,
+    boundingClientRect = observerEvent.boundingClientRect,
+    isVisible = observerEvent.isVisible,
+  } = {}): void => {
     callback([
       { intersectionRatio, isIntersecting, boundingClientRect, isVisible },
     ]);
+  };
+
+  const baseEvent = {
+    entry: observerEvent,
+    scrollDirection: {},
+    observe: expect.any(Function),
+    unobserve: expect.any(Function),
+  };
+  const changeEvent = {
+    ...baseEvent,
+    inView: observerEvent.isIntersecting,
+  };
 
   beforeAll(() => {
     // @ts-ignore
@@ -110,28 +122,28 @@ describe('useInView', () => {
     let result = renderHelper();
     expect(result.current.inView).toBeFalsy();
     act(() => {
-      triggerCallback({ isIntersecting: true });
+      triggerObserverCb({ isIntersecting: true });
     });
     expect(result.current.inView).toBeTruthy();
 
     result = renderHelper({ threshold: 0.5 });
     expect(result.current.inView).toBeFalsy();
     act(() => {
-      triggerCallback({ intersectionRatio: 0.6 });
+      triggerObserverCb({ intersectionRatio: 0.6 });
     });
     expect(result.current.inView).toBeTruthy();
 
     result = renderHelper({ threshold: [0, 1] });
     expect(result.current.inView).toBeFalsy();
     act(() => {
-      triggerCallback({ isIntersecting: true });
+      triggerObserverCb({ isIntersecting: true });
     });
     expect(result.current.inView).toBeTruthy();
 
     result = renderHelper({ threshold: [0.5, 1] });
     expect(result.current.inView).toBeFalsy();
     act(() => {
-      triggerCallback({ intersectionRatio: 0.6 });
+      triggerObserverCb({ intersectionRatio: 0.6 });
     });
     expect(result.current.inView).toBeTruthy();
   });
@@ -139,12 +151,12 @@ describe('useInView', () => {
   it('should return inView with intersection observer v2 correctly', () => {
     const result = renderHelper({ trackVisibility: true });
     act(() => {
-      triggerCallback({ isIntersecting: true, isVisible: false });
+      triggerObserverCb({ isIntersecting: true, isVisible: false });
     });
     expect(result.current.inView).toBeFalsy();
 
     act(() => {
-      triggerCallback({ isIntersecting: true, isVisible: true });
+      triggerObserverCb({ isIntersecting: true, isVisible: true });
     });
     expect(result.current.inView).toBeTruthy();
   });
@@ -152,26 +164,26 @@ describe('useInView', () => {
   it('should return scrollDidrection correctly', () => {
     const result = renderHelper();
     act(() => {
-      triggerCallback({ boundingClientRect: { y: 0 } });
-      triggerCallback({ boundingClientRect: { y: 10 } });
+      triggerObserverCb({ boundingClientRect: { y: 0 } });
+      triggerObserverCb({ boundingClientRect: { y: 10 } });
     });
     expect(result.current.scrollDirection.vertical).toBe('down');
 
     act(() => {
-      triggerCallback({ boundingClientRect: { y: 0 } });
-      triggerCallback({ boundingClientRect: { y: -10 } });
+      triggerObserverCb({ boundingClientRect: { y: 0 } });
+      triggerObserverCb({ boundingClientRect: { y: -10 } });
     });
     expect(result.current.scrollDirection.vertical).toBe('up');
 
     act(() => {
-      triggerCallback({ boundingClientRect: { x: 0 } });
-      triggerCallback({ boundingClientRect: { x: 10 } });
+      triggerObserverCb({ boundingClientRect: { x: 0 } });
+      triggerObserverCb({ boundingClientRect: { x: 10 } });
     });
     expect(result.current.scrollDirection.horizontal).toBe('right');
 
     act(() => {
-      triggerCallback({ boundingClientRect: { x: 0 } });
-      triggerCallback({ boundingClientRect: { x: -10 } });
+      triggerObserverCb({ boundingClientRect: { x: 0 } });
+      triggerObserverCb({ boundingClientRect: { x: -10 } });
     });
     expect(result.current.scrollDirection.horizontal).toBe('left');
   });
@@ -185,7 +197,7 @@ describe('useInView', () => {
       isVisible: false,
     };
     act(() => {
-      triggerCallback(e);
+      triggerObserverCb(e);
     });
     expect(result.current.entry).toStrictEqual(e);
   });
@@ -193,7 +205,7 @@ describe('useInView', () => {
   it('should stop observe on-enter when set the unobserveOnEnter as true', () => {
     renderHelper({ unobserveOnEnter: true });
     act(() => {
-      triggerCallback({ isIntersecting: true });
+      triggerObserverCb({ isIntersecting: true });
     });
     expect(disconnect).toHaveBeenCalledTimes(12);
   });
@@ -203,7 +215,7 @@ describe('useInView', () => {
     expect(disconnect).toHaveBeenCalled();
   });
 
-  it('should trigger onChange correctly', () => {
+  it('should trigger onChange', () => {
     const onChange = jest.fn((e) => {
       e.unobserve();
       e.observe();
@@ -212,25 +224,128 @@ describe('useInView', () => {
     const isIntersecting = true;
     const boundingClientRect = { y: 10 };
     act(() => {
-      triggerCallback();
-      triggerCallback({ isIntersecting, boundingClientRect });
+      triggerObserverCb();
+      triggerObserverCb({ isIntersecting, boundingClientRect });
     });
-    const e = {
-      inView: defaultEvent.isIntersecting,
-      entry: defaultEvent,
-      scrollDirection: {},
-      observe: expect.any(Function),
-      unobserve: expect.any(Function),
-    };
-    expect(onChange).toHaveBeenCalledWith(e);
+    expect(onChange).toHaveBeenCalledWith(changeEvent);
     expect(onChange).toHaveBeenLastCalledWith({
-      ...e,
+      ...changeEvent,
       inView: isIntersecting,
-      entry: { ...defaultEvent, isIntersecting, boundingClientRect },
       scrollDirection: { vertical: 'down' },
+      entry: { ...changeEvent.entry, isIntersecting, boundingClientRect },
     });
     expect(disconnect).toHaveBeenCalledTimes(15);
     expect(observe).toHaveBeenCalledTimes(16);
+  });
+
+  it('should trigger onChange with intersection observer v2', () => {
+    const onChange = jest.fn();
+    renderHelper({ trackVisibility: true, onChange });
+    const isIntersecting = true;
+    let isVisible = false;
+    act(() => {
+      triggerObserverCb({ isIntersecting, isVisible });
+    });
+    expect(onChange).toHaveBeenCalledWith({
+      ...changeEvent,
+      entry: { ...changeEvent.entry, isIntersecting, isVisible },
+    });
+
+    isVisible = true;
+    act(() => {
+      triggerObserverCb({ isIntersecting, isVisible });
+    });
+    expect(onChange).toHaveBeenLastCalledWith({
+      ...changeEvent,
+      inView: isVisible,
+      entry: { ...changeEvent.entry, isIntersecting, isVisible },
+    });
+  });
+
+  it('should trigger onEnter', () => {
+    const onEnter = jest.fn((e) => {
+      e.unobserve();
+      e.observe();
+    });
+    renderHelper({ onEnter });
+    const isIntersecting = true;
+    const boundingClientRect = { y: 10 };
+    act(() => {
+      triggerObserverCb();
+      triggerObserverCb({ isIntersecting, boundingClientRect });
+      triggerObserverCb({ isIntersecting });
+    });
+    expect(onEnter).toHaveBeenCalledTimes(1);
+    expect(onEnter).toHaveBeenCalledWith({
+      ...baseEvent,
+      scrollDirection: { vertical: 'down' },
+      entry: { ...baseEvent.entry, isIntersecting, boundingClientRect },
+    });
+    expect(disconnect).toHaveBeenCalledTimes(18);
+    expect(observe).toHaveBeenCalledTimes(19);
+  });
+
+  it('should trigger onEnter with intersection observer v2', () => {
+    const onEnter = jest.fn();
+    renderHelper({ trackVisibility: true, onEnter });
+    const isIntersecting = true;
+    let isVisible = false;
+    act(() => {
+      triggerObserverCb({ isVisible });
+      triggerObserverCb({ isIntersecting, isVisible });
+    });
+    expect(onEnter).not.toHaveBeenCalled();
+
+    isVisible = true;
+    act(() => {
+      triggerObserverCb({ isVisible });
+      triggerObserverCb({ isIntersecting, isVisible });
+    });
+    expect(onEnter).toHaveBeenCalledWith({
+      ...baseEvent,
+      entry: { ...baseEvent.entry, isVisible },
+    });
+  });
+
+  it('should trigger onLeave', () => {
+    const onLeave = jest.fn((e) => {
+      e.unobserve();
+      e.observe();
+    });
+    renderHelper({ onLeave });
+    const boundingClientRect = { y: 10 };
+    act(() => {
+      triggerObserverCb({ isIntersecting: true });
+      triggerObserverCb({ isIntersecting: false, boundingClientRect });
+      triggerObserverCb({ isIntersecting: false });
+    });
+    expect(onLeave).toHaveBeenCalledTimes(1);
+    expect(onLeave).toHaveBeenCalledWith({
+      ...baseEvent,
+      scrollDirection: { vertical: 'down' },
+      entry: { ...baseEvent.entry, isIntersecting: false, boundingClientRect },
+    });
+    expect(disconnect).toHaveBeenCalledTimes(21);
+    expect(observe).toHaveBeenCalledTimes(22);
+  });
+
+  it('should trigger onLeave with intersection observer v2', () => {
+    const onLeave = jest.fn();
+    renderHelper({ trackVisibility: true, onLeave });
+    act(() => {
+      triggerObserverCb({ isIntersecting: true, isVisible: false });
+      triggerObserverCb({ isIntersecting: false, isVisible: false });
+    });
+    expect(onLeave).not.toHaveBeenCalled();
+
+    act(() => {
+      triggerObserverCb({ isIntersecting: true, isVisible: true });
+      triggerObserverCb({ isIntersecting: false, isVisible: false });
+    });
+    expect(onLeave).toHaveBeenCalledWith({
+      ...baseEvent,
+      entry: { ...baseEvent.entry, isVisible: false },
+    });
   });
 
   it('should throw intersection observer v2 warn', () => {
@@ -238,8 +353,8 @@ describe('useInView', () => {
 
     renderHelper({ trackVisibility: true });
     act(() => {
-      triggerCallback();
-      triggerCallback();
+      triggerObserverCb();
+      triggerObserverCb();
     });
     expect(console.warn).toHaveBeenCalledTimes(1);
     expect(console.warn).toHaveBeenCalledWith(observerWarn);
