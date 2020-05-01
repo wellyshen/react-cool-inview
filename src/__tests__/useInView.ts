@@ -39,12 +39,18 @@ describe('useInView', () => {
     isVisible?: boolean;
   }
 
+  const defaultEvent: Event = {
+    intersectionRatio: 0,
+    isIntersecting: false,
+    boundingClientRect: { x: 0, y: 0 },
+    isVisible: undefined,
+  };
   const triggerCallback = ({
-    intersectionRatio = 0,
-    isIntersecting = false,
-    boundingClientRect = { x: 0, y: 0 },
-    isVisible,
-  }: Event = {}): void =>
+    intersectionRatio = defaultEvent.intersectionRatio,
+    isIntersecting = defaultEvent.isIntersecting,
+    boundingClientRect = defaultEvent.boundingClientRect,
+    isVisible = defaultEvent.isVisible,
+  } = {}): void =>
     callback([
       { intersectionRatio, isIntersecting, boundingClientRect, isVisible },
     ]);
@@ -195,6 +201,36 @@ describe('useInView', () => {
   it('should stop observe when un-mount', () => {
     renderHelper();
     expect(disconnect).toHaveBeenCalled();
+  });
+
+  it('should trigger onChange correctly', () => {
+    const onChange = jest.fn((e) => {
+      e.unobserve();
+      e.observe();
+    });
+    renderHelper({ onChange });
+    const isIntersecting = true;
+    const boundingClientRect = { x: 0, y: 10 };
+    act(() => {
+      triggerCallback();
+      triggerCallback({ isIntersecting, boundingClientRect });
+    });
+    const e = {
+      inView: defaultEvent.isIntersecting,
+      entry: defaultEvent,
+      scrollDirection: {},
+      observe: expect.any(Function),
+      unobserve: expect.any(Function),
+    };
+    expect(onChange).toHaveBeenCalledWith(e);
+    expect(onChange).toHaveBeenLastCalledWith({
+      ...e,
+      inView: isIntersecting,
+      entry: { ...defaultEvent, isIntersecting, boundingClientRect },
+      scrollDirection: { vertical: 'down' },
+    });
+    expect(disconnect).toHaveBeenCalledTimes(15);
+    expect(observe).toHaveBeenCalledTimes(16);
   });
 
   it('should throw intersection observer v2 warn', () => {
