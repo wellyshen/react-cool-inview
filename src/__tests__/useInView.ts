@@ -26,14 +26,18 @@ describe('useInView', () => {
     intersectionRatio?: number;
     isIntersecting?: boolean;
     boundingClientRect?: { x?: number; y?: number };
+    isVisible?: boolean;
   }
 
   const triggerCallback = ({
     intersectionRatio = 0,
     isIntersecting = false,
     boundingClientRect = { x: 0, y: 0 },
+    isVisible,
   }: Event = {}): void =>
-    callback([{ intersectionRatio, isIntersecting, boundingClientRect }]);
+    callback([
+      { intersectionRatio, isIntersecting, boundingClientRect, isVisible },
+    ]);
 
   beforeAll(() => {
     // @ts-ignore
@@ -67,6 +71,19 @@ describe('useInView', () => {
     expect(mkIntersectionObserver.delay).toBe(opts.delay);
   });
 
+  it('should return workable unobserve method', () => {
+    const result = renderHelper();
+    result.current.unobserve();
+    expect(disconnect).toHaveBeenCalledTimes(2);
+  });
+
+  it('should return workable observe method', () => {
+    const result = renderHelper();
+    result.current.unobserve();
+    result.current.observe();
+    expect(observe).toHaveBeenCalledTimes(4);
+  });
+
   it('should return inView correctly', () => {
     let result = renderHelper();
     expect(result.current.inView).toBeFalsy();
@@ -93,6 +110,19 @@ describe('useInView', () => {
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerCallback({ intersectionRatio: 0.6 });
+    });
+    expect(result.current.inView).toBeTruthy();
+  });
+
+  it('should return inView with intersection observer v2 correctly', () => {
+    const result = renderHelper({ opts: { trackVisibility: true } });
+    act(() => {
+      triggerCallback({ isIntersecting: true, isVisible: false });
+    });
+    expect(result.current.inView).toBeFalsy();
+
+    act(() => {
+      triggerCallback({ isIntersecting: true, isVisible: true });
     });
     expect(result.current.inView).toBeTruthy();
   });
@@ -130,24 +160,12 @@ describe('useInView', () => {
       intersectionRatio: 0.5,
       isIntersecting: true,
       boundingClientRect: { x: 10, y: 10 },
+      isVisible: false,
     };
     act(() => {
       triggerCallback(e);
     });
     expect(result.current.entry).toStrictEqual(e);
-  });
-
-  it('should return workable unobserve method', () => {
-    const result = renderHelper();
-    result.current.unobserve();
-    expect(disconnect).toHaveBeenCalledTimes(8);
-  });
-
-  it('should return workable observe method', () => {
-    const result = renderHelper();
-    result.current.unobserve();
-    result.current.observe();
-    expect(observe).toHaveBeenCalledTimes(10);
   });
 
   it('should stop observe when un-mount', () => {
