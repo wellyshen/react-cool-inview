@@ -1,13 +1,23 @@
+import { RefObject } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
-import useInView, { Return as Current, observerErr, observerWarn } from '..';
+import useInView, {
+  Options,
+  Return as Current,
+  observerErr,
+  observerWarn,
+} from '..';
 
 describe('useInView', () => {
+  interface Args extends Options {
+    target?: RefObject<HTMLDivElement>;
+  }
+
   const renderHelper = ({
     target = { current: document.createElement('div') },
-    opts = {},
-  } = {}): { current: Current } => {
-    return renderHook(() => useInView(target, opts)).result;
+    ...rest
+  }: Args = {}): { current: Current } => {
+    return renderHook(() => useInView(target, rest)).result;
   };
 
   let callback: Function;
@@ -54,21 +64,27 @@ describe('useInView', () => {
   });
 
   it('should set the options of intersection observer correctly', () => {
-    const opts = {
-      root: 'div',
+    const args = {
+      root: document.createElement('div'),
       rootMargin: '0',
       threshold: 0,
       trackVisibility: true,
       delay: 100,
     };
-    renderHelper({ opts });
-    // @ts-ignore
-    const mkIntersectionObserver = IntersectionObserver.mock.results[0].value;
-    expect(mkIntersectionObserver.root).toBe(opts.root);
-    expect(mkIntersectionObserver.rootMargin).toBe(opts.rootMargin);
-    expect(mkIntersectionObserver.threshold).toBe(opts.threshold);
-    expect(mkIntersectionObserver.trackVisibility).toBe(opts.trackVisibility);
-    expect(mkIntersectionObserver.delay).toBe(opts.delay);
+    renderHelper(args);
+    const {
+      root,
+      rootMargin,
+      threshold,
+      trackVisibility,
+      delay,
+      // @ts-ignore
+    } = IntersectionObserver.mock.results[0].value;
+    expect(root).toBe(args.root);
+    expect(rootMargin).toBe(args.rootMargin);
+    expect(threshold).toBe(args.threshold);
+    expect(trackVisibility).toBe(args.trackVisibility);
+    expect(delay).toBe(args.delay);
   });
 
   it('should return workable unobserve method', () => {
@@ -92,21 +108,21 @@ describe('useInView', () => {
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ opts: { threshold: 0.5 } });
+    result = renderHelper({ threshold: 0.5 });
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerCallback({ intersectionRatio: 0.6 });
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ opts: { threshold: [0, 1] } });
+    result = renderHelper({ threshold: [0, 1] });
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerCallback({ isIntersecting: true });
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ opts: { threshold: [0.5, 1] } });
+    result = renderHelper({ threshold: [0.5, 1] });
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerCallback({ intersectionRatio: 0.6 });
@@ -115,7 +131,7 @@ describe('useInView', () => {
   });
 
   it('should return inView with intersection observer v2 correctly', () => {
-    const result = renderHelper({ opts: { trackVisibility: true } });
+    const result = renderHelper({ trackVisibility: true });
     act(() => {
       triggerCallback({ isIntersecting: true, isVisible: false });
     });
@@ -168,6 +184,14 @@ describe('useInView', () => {
     expect(result.current.entry).toStrictEqual(e);
   });
 
+  it('should stop observe on-enter when set the unobserveOnEnter as true', () => {
+    renderHelper({ unobserveOnEnter: true });
+    act(() => {
+      triggerCallback({ isIntersecting: true });
+    });
+    expect(disconnect).toHaveBeenCalledTimes(12);
+  });
+
   it('should stop observe when un-mount', () => {
     renderHelper();
     expect(disconnect).toHaveBeenCalled();
@@ -176,7 +200,7 @@ describe('useInView', () => {
   it('should throw intersection observer v2 warn', () => {
     global.console.warn = jest.fn();
 
-    renderHelper({ opts: { trackVisibility: true } });
+    renderHelper({ trackVisibility: true });
     act(() => {
       triggerCallback();
       triggerCallback();

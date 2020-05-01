@@ -31,7 +31,7 @@ interface CallBack<T = BaseEvent> {
   (event?: T): void;
 }
 type OnChange = CallBack<ChangeEvent>;
-interface Options {
+export interface Options {
   root?: HTMLElement;
   rootMargin?: string;
   threshold?: number | number[];
