@@ -125,26 +125,20 @@ const useInView = (
 
         if (prevXRef.current === undefined) {
           prevXRef.current = x;
-        } else if (x < prevXRef.current) {
-          scrollDirection.horizontal = 'left';
-          prevXRef.current = x;
-        } else if (x > prevXRef.current) {
-          scrollDirection.horizontal = 'right';
-          prevXRef.current = x;
-        } else {
+        } else if (x === prevXRef.current) {
           delete scrollDirection.horizontal;
+        } else {
+          scrollDirection.horizontal = x < prevXRef.current ? 'left' : 'right';
+          prevXRef.current = x;
         }
 
         if (prevYRef.current === undefined) {
           prevYRef.current = y;
-        } else if (y < prevYRef.current) {
-          scrollDirection.vertical = 'up';
-          prevYRef.current = y;
-        } else if (y > prevYRef.current) {
-          scrollDirection.vertical = 'down';
-          prevYRef.current = y;
-        } else {
+        } else if (y === prevYRef.current) {
           delete scrollDirection.vertical;
+        } else {
+          scrollDirection.vertical = y < prevYRef.current ? 'up' : 'down';
+          prevYRef.current = y;
         }
 
         const e = { entry, scrollDirection, observe, unobserve };
