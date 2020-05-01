@@ -11,18 +11,18 @@ describe('useInView', () => {
   };
 
   let callback: Function;
-  const observe = (cb?: Function): Function =>
-    jest.fn(() => {
-      callback = cb;
-    });
+  const observe = jest.fn();
   const disconnect = jest.fn();
   const mockIntersectionObserver = jest.fn((cb, opts) => ({
     ...opts,
-    observe: observe(cb),
+    observe: (): void => {
+      callback = cb;
+      observe();
+    },
     disconnect,
   }));
 
-  interface Param {
+  interface Event {
     intersectionRatio?: number;
     isIntersecting?: boolean;
     boundingClientRect?: { x?: number; y?: number };
@@ -32,7 +32,7 @@ describe('useInView', () => {
     intersectionRatio = 0,
     isIntersecting = false,
     boundingClientRect = { x: 0, y: 0 },
-  }: Param): void =>
+  }: Event): void =>
     callback([{ intersectionRatio, isIntersecting, boundingClientRect }]);
 
   beforeAll(() => {
@@ -46,7 +46,7 @@ describe('useInView', () => {
 
   it("should not start observe if the target isn't set", () => {
     renderHelper({ target: null });
-    expect(observe()).not.toHaveBeenCalled();
+    expect(observe).not.toHaveBeenCalled();
   });
 
   it('should set the options of intersection observer correctly', () => {
@@ -122,6 +122,32 @@ describe('useInView', () => {
       triggerCallback({ boundingClientRect: { x: -10 } });
     });
     expect(result.current.scrollDirection.horizontal).toBe('left');
+  });
+
+  it('should return entry correctly', () => {
+    const result = renderHelper();
+    const e = {
+      intersectionRatio: 0.5,
+      isIntersecting: true,
+      boundingClientRect: { x: 10, y: 10 },
+    };
+    act(() => {
+      triggerCallback(e);
+    });
+    expect(result.current.entry).toStrictEqual(e);
+  });
+
+  it('should return workable unobserve method', () => {
+    const result = renderHelper();
+    result.current.unobserve();
+    expect(disconnect).toHaveBeenCalledTimes(8);
+  });
+
+  it('should return workable observe method', () => {
+    const result = renderHelper();
+    result.current.unobserve();
+    result.current.observe();
+    expect(observe).toHaveBeenCalledTimes(10);
   });
 
   it('should stop observe when un-mount', () => {
