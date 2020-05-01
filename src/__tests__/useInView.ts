@@ -210,7 +210,7 @@ describe('useInView', () => {
     });
     renderHelper({ onChange });
     const isIntersecting = true;
-    const boundingClientRect = { x: 0, y: 10 };
+    const boundingClientRect = { y: 10 };
     act(() => {
       triggerCallback();
       triggerCallback({ isIntersecting, boundingClientRect });
