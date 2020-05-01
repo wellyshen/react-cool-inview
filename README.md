@@ -5,6 +5,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 ❤️ it? ⭐️ it on [GitHub](https://github.com/wellyshen/react-cool-inview/stargazers) or [Tweet](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩) about it.
 
 [![build status](https://img.shields.io/travis/wellyshen/react-cool-inview/master?style=flat-square)](https://travis-ci.org/wellyshen/react-cool-inview)
+[![coverage status](https://img.shields.io/coveralls/github/wellyshen/react-cool-inview?style=flat-square)](https://coveralls.io/github/wellyshen/react-cool-inview?branch=master)
 [![npm version](https://img.shields.io/npm/v/react-cool-inview?style=flat-square)](https://www.npmjs.com/package/react-cool-inview)
 [![npm downloads](https://img.shields.io/npm/dm/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
 [![npm downloads](https://img.shields.io/npm/dt/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
@@ -390,10 +391,6 @@ Be aware that the callback of the `onChange` event is executed on the main threa
 ```js
 onChange = (event) => requestIdleCallback(() => this.handleChange(event));
 ```
-
-## To Do
-
-- [ ] Unit testing
 
 ## Contributors ✨
 
