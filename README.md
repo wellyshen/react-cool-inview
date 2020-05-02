@@ -344,7 +344,7 @@ It's returned with the following properties.
 
 ### Parameters
 
-You must pass the `ref` to use this hook and the `options` provides the following configurations and event callbacks for you.
+You must pass the `ref` to use this hook. The `options` provides the following configurations and event callbacks for you.
 
 | Key                | Type               | Default  | Description                                                                                                                                                                                                                                                                                                                                              |
 | ------------------ | ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
