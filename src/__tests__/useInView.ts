@@ -349,7 +349,7 @@ describe('useInView', () => {
   });
 
   it('should throw intersection observer v2 warn', () => {
-    global.console.warn = jest.fn();
+    console.warn = jest.fn();
 
     renderHelper({ trackVisibility: true });
     act(() => {
@@ -361,7 +361,7 @@ describe('useInView', () => {
   });
 
   it('should throw intersection observer error', () => {
-    global.console.error = jest.fn();
+    console.error = jest.fn();
 
     renderHelper();
     expect(console.error).not.toHaveBeenCalled();
