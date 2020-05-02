@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import useInView from '../../src';
 import { card, font } from './styles';
@@ -8,7 +8,7 @@ interface Props {
   onEnter: (str: string, dir: string) => void;
 }
 
-export default ({ string, onEnter }: Props): ReactElement => {
+export default ({ string, onEnter }: Props): JSX.Element => {
   const ref = useRef<HTMLDivElement>();
   useInView(ref, {
     threshold: 0.5,

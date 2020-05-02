@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { slider, wrapper, font } from './styles';
 
@@ -9,7 +9,7 @@ interface Props {
 
 const defaultY = '-33.333333333333333%';
 
-export default ({ string, direction }: Props): ReactElement => {
+export default ({ string, direction }: Props): JSX.Element => {
   const [strs, setStrs] = useState<string[]>(['', '', '']);
   const [y, setY] = useState<string>(defaultY);
 

@@ -1,4 +1,4 @@
-import React, { SFC, ReactElement, useState } from 'react';
+import React, { SFC, useState } from 'react';
 import { Global, css } from '@emotion/core';
 import normalize from 'normalize.css';
 
@@ -30,7 +30,7 @@ const emojis = [
 const App: SFC<{}> = () => {
   const [state, setState] = useState<State>({ str: emojis[0], dir: '' });
 
-  const renderCards = (): ReactElement[] =>
+  const renderCards = (): JSX.Element[] =>
     emojis.map((emoji) => (
       <Card
         key={emoji}
