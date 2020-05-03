@@ -123,21 +123,13 @@ const useInView = (
           : threshold;
         let inView = min > 0 ? intersectionRatio >= min : isIntersecting;
 
-        if (x === prevXRef.current && scrollDirection.horizontal) {
-          delete scrollDirection.horizontal;
-        } else {
-          if (x < prevXRef.current) scrollDirection.horizontal = 'left';
-          if (x > prevXRef.current) scrollDirection.horizontal = 'right';
-          prevXRef.current = x;
-        }
+        if (x < prevXRef.current) scrollDirection.horizontal = 'left';
+        if (x > prevXRef.current) scrollDirection.horizontal = 'right';
+        prevXRef.current = x;
 
-        if (y === prevYRef.current && scrollDirection.vertical) {
-          delete scrollDirection.vertical;
-        } else {
-          if (y < prevYRef.current) scrollDirection.vertical = 'up';
-          if (y > prevYRef.current) scrollDirection.vertical = 'down';
-          prevYRef.current = y;
-        }
+        if (y < prevYRef.current) scrollDirection.vertical = 'up';
+        if (y > prevYRef.current) scrollDirection.vertical = 'down';
+        prevYRef.current = y;
 
         const e = { entry, scrollDirection, observe, unobserve };
 
