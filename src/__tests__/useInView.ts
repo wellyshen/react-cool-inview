@@ -164,28 +164,25 @@ describe('useInView', () => {
   it('should return scrollDidrection correctly', () => {
     const result = renderHelper();
     act(() => {
-      triggerObserverCb({ boundingClientRect: { y: 0 } });
-      triggerObserverCb({ boundingClientRect: { y: 10 } });
+      triggerObserverCb();
+      triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
     expect(result.current.scrollDirection.vertical).toBe('down');
-
-    act(() => {
-      triggerObserverCb({ boundingClientRect: { y: 0 } });
-      triggerObserverCb({ boundingClientRect: { y: -10 } });
-    });
-    expect(result.current.scrollDirection.vertical).toBe('up');
-
-    act(() => {
-      triggerObserverCb({ boundingClientRect: { x: 0 } });
-      triggerObserverCb({ boundingClientRect: { x: 10 } });
-    });
     expect(result.current.scrollDirection.horizontal).toBe('right');
 
     act(() => {
-      triggerObserverCb({ boundingClientRect: { x: 0 } });
-      triggerObserverCb({ boundingClientRect: { x: -10 } });
+      triggerObserverCb();
+      triggerObserverCb({ boundingClientRect: { x: -10, y: -10 } });
     });
+    expect(result.current.scrollDirection.vertical).toBe('up');
     expect(result.current.scrollDirection.horizontal).toBe('left');
+
+    act(() => {
+      triggerObserverCb();
+      triggerObserverCb();
+    });
+    expect(result.current.scrollDirection.vertical).toBeUndefined();
+    expect(result.current.scrollDirection.horizontal).toBeUndefined();
   });
 
   it('should return entry correctly', () => {
