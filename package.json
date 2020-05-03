@@ -182,9 +182,6 @@
     "public",
     "dist"
   ],
-  "prettier": {
-    "singleQuote": true
-  },
   "stylelint": {
     "plugins": [
       "stylelint-prettier"
