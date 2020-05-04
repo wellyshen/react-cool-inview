@@ -9,7 +9,7 @@ Please note we have a [code of conduct](https://github.com/wellyshen/react-cool-
 ## Pull Request Process
 
 1. Fork the repository and create your branch from `master`.
-2. Run `yarn` in the repository root.
+2. Run `yarn` to install dependencies.
 3. If you’ve fixed a bug or added code that should be tested.
 4. Ensure the test suite passes by running `yarn test`.
 5. Update the [README.md](https://github.com/wellyshen/react-cool-inview/blob/master/README.md) with details of changes to the interface.
