@@ -11,7 +11,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 [![npm downloads](https://img.shields.io/npm/dt/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-cool-inview?style=flat-square)](https://bundlephobia.com/result?p=react-cool-inview)
 [![MIT licensed](https://img.shields.io/github/license/wellyshen/react-cool-inview?style=flat-square)](https://raw.githubusercontent.com/wellyshen/react-cool-inview/master/LICENSE)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange?style=flat-square)](#contributors-)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/wellyshen/react-cool-inview/blob/master/CONTRIBUTING.md)
 [![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fwellyshen%2Freact-cool-inview)](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩)
 
@@ -55,8 +55,8 @@ $ npm install --save react-cool-inview
 To monitor an element enters or leaves the viewport by the `inView` state and useful sugar events.
 
 ```js
-import React, { useRef } from 'react';
-import useInView from 'react-cool-inview';
+import React, { useRef } from "react";
+import useInView from "react-cool-inview";
 
 const App = () => {
   const ref = useRef();
@@ -77,7 +77,7 @@ const App = () => {
     }
   );
 
-  return <div ref={ref}>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
+  return <div ref={ref}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>;
 };
 ```
 
@@ -86,8 +86,8 @@ const App = () => {
 It's super easy to build an image lazy-loading component with `react-cool-inview` to boost the performance of your web app.
 
 ```js
-import React, { useRef } from 'react';
-import useInView from 'react-cool-inview';
+import React, { useRef } from "react";
+import useInView from "react-cool-inview";
 
 const LazyImage = ({ width, height, ...rest }) => {
   const ref = useRef();
@@ -95,7 +95,7 @@ const LazyImage = ({ width, height, ...rest }) => {
     // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
     // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
-    rootMargin: '50px',
+    rootMargin: "50px",
   });
 
   return (
@@ -113,23 +113,23 @@ const LazyImage = ({ width, height, ...rest }) => {
 Infinite scrolling is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
 
 ```js
-import React, { useRef, useState } from 'react';
-import useInView from 'react-cool-inview';
-import axios from 'axios';
+import React, { useRef, useState } from "react";
+import useInView from "react-cool-inview";
+import axios from "axios";
 
 const App = () => {
-  const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
+  const [todos, setTodos] = useState(["todo-1", "todo-2", "..."]);
   const ref = useRef();
 
   useInView(ref, {
     // For better UX, we can grow the root margin so the data will be loaded before a user sees the loading indicator
-    rootMargin: '50px 0',
+    rootMargin: "50px 0",
     // When the loading indicator comes to the viewport
     onEnter: ({ unobserve, observe }) => {
       // Pause observe when loading data
       unobserve();
       // Load more data
-      axios.get('/todos').then((res) => {
+      axios.get("/todos").then((res) => {
         setTodos([...todos, ...res.todos]);
         // Resume observe after loading data
         observe();
@@ -206,8 +206,8 @@ const App = () => {
 Another great use case is to trigger CSS animations once they are visible to the users.
 
 ```js
-import React, { useRef } from 'react';
-import useInView from 'react-cool-inview';
+import React, { useRef } from "react";
+import useInView from "react-cool-inview";
 
 const App = () => {
   const ref = useRef();
@@ -215,12 +215,12 @@ const App = () => {
     // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
     // Shrink the root margin, so the animation will be triggered once the target reach a fixed amount of visible
-    rootMargin: '-100px 0',
+    rootMargin: "-100px 0",
   });
 
   return (
     <div className="container" ref={ref}>
-      <div className={inView ? 'fade-in' : ''}>I'm a 🍟</div>
+      <div className={inView ? "fade-in" : ""}>I'm a 🍟</div>
     </div>
   );
 };
@@ -231,8 +231,8 @@ const App = () => {
 `react-cool-inview` can also play as an impression tracker, helps you fire an analytic event when a user sees an element or advertisement.
 
 ```js
-import React, { useRef } from 'react';
-import useInView from 'react-cool-inview';
+import React, { useRef } from "react";
+import useInView from "react-cool-inview";
 
 const App = () => {
   const ref = useRef();
@@ -243,7 +243,7 @@ const App = () => {
       // Stop observe when the target enters the viewport, so the callback only triggered once
       unobserve();
       // Fire an analytic event to your tracking service
-      someTrackingService.send('🍋 is seen');
+      someTrackingService.send("🍋 is seen");
     },
   });
 
@@ -256,8 +256,8 @@ const App = () => {
 `react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`.
 
 ```js
-import React, { useRef } from 'react';
-import useInView from 'react-cool-inview';
+import React, { useRef } from "react";
+import useInView from "react-cool-inview";
 
 const App = () => {
   const ref = useRef();
@@ -271,14 +271,14 @@ const App = () => {
     threshold: [0.2, 0.4, 0.6, 0.8, 1],
     onChange: ({ scrollDirection }) => {
       // We can also access the scroll direction from the event object
-      console.log('Scroll direction: ', scrollDirection.vertical);
+      console.log("Scroll direction: ", scrollDirection.vertical);
     },
   });
 
   return (
     <div ref={ref}>
-      <div>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>
-      <div>{`You're scrolling ${vertical === 'up' ? '⬆️' : '⬇️'}`}</div>
+      <div>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>
+      <div>{`You're scrolling ${vertical === "up" ? "⬆️" : "⬇️"}`}</div>
     </div>
   );
 };
@@ -299,8 +299,8 @@ When using the v2, there're something we need to know:
 To use Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
 
 ```js
-import React, { useRef } from 'react';
-import useInView from 'react-cool-inview';
+import React, { useRef } from "react";
+import useInView from "react-cool-inview";
 
 const App = () => {
   const ref = useRef();
@@ -320,7 +320,7 @@ const App = () => {
     },
   });
 
-  return <div ref={ref}>{inView ? 'Hello, I am 🤗' : 'Bye, I am 😴'}</div>;
+  return <div ref={ref}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>;
 };
 ```
 
@@ -373,13 +373,13 @@ $ npm install --save intersection-observer
 Then import it at your app's entry point:
 
 ```js
-import 'intersection-observer';
+import "intersection-observer";
 ```
 
 Or load the polyfill only if needed:
 
 ```js
-if (!window.IntersectionObserver) require('intersection-observer');
+if (!window.IntersectionObserver) require("intersection-observer");
 ```
 
 [Polyfill.io](https://polyfill.io/v3) is an alternative way to add the polyfill when needed.
@@ -408,6 +408,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
