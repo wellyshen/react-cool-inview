@@ -165,6 +165,12 @@ describe('useInView', () => {
     const result = renderHelper();
     act(() => {
       triggerObserverCb();
+    });
+    expect(result.current.scrollDirection.vertical).toBeUndefined();
+    expect(result.current.scrollDirection.horizontal).toBeUndefined();
+
+    act(() => {
+      triggerObserverCb();
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
     expect(result.current.scrollDirection.vertical).toBe('down');
