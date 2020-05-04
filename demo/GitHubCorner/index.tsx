@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 
 import { github, octo, octoArm } from './styles';
 
@@ -6,7 +6,7 @@ interface Props {
   url: string;
 }
 
-const GitHubCorner: SFC<Props> = ({ url }: Props) => (
+const GitHubCorner: FC<Props> = ({ url }: Props) => (
   <a css={github} href={url} aria-label="View source on GitHub">
     <svg
       css={octo}
