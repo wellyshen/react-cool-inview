@@ -1,4 +1,4 @@
-import { RefObject, useRef, useEffect } from 'react';
+import { RefObject, useRef, useEffect } from "react";
 
 export default <T>(val: T): RefObject<T> => {
   const ref = useRef(val);

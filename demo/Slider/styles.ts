@@ -1,7 +1,7 @@
-import { css } from '@emotion/core';
+import { css } from "@emotion/core";
 
-const width = '3rem';
-const height = '2.25rem';
+const width = "3rem";
+const height = "2.25rem";
 
 export const slider = css`
   display: inline-block;

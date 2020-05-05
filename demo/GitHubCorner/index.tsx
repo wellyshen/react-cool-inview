@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-import { github, octo, octoArm } from './styles';
+import { github, octo, octoArm } from "./styles";
 
 interface Props {
   url: string;

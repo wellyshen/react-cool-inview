@@ -1,13 +1,13 @@
-declare module 'react-cool-inview' {
-  import { RefObject } from 'react';
+declare module "react-cool-inview" {
+  import { RefObject } from "react";
 
   interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
     readonly isVisible?: boolean;
   }
 
   interface ScrollDirection {
-    vertical?: 'up' | 'down';
-    horizontal?: 'left' | 'right';
+    vertical?: "up" | "down";
+    horizontal?: "left" | "right";
   }
 
   export interface BaseEvent {

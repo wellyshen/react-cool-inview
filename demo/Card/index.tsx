@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
-import useInView from '../../src';
-import { card, font } from './styles';
+import useInView from "../../src";
+import { card, font } from "./styles";
 
 interface Props {
   string: string;
@@ -13,7 +13,7 @@ export default ({ string, onEnter }: Props): JSX.Element => {
   useInView(ref, {
     threshold: 0.5,
     onEnter: ({ scrollDirection }) => {
-      onEnter(string, scrollDirection.vertical || '');
+      onEnter(string, scrollDirection.vertical || "");
     },
   });
 

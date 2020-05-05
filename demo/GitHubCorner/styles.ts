@@ -1,6 +1,6 @@
-import { css, keyframes } from '@emotion/core';
+import { css, keyframes } from "@emotion/core";
 
-import mq from '../utils/mq';
+import mq from "../utils/mq";
 
 const octocatWave = keyframes`
   0%,

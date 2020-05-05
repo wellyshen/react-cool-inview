@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
-import { Global, css } from '@emotion/core';
-import normalize from 'normalize.css';
+import React, { FC, useState } from "react";
+import { Global, css } from "@emotion/core";
+import normalize from "normalize.css";
 
-import GitHubCorner from '../GitHubCorner';
-import Slider from '../Slider';
-import Card from '../Card';
-import { root, container, title, subtitle, log, frame } from './styles';
+import GitHubCorner from "../GitHubCorner";
+import Slider from "../Slider";
+import Card from "../Card";
+import { root, container, title, subtitle, log, frame } from "./styles";
 
 interface State {
   str: string;
@@ -13,22 +13,22 @@ interface State {
 }
 
 const emojis = [
-  '🍕',
-  '🍎',
-  '☕️',
-  '🍖',
-  '🍋',
-  '🍺',
-  '🍪',
-  '🍒',
-  '🥛',
-  '🧀',
-  '🍑',
-  '🍵',
+  "🍕",
+  "🍎",
+  "☕️",
+  "🍖",
+  "🍋",
+  "🍺",
+  "🍪",
+  "🍒",
+  "🥛",
+  "🧀",
+  "🍑",
+  "🍵",
 ];
 
 const App: FC<{}> = () => {
-  const [state, setState] = useState<State>({ str: emojis[0], dir: '' });
+  const [state, setState] = useState<State>({ str: emojis[0], dir: "" });
 
   const renderCards = (): JSX.Element[] =>
     emojis.map((emoji) => (

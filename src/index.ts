@@ -1,6 +1,6 @@
-import { RefObject, useState, useRef, useEffect, useCallback } from 'react';
+import { RefObject, useState, useRef, useEffect, useCallback } from "react";
 
-import useLatest from './useLatest';
+import useLatest from "./useLatest";
 
 export const observerErr =
   "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersection-observer-polyfill";
@@ -15,8 +15,8 @@ interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
   readonly isVisible?: boolean;
 }
 interface ScrollDirection {
-  vertical?: 'up' | 'down';
-  horizontal?: 'left' | 'right';
+  vertical?: "up" | "down";
+  horizontal?: "left" | "right";
 }
 interface BaseEvent {
   entry?: IntersectionObserverEntryV2;
@@ -101,9 +101,9 @@ const useInView = (
     if (!ref || !ref.current) return (): void => null;
 
     if (
-      !('IntersectionObserver' in window) ||
-      !('IntersectionObserverEntry' in window) ||
-      !('isIntersecting' in window.IntersectionObserverEntry.prototype)
+      !("IntersectionObserver" in window) ||
+      !("IntersectionObserverEntry" in window) ||
+      !("isIntersecting" in window.IntersectionObserverEntry.prototype)
     ) {
       console.error(observerErr);
       return (): void => null;
@@ -123,12 +123,12 @@ const useInView = (
           : threshold;
         let inView = min > 0 ? intersectionRatio >= min : isIntersecting;
 
-        if (x < prevXRef.current) scrollDirection.horizontal = 'left';
-        if (x > prevXRef.current) scrollDirection.horizontal = 'right';
+        if (x < prevXRef.current) scrollDirection.horizontal = "left";
+        if (x > prevXRef.current) scrollDirection.horizontal = "right";
         prevXRef.current = x;
 
-        if (y < prevYRef.current) scrollDirection.vertical = 'up';
-        if (y > prevYRef.current) scrollDirection.vertical = 'down';
+        if (y < prevYRef.current) scrollDirection.vertical = "up";
+        if (y > prevYRef.current) scrollDirection.vertical = "down";
         prevYRef.current = y;
 
         const e = { entry, scrollDirection, observe, unobserve };
