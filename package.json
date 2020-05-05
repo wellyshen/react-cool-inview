@@ -58,7 +58,7 @@
   "scripts": {
     "dev": "yarn clean:dev && rollup -c rollup/config.js -w --environment BUILD:dev",
     "lint:code": "eslint --fix . --ext .js,.ts,.tsx",
-    "lint:style": "stylelint --fix \"./**/*.css\" \"./**/*.ts\" \"./**/*.tsx\"",
+    "lint:style": "stylelint --fix \"**/*.{css,ts,tsx}\"",
     "lint": "run-p lint:*",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check --watch",
