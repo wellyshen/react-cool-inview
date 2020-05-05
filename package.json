@@ -138,8 +138,6 @@
       "stylelint-config-prettier"
     ],
     "rules": {
-      "string-quotes": "single",
-      "declaration-empty-line-before": null,
       "prettier/prettier": true
     },
     "ignoreFiles": [
