@@ -109,36 +109,9 @@
     }
   },
   "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint",
-      "emotion",
-      "jest",
-      "testing-library",
-      "prettier"
-    ],
     "extends": [
-      "airbnb",
-      "airbnb/hooks",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:jest/recommended",
-      "plugin:jest/style",
-      "plugin:testing-library/recommended",
-      "plugin:prettier/recommended",
-      "prettier/@typescript-eslint",
-      "prettier/react"
+      "welly"
     ],
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
-      }
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "es6": true,
-      "jest": true
-    },
     "rules": {
       "no-console": [
         "warn",
@@ -148,23 +121,7 @@
             "error"
           ]
         }
-      ],
-      "react/jsx-props-no-spreading": "off",
-      "react/jsx-filename-extension": [
-        "error",
-        {
-          "extensions": [
-            ".js",
-            ".ts",
-            ".tsx"
-          ]
-        }
-      ],
-      "import/extensions": "off",
-      "import/no-extraneous-dependencies": "off",
-      "@typescript-eslint/ban-ts-ignore": "off",
-      "@typescript-eslint/no-explicit-any": "off",
-      "prettier/prettier": "error"
+      ]
     }
   },
   "eslintIgnore": [
@@ -215,22 +172,10 @@
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
     "@types/vfile-message": "^2.0.0",
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
-    "@typescript-eslint/parser": "^2.26.0",
     "babel-plugin-emotion": "^10.0.33",
     "coveralls": "^3.0.11",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-plugin-emotion": "^10.0.27",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.0",
-    "eslint-plugin-testing-library": "^3.0.2",
+    "eslint-config-welly": "^0.0.0",
     "husky": "^4.2.3",
     "jest": "^25.2.7",
     "lint-staged": "^10.1.1",
