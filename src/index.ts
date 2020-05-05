@@ -109,6 +109,7 @@ const useInView = (
       return (): void => null;
     }
 
+    // eslint-disable-next-line compat/compat
     observerRef.current = new IntersectionObserver(
       ([entry]: IntersectionObserverEntryV2[]) => {
         const {

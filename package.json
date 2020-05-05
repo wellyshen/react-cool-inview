@@ -121,7 +121,8 @@
             "error"
           ]
         }
-      ]
+      ],
+      "emotion/jsx-import": "off"
     }
   },
   "eslintIgnore": [
