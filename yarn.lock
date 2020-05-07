@@ -3490,10 +3490,10 @@ eslint-config-prettier@^6.11.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-welly@^0.5.6:
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-0.5.8.tgz#a632d2b50904313dc2c5f0dfbba679c6e2a27551"
-  integrity sha512-pEgiN1aDcr1HJA+KkmXu/QWwUJ+Z1XYjWpQ7jJ6XQQDqitaqkzrEE/irAFExbUQzjESekqNqjoPNHjeu07JCYQ==
+eslint-config-welly@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.0.0.tgz#14bd0f365e72b08932138aab7b51be83a28844f8"
+  integrity sha512-iqzD6JwiQoUBiNEcV0Rm+MQPznNGaYV0QLYvYRs8AvE75VCBkwHTu6bQNNVL0w0sIpPYelPo8H/O1QhL4cw+Ig==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.30.0"
     "@typescript-eslint/parser" "^2.30.0"
