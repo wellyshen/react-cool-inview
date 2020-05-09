@@ -74,9 +74,8 @@ const useInView = (
     scrollDirection: {},
   });
   const prevInViewRef = useRef<boolean>(false);
-  const prevXRef = useRef<number>();
-  const prevYRef = useRef<number>();
-  const isObserveRef = useRef<boolean>(false);
+  const prevPosRef = useRef<{ x?: number; y?: number }>({});
+  const isObservingRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver>(null);
   const warnedRef = useRef<boolean>(false);
   const onChangeRef = useLatest<OnChange>(onChange);
@@ -84,17 +83,17 @@ const useInView = (
   const onLeaveRef = useLatest<CallBack>(onLeave);
 
   const observe = useCallback((): void => {
-    if (isObserveRef.current || !observerRef.current) return;
+    if (isObservingRef.current || !observerRef.current) return;
 
     observerRef.current.observe(ref.current);
-    isObserveRef.current = true;
+    isObservingRef.current = true;
   }, [ref]);
 
   const unobserve = useCallback((): void => {
-    if (!isObserveRef.current || !observerRef.current) return;
+    if (!isObservingRef.current || !observerRef.current) return;
 
     observerRef.current.disconnect();
-    isObserveRef.current = false;
+    isObservingRef.current = false;
   }, []);
 
   useEffect(() => {
@@ -124,13 +123,13 @@ const useInView = (
           : threshold;
         let inView = min > 0 ? intersectionRatio >= min : isIntersecting;
 
-        if (x < prevXRef.current) scrollDirection.horizontal = "left";
-        if (x > prevXRef.current) scrollDirection.horizontal = "right";
-        prevXRef.current = x;
+        if (x < prevPosRef.current.x) scrollDirection.horizontal = "left";
+        if (x > prevPosRef.current.x) scrollDirection.horizontal = "right";
+        prevPosRef.current.x = x;
 
-        if (y < prevYRef.current) scrollDirection.vertical = "up";
-        if (y > prevYRef.current) scrollDirection.vertical = "down";
-        prevYRef.current = y;
+        if (y < prevPosRef.current.y) scrollDirection.vertical = "up";
+        if (y > prevPosRef.current.y) scrollDirection.vertical = "down";
+        prevPosRef.current.y = y;
 
         const e = { entry, scrollDirection, observe, unobserve };
 
