@@ -1227,10 +1227,10 @@
     "@rollup/pluginutils" "^3.0.8"
     magic-string "^0.25.5"
 
-"@rollup/plugin-url@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-4.0.2.tgz#af9e6ce8b26153843567bfb04e48843e72fc2dc4"
-  integrity sha512-jm0VbkSphTmfyCgbmkLpvz56Q6KYdLLQKOuMvfBEYDK5zUU7F13JQrv5D6xEU8DlDi/nOi6MSyGaloo9vfYZuQ==
+"@rollup/plugin-url@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-5.0.0.tgz#c06bf995324732da7a5706e92486841c16c64ea0"
+  integrity sha512-krvBRQ4IN7cpE/Y4TY8R9SDkzzvpVhomcnkAARUvSP3xbPe9eMo3Ep9rPp85mBptE0t7wdUT68/Bhkpc4hK6mQ==
   dependencies:
     "@rollup/pluginutils" "^3.0.4"
     make-dir "^3.0.0"
