@@ -163,6 +163,8 @@ describe("useInView", () => {
 
   it("should return scrollDidrection correctly", () => {
     const result = renderHelper();
+    expect(result.current.scrollDirection).toStrictEqual({});
+
     act(() => {
       triggerObserverCb();
     });
@@ -193,6 +195,8 @@ describe("useInView", () => {
 
   it("should return entry correctly", () => {
     const result = renderHelper();
+    expect(result.current.entry).toBeUndefined();
+
     const e = {
       intersectionRatio: 0.5,
       isIntersecting: true,
