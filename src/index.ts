@@ -19,16 +19,16 @@ interface ScrollDirection {
   horizontal?: "left" | "right";
 }
 interface BaseEvent {
-  entry?: IntersectionObserverEntryV2;
-  scrollDirection?: ScrollDirection;
-  observe?: () => void;
-  unobserve?: () => void;
+  entry: IntersectionObserverEntryV2;
+  scrollDirection: ScrollDirection;
+  observe: () => void;
+  unobserve: () => void;
 }
 interface ChangeEvent extends BaseEvent {
-  inView?: boolean;
+  inView: boolean;
 }
 interface CallBack<T = BaseEvent> {
-  (event?: T): void;
+  (event: T): void;
 }
 type OnChange = CallBack<ChangeEvent>;
 export interface Options {

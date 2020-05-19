@@ -11,18 +11,18 @@ declare module "react-cool-inview" {
   }
 
   export interface BaseEvent {
-    entry?: IntersectionObserverEntryV2;
-    scrollDirection?: ScrollDirection;
-    observe?: () => void;
-    unobserve?: () => void;
+    entry: IntersectionObserverEntryV2;
+    scrollDirection: ScrollDirection;
+    observe: () => void;
+    unobserve: () => void;
   }
 
   export interface ChangeEvent extends BaseEvent {
-    inView?: boolean;
+    inView: boolean;
   }
 
   export interface CallBack<T = BaseEvent> {
-    (event?: T): void;
+    (event: T): void;
   }
 
   interface Options {
