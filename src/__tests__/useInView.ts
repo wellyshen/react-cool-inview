@@ -369,28 +369,25 @@ describe("useInView", () => {
 
   it("should throw intersection observer error", () => {
     console.error = jest.fn();
+
     renderHelper();
     expect(console.error).not.toHaveBeenCalled();
 
     // @ts-ignore
     delete global.IntersectionObserver;
     renderHelper();
-    expect(console.error).toHaveBeenCalledWith(observerErr);
-
-    console.error = jest.fn();
     // @ts-ignore
     global.IntersectionObserver = mockIntersectionObserver;
     // @ts-ignore
     delete global.IntersectionObserverEntry;
     renderHelper();
-    expect(console.error).toHaveBeenCalledWith(observerErr);
-
-    console.error = jest.fn();
     // @ts-ignore
     global.IntersectionObserverEntry = jest.fn();
     // @ts-ignore
     delete global.IntersectionObserverEntry.prototype.isIntersecting;
     renderHelper();
+
+    expect(console.error).toHaveBeenCalledTimes(3);
     expect(console.error).toHaveBeenCalledWith(observerErr);
   });
 });
