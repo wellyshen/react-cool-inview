@@ -376,10 +376,12 @@ Then import it at your app's entry point:
 import "intersection-observer";
 ```
 
-Or load the polyfill only if needed:
+Or use dynamic imports to only load the file when the polyfill is required:
 
 ```js
-if (!window.IntersectionObserver) require("intersection-observer");
+(async () => {
+  if (!window.IntersectionObserver) await import("intersection-observer");
+})();
 ```
 
 [Polyfill.io](https://polyfill.io/v3) is an alternative way to add the polyfill when needed.
