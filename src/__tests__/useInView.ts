@@ -72,8 +72,6 @@ describe("useInView", () => {
     global.IntersectionObserver = mockIntersectionObserver;
     // @ts-ignore
     global.IntersectionObserverEntry = jest.fn();
-    // @ts-ignore
-    global.IntersectionObserverEntry.prototype.isIntersecting = false;
   });
 
   it("should not start observe if the target isn't set", () => {
@@ -383,11 +381,19 @@ describe("useInView", () => {
     renderHelper();
     // @ts-ignore
     global.IntersectionObserverEntry = jest.fn();
-    // @ts-ignore
-    delete global.IntersectionObserverEntry.prototype.isIntersecting;
-    renderHelper();
 
-    expect(console.error).toHaveBeenCalledTimes(3);
+    expect(console.error).toHaveBeenCalledTimes(2);
     expect(console.error).toHaveBeenCalledWith(observerErr);
+  });
+
+  it("should use intersectionRatio instead of isIntersecting", () => {
+    const result = renderHelper();
+    expect(result.current.inView).toBeFalsy();
+    act(() => {
+      callback([
+        { ...observerEvent, isIntersecting: undefined, intersectionRatio: 1 },
+      ]);
+    });
+    expect(result.current.inView).toBeTruthy();
   });
 });

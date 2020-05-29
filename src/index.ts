@@ -101,8 +101,7 @@ const useInView = (
 
     if (
       !("IntersectionObserver" in window) ||
-      !("IntersectionObserverEntry" in window) ||
-      !("isIntersecting" in window.IntersectionObserverEntry.prototype)
+      !("IntersectionObserverEntry" in window)
     ) {
       console.error(observerErr);
       return (): void => null;
@@ -121,7 +120,10 @@ const useInView = (
         const min = Array.isArray(threshold)
           ? Math.min(...threshold)
           : threshold;
-        let inView = min > 0 ? intersectionRatio >= min : isIntersecting;
+        let inView =
+          isIntersecting !== undefined ? isIntersecting : intersectionRatio > 0;
+
+        if (min > 0) inView = intersectionRatio >= min;
 
         if (x < prevPosRef.current.x) scrollDirection.horizontal = "left";
         if (x > prevPosRef.current.x) scrollDirection.horizontal = "right";
