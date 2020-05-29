@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default ({ files }) => `
   <!DOCTYPE html>
   <html lang="en">

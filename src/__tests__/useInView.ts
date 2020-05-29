@@ -20,7 +20,14 @@ describe("useInView", () => {
     return renderHook(() => useInView(target, rest)).result;
   };
 
-  let callback: Function;
+  interface Event {
+    intersectionRatio?: number;
+    isIntersecting?: boolean;
+    boundingClientRect?: { x?: number; y?: number };
+    isVisible?: boolean;
+  }
+
+  let callback: (e: Event[]) => void;
   const observe = jest.fn();
   const disconnect = jest.fn();
   const mockIntersectionObserver = jest.fn((cb, opts) => ({
@@ -31,13 +38,6 @@ describe("useInView", () => {
     },
     disconnect,
   }));
-
-  interface Event {
-    intersectionRatio?: number;
-    isIntersecting?: boolean;
-    boundingClientRect?: { x?: number; y?: number };
-    isVisible?: boolean;
-  }
 
   const observerEvent: Event = {
     intersectionRatio: 0,

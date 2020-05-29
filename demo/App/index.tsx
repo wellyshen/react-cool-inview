@@ -27,7 +27,7 @@ const emojis = [
   "🍵",
 ];
 
-const App: FC<{}> = () => {
+const App: FC = () => {
   const [state, setState] = useState<State>({ str: emojis[0], dir: "" });
 
   const renderCards = (): JSX.Element[] =>

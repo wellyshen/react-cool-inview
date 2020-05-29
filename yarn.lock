@@ -3576,7 +3576,7 @@ eslint-config-prettier@^6.11.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-welly@^1.0.0:
+eslint-config-welly@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.1.2.tgz#8ef77d49821cd83249c1ce59fb5d0d95a4f7b67d"
   integrity sha512-3prS/+82iq3Nk7fOqmW1JoqqIAKTtatbs51Z5Bfezg8HzkXlL/iRegW4GnTRUdnu8ku9heQYGJMXp2XwkuGihQ==
