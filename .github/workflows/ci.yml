@@ -10,16 +10,31 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install packages
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
         run: yarn install
       - name: Run type check
         run: yarn type-check
@@ -29,6 +44,7 @@ jobs:
         run: yarn test:cov
       - name: Run build
         run: yarn build:dist
+
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1.1.1
         with:
@@ -36,12 +52,14 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    # needs: build
     if: github.ref == 'refs/heads/master'
+
     steps:
       - uses: actions/checkout@v2
       - name: Run build
         run: yarn build:demo
+
       - name: Netlify GitHub Action
         uses: netlify/actions/cli@master
         with:
