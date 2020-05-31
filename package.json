@@ -74,8 +74,7 @@
     "clean:demo": "rimraf public",
     "clean:dist": "rimraf dist .size-snapshot.json",
     "clean:cov": "rimraf coverage",
-    "clean": "run-p clean:*",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "clean": "run-p clean:*"
   },
   "husky": {
     "hooks": {
@@ -172,7 +171,6 @@
     "@types/react-dom": "^16.9.6",
     "@types/vfile-message": "^2.0.0",
     "babel-plugin-emotion": "^10.0.33",
-    "coveralls": "^3.0.11",
     "eslint": "^6.8.0",
     "eslint-config-welly": "^1.1.2",
     "husky": "^4.2.3",
