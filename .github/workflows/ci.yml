@@ -76,7 +76,7 @@ jobs:
       - name: Netlify GitHub Action
         uses: netlify/actions/cli@master
         with:
-          args: deploy --prod --dir=public
+          args: deploy --prod --message="Deploy from GitHub-CI" --dir=public
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
