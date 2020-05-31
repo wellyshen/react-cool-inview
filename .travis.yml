@@ -1,35 +1,35 @@
-language: node_js
+# language: node_js
 
-node_js:
-  - "lts/*"
+# node_js:
+#   - "lts/*"
 
-if: tag is blank
+# if: tag is blank
 
-cache:
-  yarn: true
-  directories:
-    - node_module
+# cache:
+#   yarn: true
+#   directories:
+#     - node_module
 
-script:
-  - yarn type-check
-  - yarn lint
-  - yarn test:cov
-  - yarn build:dist
+# script:
+#   - yarn type-check
+#   - yarn lint
+#   - yarn test:cov
+#   - yarn build:dist
 
-after_success:
-  - yarn coveralls
+# after_success:
+#   - yarn coveralls
 
-before_deploy:
-  - yarn global add netlify-cli
-  - yarn build:demo
+# before_deploy:
+#   - yarn global add netlify-cli
+#   - yarn build:demo
 
-deploy:
-  provider: script
-  script: netlify deploy --prod  --message "Deploy from Travis-CI" --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --dir ./public
-  skip_cleanup: true
-  on:
-    branch: master
+# deploy:
+#   provider: script
+#   script: netlify deploy --prod  --message "Deploy from Travis-CI" --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --dir ./public
+#   skip_cleanup: true
+#   on:
+#     branch: master
 
-notifications:
-  email:
-    on_failure: change
+# notifications:
+#   email:
+#     on_failure: change
