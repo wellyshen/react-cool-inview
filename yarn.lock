@@ -1258,9 +1258,9 @@
     magic-string "^0.25.5"
 
 "@rollup/plugin-url@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-5.0.0.tgz#c06bf995324732da7a5706e92486841c16c64ea0"
-  integrity sha512-krvBRQ4IN7cpE/Y4TY8R9SDkzzvpVhomcnkAARUvSP3xbPe9eMo3Ep9rPp85mBptE0t7wdUT68/Bhkpc4hK6mQ==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-url/-/plugin-url-5.0.1.tgz#77fc9f56100cd83cfb45109adf7d48af1c8ecdbf"
+  integrity sha512-/dO8Ic+vR9VtMkHjmFBWzISjX0iDwrB3vLg8sy4A7hxu2Uk0J09kAXbtku7gJb1fqVcJUIByFG5d/4sgNh1DvA==
   dependencies:
     "@rollup/pluginutils" "^3.0.4"
     make-dir "^3.0.0"
