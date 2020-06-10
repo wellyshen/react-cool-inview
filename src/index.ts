@@ -27,10 +27,10 @@ interface BaseEvent {
 interface ChangeEvent extends BaseEvent {
   inView: boolean;
 }
-interface CallBack<T = BaseEvent> {
+interface Callback<T = BaseEvent> {
   (event: T): void;
 }
-type OnChange = CallBack<ChangeEvent>;
+type OnChange = Callback<ChangeEvent>;
 export interface Options {
   root?: HTMLElement;
   rootMargin?: string;
@@ -39,8 +39,8 @@ export interface Options {
   delay?: number;
   unobserveOnEnter?: boolean;
   onChange?: OnChange;
-  onEnter?: CallBack;
-  onLeave?: CallBack;
+  onEnter?: Callback;
+  onLeave?: Callback;
 }
 export interface Return {
   readonly inView: boolean;
@@ -79,8 +79,8 @@ const useInView = (
   const observerRef = useRef<IntersectionObserver>(null);
   const warnedRef = useRef<boolean>(false);
   const onChangeRef = useLatest<OnChange>(onChange);
-  const onEnterRef = useLatest<CallBack>(onEnter);
-  const onLeaveRef = useLatest<CallBack>(onLeave);
+  const onEnterRef = useLatest<Callback>(onEnter);
+  const onLeaveRef = useLatest<Callback>(onLeave);
 
   const observe = useCallback((): void => {
     if (isObservingRef.current || !observerRef.current) return;

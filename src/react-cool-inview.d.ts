@@ -21,7 +21,7 @@ declare module "react-cool-inview" {
     inView: boolean;
   }
 
-  export interface CallBack<T = BaseEvent> {
+  export interface Callback<T = BaseEvent> {
     (event: T): void;
   }
 
@@ -32,9 +32,9 @@ declare module "react-cool-inview" {
     trackVisibility?: boolean;
     delay?: number;
     unobserveOnEnter?: boolean;
-    onChange?: CallBack<ChangeEvent>;
-    onEnter?: CallBack;
-    onLeave?: CallBack;
+    onChange?: Callback<ChangeEvent>;
+    onEnter?: Callback;
+    onLeave?: Callback;
   }
 
   interface Return {
