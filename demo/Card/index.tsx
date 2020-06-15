@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import useInView from "../../src";
 import { card, font } from "./styles";
@@ -9,8 +9,7 @@ interface Props {
 }
 
 export default ({ string, onEnter }: Props): JSX.Element => {
-  const ref = useRef<HTMLDivElement>();
-  useInView(ref, {
+  const { ref } = useInView<HTMLDivElement>({
     threshold: 0.5,
     onEnter: ({ scrollDirection }) => {
       onEnter(string, scrollDirection.vertical || "");

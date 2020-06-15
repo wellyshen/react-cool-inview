@@ -1,4 +1,3 @@
-import { RefObject } from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 
 import useInView, {
@@ -9,15 +8,15 @@ import useInView, {
 } from "..";
 
 describe("useInView", () => {
-  interface Args extends Options {
-    target?: RefObject<HTMLDivElement>;
-  }
-
+  const el = document.createElement("div");
+  const target = { current: el };
   const renderHelper = ({
-    target = { current: document.createElement("div") },
+    ref = target,
     ...rest
-  }: Args = {}): { current: Current } => {
-    return renderHook(() => useInView(target, rest)).result;
+  }: Options<HTMLDivElement> = {}): {
+    current: Current<HTMLDivElement>;
+  } => {
+    return renderHook(() => useInView({ ref, ...rest })).result;
   };
 
   interface Event {
@@ -75,13 +74,13 @@ describe("useInView", () => {
   });
 
   it("should not start observe if the target isn't set", () => {
-    renderHelper({ target: null });
+    renderHelper({ ref: null });
     expect(observe).not.toHaveBeenCalled();
   });
 
   it("should set the options of intersection observer correctly", () => {
     const args = {
-      root: document.createElement("div"),
+      root: el,
       rootMargin: "0",
       threshold: 0,
       trackVisibility: true,
@@ -114,6 +113,14 @@ describe("useInView", () => {
     result.current.unobserve();
     result.current.observe();
     expect(observe).toHaveBeenCalledTimes(4);
+  });
+
+  it("should return workable ref", () => {
+    const result = renderHelper({ ref: null });
+    expect(result.current.ref).toStrictEqual({ current: null });
+
+    result.current.ref = target;
+    expect(result.current.ref).toStrictEqual(target);
   });
 
   it("should return inView correctly", () => {

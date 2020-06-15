@@ -26,6 +26,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - 🎛 Super flexible [API](#api) design which can cover [all the cases](#usage) that you need.
 - 🖱️ Supports [scroll direction](#scroll-direction), cool right?
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
+- 🔩 Supports custom `refs` for [some reasons](#use-your-own-ref).
 - 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
 - 🗄️ Server-side rendering compatibility.
 - 🦠 Tiny size ([~ 1.8KB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
@@ -55,13 +56,11 @@ $ npm install --save react-cool-inview
 To monitor an element enters or leaves the viewport by the `inView` state and useful sugar events.
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
-  const ref = useRef();
-  const { inView, scrollDirection, entry, observe, unobserve } = useInView(
-    ref,
+  const { ref, inView, scrollDirection, entry, observe, unobserve } = useInView(
     {
       threshold: 0.25, // Default is 0
       onChange: ({ inView, scrollDirection, entry, observe, unobserve }) => {
@@ -86,12 +85,11 @@ const App = () => {
 It's super easy to build an image lazy-loading component with `react-cool-inview` to boost the performance of your web app.
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import useInView from "react-cool-inview";
 
 const LazyImage = ({ width, height, ...rest }) => {
-  const ref = useRef();
-  const { inView } = useInView(ref, {
+  const { ref, inView } = useInView({
     // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
     // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
@@ -113,15 +111,13 @@ const LazyImage = ({ width, height, ...rest }) => {
 Infinite scrolling is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
 
 ```js
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import useInView from "react-cool-inview";
 import axios from "axios";
 
 const App = () => {
   const [todos, setTodos] = useState(["todo-1", "todo-2", "..."]);
-  const ref = useRef();
-
-  useInView(ref, {
+  const { ref } = useInView({
     // For better UX, we can grow the root margin so the data will be loaded before a user sees the loading indicator
     rootMargin: "50px 0",
     // When the loading indicator comes to the viewport
@@ -151,40 +147,38 @@ const App = () => {
 Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. We can use [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
 
 ```js
-import React, { useRef, useState } from 'react';
-import useInView from 'react-cool-inview';
-import { FixedSizeList as List } from 'react-window';
-import axios from 'axios';
+import React, { useState } from "react";
+import useInView from "react-cool-inview";
+import { FixedSizeList as List } from "react-window";
+import axios from "axios";
 
 const Row = ({ index, data, style }) => {
   const { todos, handleLoadingInView } = data;
   const isLast = index === todos.length;
-  const ref = useRef();
-
-  useInView(ref, { onEnter: handleLoadingInView });
+  const { ref } = useInView({ onEnter: handleLoadingInView });
 
   return (
     <div style={style} ref={isLast ? ref : null}>
-      {isLast ? 'Loading...' : todos[index]}
+      {isLast ? "Loading..." : todos[index]}
     </div>
   );
 };
 
 const App = () => {
-  const [todos, setTodos] = useState(['todo-1', 'todo-2', '...']);
+  const [todos, setTodos] = useState(["todo-1", "todo-2", "..."]);
   const [isFetching, setIsFetching] = useState(false);
 
   const handleLoadingInView = () => {
-      // Row component is dynamically created by react-window, we need to use the "isFetching" flag
-      // instead of unobserve/observe to avoid re-fetching data
-      if (!isFetching)
-        axios.get('/todos').then((res) => {
-          setTodos([...todos, ...res.todos]);
-          setIsFetching(false);
-        });
+    // Row component is dynamically created by react-window, we need to use the "isFetching" flag
+    // instead of unobserve/observe to avoid re-fetching data
+    if (!isFetching)
+      axios.get("/todos").then((res) => {
+        setTodos([...todos, ...res.todos]);
+        setIsFetching(false);
+      });
 
-      setIsFetching(true);
-    },
+    setIsFetching(true);
+  };
 
   // Leverage the power of react-window to help us address the performance bottleneck
   return (
@@ -206,12 +200,11 @@ const App = () => {
 Another great use case is to trigger CSS animations once they are visible to the users.
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
-  const ref = useRef();
-  const { inView } = useInView(ref, {
+  const { ref, inView } = useInView({
     // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
     // Shrink the root margin, so the animation will be triggered once the target reach a fixed amount of visible
@@ -231,12 +224,11 @@ const App = () => {
 `react-cool-inview` can also play as an impression tracker, helps you fire an analytic event when a user sees an element or advertisement.
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
-  const ref = useRef();
-  useInView(ref, {
+  const { ref } = useInView({
     // For an element to be considered "seen", we'll say it must be 100% in the viewport
     threshold: 1,
     onEnter: ({ unobserve }) => {
@@ -256,16 +248,16 @@ const App = () => {
 `react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`.
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
-  const ref = useRef();
   const {
+    ref,
     inView,
     // vertical will be "up" or "down", horizontal will be "left" or "right"
     scrollDirection: { vertical, horizontal },
-  } = useInView(ref, {
+  } = useInView({
     // Scroll direction is calculated whenever the target meets a threshold
     // more trigger points the calculation will be more instant and accurate
     threshold: [0.2, 0.4, 0.6, 0.8, 1],
@@ -299,14 +291,13 @@ When using the v2, there're something we need to know:
 To use Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
 
 ```js
-import React, { useRef } from "react";
+import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
-  const ref = useRef();
   // With Intersection Observer v2, the "inView" not only tells you the target
   // is intersecting with the root, but also guarantees it's visible on the page
-  const { inView } = useInView(ref, {
+  const { ref, inView } = useInView({
     // Track the actual visibility of the target
     trackVisibility: true,
     // Set a minimum delay between notifications, it must be set to 100 (ms) or greater
@@ -324,10 +315,19 @@ const App = () => {
 };
 ```
 
+## Use Your Own `ref`
+
+In case of you had a ref already or you want to share a ref for other purposes. You can pass in the ref instead of using the one provided by this hook.
+
+```js
+const ref = useRef();
+const { inView } = useInView({ ref });
+```
+
 ## API
 
 ```js
-const returnObj = useInView(ref: RefObject<HTMLElement>, options?: object);
+const returnObj = useInView(options?: object);
 ```
 
 ### Return object
@@ -336,6 +336,7 @@ It's returned with the following properties.
 
 | Key               | Type     | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       |
 | ----------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ref`             | object   |         | Used to set the target element for monitoring.                                                                                                                                                                                                                                                                                                                                                    |
 | `inView`          | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                  |
 | `scrollDirection` | object   |         | The scroll direction of the target element. Which contains `vertical` and `horizontal` properties. See [scroll direction](#scroll-direction) for more information.                                                                                                                                                                                                                                |
 | `entry`           | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
@@ -344,10 +345,11 @@ It's returned with the following properties.
 
 ### Parameters
 
-You must pass the `ref` to use this hook. The `options` provides the following configurations and event callbacks for you.
+The `options` provides the following configurations and event callbacks for you.
 
 | Key                | Type               | Default  | Description                                                                                                                                                                                                                                                                                                                                              |
 | ------------------ | ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ref`              | object             |          | For [some reasons](#use-your-own-ref), you can pass in your own `ref` instead of using the built-in.                                                                                                                                                                                                                                                     |
 | `root`             | HTMLElement        | `window` | The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if `null`.                                                                                                                                                                      |
 | `rootMargin`       | string             | `0px`    | Margin around the root. Can have values similar to the CSS [margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin`) property, e.g. `"10px 20px 30px 40px"` (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. |
 | `threshold`        | number \| number[] | `0`      | Indicates at what percentage of the target's visibility the observer's callback should be executed. If you only want to detect when visibility passes the 50% mark, you can use a value of 0.5. If you want the callback to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1].                           |

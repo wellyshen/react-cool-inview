@@ -25,7 +25,8 @@ declare module "react-cool-inview" {
     (event: T): void;
   }
 
-  interface Options {
+  interface Options<T> {
+    ref?: RefObject<T>;
     root?: HTMLElement;
     rootMargin?: string;
     threshold?: number | number[];
@@ -37,7 +38,8 @@ declare module "react-cool-inview" {
     onLeave?: Callback;
   }
 
-  interface Return {
+  interface Return<T> {
+    ref: RefObject<T>;
     readonly inView: boolean;
     readonly scrollDirection: ScrollDirection;
     readonly entry?: IntersectionObserverEntryV2;
@@ -45,7 +47,7 @@ declare module "react-cool-inview" {
     readonly unobserve: () => void;
   }
 
-  const useInView: (ref: RefObject<HTMLElement>, options?: Options) => Return;
+  const useInView: <T>(options?: Options<T>) => Return<T>;
 
   export default useInView;
 }

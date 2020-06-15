@@ -31,7 +31,8 @@ interface Callback<T = BaseEvent> {
   (event: T): void;
 }
 type OnChange = Callback<ChangeEvent>;
-export interface Options {
+export interface Options<T> {
+  ref?: RefObject<T>;
   root?: HTMLElement;
   rootMargin?: string;
   threshold?: number | number[];
@@ -42,7 +43,8 @@ export interface Options {
   onEnter?: Callback;
   onLeave?: Callback;
 }
-export interface Return {
+export interface Return<T> {
+  ref: RefObject<T>;
   readonly inView: boolean;
   readonly scrollDirection: ScrollDirection;
   readonly entry?: IntersectionObserverEntryV2;
@@ -55,20 +57,18 @@ interface State {
   entry?: IntersectionObserverEntryV2;
 }
 
-const useInView = (
-  ref: RefObject<HTMLElement>,
-  {
-    root,
-    rootMargin,
-    threshold,
-    trackVisibility,
-    delay,
-    unobserveOnEnter = false,
-    onChange,
-    onEnter,
-    onLeave,
-  }: Options = {}
-): Return => {
+const useInView = <T>({
+  ref: refOpt,
+  root,
+  rootMargin,
+  threshold,
+  trackVisibility,
+  delay,
+  unobserveOnEnter = false,
+  onChange,
+  onEnter,
+  onLeave,
+}: Options<T> = {}): Return<T> => {
   const [state, setState] = useState<State>({
     inView: false,
     scrollDirection: {},
@@ -81,11 +81,13 @@ const useInView = (
   const onChangeRef = useLatest<OnChange>(onChange);
   const onEnterRef = useLatest<Callback>(onEnter);
   const onLeaveRef = useLatest<Callback>(onLeave);
+  const refVar = useRef<T>(null);
+  const ref = refOpt || refVar;
 
   const observe = useCallback((): void => {
     if (isObservingRef.current || !observerRef.current) return;
 
-    observerRef.current.observe(ref.current);
+    observerRef.current.observe(ref.current as any);
     isObservingRef.current = true;
   }, [ref]);
 
@@ -97,7 +99,7 @@ const useInView = (
   }, []);
 
   useEffect(() => {
-    if (!ref || !ref.current) return (): void => null;
+    if (!ref.current) return (): void => null;
 
     if (
       !("IntersectionObserver" in window) ||
@@ -184,7 +186,7 @@ const useInView = (
     unobserve,
   ]);
 
-  return { ...state, observe, unobserve };
+  return { ref, ...state, observe, unobserve };
 };
 
 export default useInView;
