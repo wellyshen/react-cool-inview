@@ -57,7 +57,7 @@ interface State {
   entry?: IntersectionObserverEntryV2;
 }
 
-const useInView = <T>({
+const useInView = <T extends HTMLElement>({
   ref: refOpt,
   root,
   rootMargin,
@@ -87,7 +87,7 @@ const useInView = <T>({
   const observe = useCallback((): void => {
     if (isObservingRef.current || !observerRef.current) return;
 
-    observerRef.current.observe(ref.current as any);
+    observerRef.current.observe(ref.current);
     isObservingRef.current = true;
   }, [ref]);
 

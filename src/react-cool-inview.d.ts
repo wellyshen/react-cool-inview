@@ -47,7 +47,7 @@ declare module "react-cool-inview" {
     readonly unobserve: () => void;
   }
 
-  const useInView: <T>(options?: Options<T>) => Return<T>;
+  const useInView: <T extends HTMLElement>(options?: Options<T>) => Return<T>;
 
   export default useInView;
 }
