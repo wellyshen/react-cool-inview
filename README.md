@@ -343,7 +343,7 @@ It's returned with the following properties.
 | `unobserve`       | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
 | `observe`         | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
 
-### Parameters
+### Parameter
 
 The `options` provides the following configurations and event callbacks for you.
 
