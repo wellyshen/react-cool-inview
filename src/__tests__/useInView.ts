@@ -15,9 +15,7 @@ describe("useInView", () => {
     ...rest
   }: Options<HTMLDivElement> = {}): {
     current: Current<HTMLDivElement>;
-  } => {
-    return renderHook(() => useInView({ ref, ...rest })).result;
-  };
+  } => renderHook(() => useInView({ ref, ...rest })).result;
 
   interface Event {
     intersectionRatio?: number;
