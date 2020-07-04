@@ -1,11 +1,6 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 
-import useInView, {
-  Options,
-  Return as Current,
-  observerErr,
-  observerWarn,
-} from "..";
+import useInView, { Options, observerErr, observerWarn } from "..";
 
 describe("useInView", () => {
   const el = document.createElement("div");
@@ -13,9 +8,8 @@ describe("useInView", () => {
   const renderHelper = ({
     ref = target,
     ...rest
-  }: Options<HTMLDivElement> = {}): {
-    current: Current<HTMLDivElement>;
-  } => renderHook(() => useInView({ ref, ...rest })).result;
+  }: Options<HTMLDivElement> = {}) =>
+    renderHook(() => useInView({ ref, ...rest })).result;
 
   interface Event {
     intersectionRatio?: number;

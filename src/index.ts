@@ -43,7 +43,7 @@ export interface Options<T> {
   onEnter?: Callback;
   onLeave?: Callback;
 }
-export interface Return<T> {
+interface Return<T> {
   ref: RefObject<T>;
   readonly inView: boolean;
   readonly scrollDirection: ScrollDirection;
