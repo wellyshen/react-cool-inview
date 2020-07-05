@@ -206,7 +206,7 @@ describe("useInView", () => {
     expect(result.current.entry).toStrictEqual(e);
   });
 
-  it("should stop observe on-enter when set the unobserveOnEnter as true", () => {
+  it("should stop observe on-enter when set the unobserveOnEnter to true", () => {
     renderHelper({ unobserveOnEnter: true });
     act(() => {
       triggerObserverCb({ isIntersecting: true });
