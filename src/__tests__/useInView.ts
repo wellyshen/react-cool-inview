@@ -86,6 +86,7 @@ describe("useInView", () => {
       trackVisibility,
       delay,
       // @ts-ignore
+      // eslint-disable-next-line compat/compat
     } = IntersectionObserver.mock.results[0].value;
     expect(root).toBe(args.root);
     expect(rootMargin).toBe(args.rootMargin);
