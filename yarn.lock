@@ -8075,9 +8075,9 @@ rollup-plugin-postcss@^3.1.2:
     style-inject "^0.3.0"
 
 rollup-plugin-serve@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-serve/-/rollup-plugin-serve-1.0.2.tgz#b9823ae012bfd9d824cbb378aa7ae0ec2c150905"
-  integrity sha512-kootBwjS+Fez68cjFrJvFVskfUG4IbOmXE4uT3S9rz6T3NSWvw+Ie7jDqn+JQFmfVeTh6498ZzigTwPOxNYfKQ==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-serve/-/rollup-plugin-serve-1.0.3.tgz#409a52303efcd78911834a37db5835b76a2f8e61"
+  integrity sha512-DziGAVsXQVzQuT1v4vcv2l0GURnGYsX8m/FV1XzZ18VG3PWSedLaOSQFiW6RLHF7jB/F+CxlwK4YCUVZs8vxbg==
   dependencies:
     mime ">=2.0.3"
     opener "1"
