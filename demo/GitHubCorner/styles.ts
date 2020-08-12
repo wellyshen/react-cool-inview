@@ -38,12 +38,10 @@ export const github = css`
   position: absolute;
   top: 0;
   right: 0;
-  &:hover {
-    .css-${octoArm.name} {
-      animation: none;
-      ${mq.sm} {
-        animation: ${octocatWave} 560ms ease-in-out;
-      }
+  &:hover .css-${octoArm.name} {
+    animation: none;
+    ${mq.sm} {
+      animation: ${octocatWave} 560ms ease-in-out;
     }
   }
 `;
