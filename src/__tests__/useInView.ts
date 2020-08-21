@@ -59,9 +59,7 @@ describe("useInView", () => {
   };
 
   beforeAll(() => {
-    // @ts-ignore
     global.IntersectionObserver = mockIntersectionObserver;
-    // @ts-ignore
     global.IntersectionObserverEntry = jest.fn();
   });
 
@@ -85,7 +83,7 @@ describe("useInView", () => {
       threshold,
       trackVisibility,
       delay,
-      // @ts-ignore
+      // @ts-expect-error
       // eslint-disable-next-line compat/compat
     } = IntersectionObserver.mock.results[0].value;
     expect(root).toBe(args.root);
@@ -368,15 +366,11 @@ describe("useInView", () => {
     renderHelper();
     expect(console.error).not.toHaveBeenCalled();
 
-    // @ts-ignore
     delete global.IntersectionObserver;
     renderHelper();
-    // @ts-ignore
     global.IntersectionObserver = mockIntersectionObserver;
-    // @ts-ignore
     delete global.IntersectionObserverEntry;
     renderHelper();
-    // @ts-ignore
     global.IntersectionObserverEntry = jest.fn();
 
     expect(console.error).toHaveBeenNthCalledWith(2, observerErr);
