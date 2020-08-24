@@ -6,7 +6,10 @@ const { sm, md, lg } = mq;
 
 export const root = css`
   body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
+    h1 {
+      font-family: "Bungee Shade", cursive;
+    }
   }
 `;
 
@@ -15,6 +18,7 @@ export const container = css`
   flex-direction: column;
   align-items: center;
   padding: 5rem 5%;
+  text-align: center;
   ${sm} {
     padding-left: 10%;
     padding-right: 10%;
@@ -30,11 +34,19 @@ export const container = css`
 `;
 
 export const title = css`
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
+  font-size: 8vw;
+  ${md} {
+    font-size: 4vw;
+  }
 `;
 
 export const subtitle = css`
-  margin: 0 0 2.5rem;
+  margin: 0 0 5rem;
+  font-size: 3vw;
+  ${md} {
+    font-size: 1.5vw;
+  }
 `;
 
 export const log = css`
@@ -42,7 +54,7 @@ export const log = css`
   align-items: center;
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
-  color: grey;
+  font-weight: bold;
 `;
 
 export const frame = css`
@@ -50,7 +62,7 @@ export const frame = css`
   width: 90%;
   max-width: 350px;
   height: 300px;
-  border: 1px solid #777;
+  border: 5px dashed;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 `;

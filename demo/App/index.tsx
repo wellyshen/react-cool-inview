@@ -53,7 +53,7 @@ const App: FC = () => {
       />
       <div css={container}>
         <GitHubCorner url="https://github.com/wellyshen/react-cool-inview" />
-        <h1 css={title}>React Cool Inview</h1>
+        <h1 css={title}>REACT COOL INVIEW</h1>
         <p css={subtitle}>
           React hook to monitor an element enters or leaves the viewport (or
           another element).

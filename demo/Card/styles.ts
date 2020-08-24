@@ -7,7 +7,6 @@ export const card = css`
   margin: 20px 10px;
   height: 230px;
   background: #eee;
-  border-radius: 0.5rem;
 `;
 
 export const font = css`

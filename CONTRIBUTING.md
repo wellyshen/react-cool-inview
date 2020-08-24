@@ -1,4 +1,4 @@
-# Contributing to React Cool Inview
+# Contributing to REACT COOL INVIEW
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
@@ -20,7 +20,7 @@ Please note we have a [code of conduct](https://github.com/wellyshen/react-cool-
 
 ## Development Workflow
 
-After cloning React Cool Inview, run `yarn` to fetch its dependencies. Then, you can run several commands:
+After cloning REACT COOL INVIEW, run `yarn` to fetch its dependencies. Then, you can run several commands:
 
 - `yarn dev` runs the [demo app](https://github.com/wellyshen/react-cool-inview/tree/master/demo/App) as your playground at `localhost:10001`. Support live reloading.
 - `yarn lint:code` lints all `.js` and `.tsx?` files.
@@ -48,4 +48,4 @@ However, there are still some styles that the linter cannot pick up. If you are 
 
 ## License
 
-By contributing to React Cool Inview, you agree that your contributions will be licensed under its MIT license.
+By contributing to REACT COOL INVIEW, you agree that your contributions will be licensed under its MIT license.

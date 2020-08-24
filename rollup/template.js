@@ -9,10 +9,10 @@ export default ({ files }) => `
       <meta name="theme-color" content="#000000" />
       <link rel="apple-touch-icon" href="assets/logo192.png" />
       <link rel="manifest" href="assets/manifest.json" />
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href=${files.css[0].fileName} />
-      <title>React Cool Inview</title>
-      <meta property="og:title" content="React Cool Inview" />
+      <title>REACT COOL INVIEW</title>
+      <meta property="og:title" content="REACT COOL INVIEW" />
       <meta property="og:type" content="website" />
       <meta property="og:image" content="https://react-cool-inview.netlify.app/assets/og_image.png" />
       <meta property="og:description" content="React hook to monitor an element enters or leaves the viewport (or another element)." />
