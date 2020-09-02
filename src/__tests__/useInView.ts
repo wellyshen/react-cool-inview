@@ -64,6 +64,7 @@ describe("useInView", () => {
   });
 
   it("should not start observe if the target isn't set", () => {
+    // @ts-expect-error
     renderHelper({ ref: null });
     expect(observe).not.toHaveBeenCalled();
   });
@@ -107,6 +108,7 @@ describe("useInView", () => {
   });
 
   it("should return workable ref", () => {
+    // @ts-expect-error
     const result = renderHelper({ ref: null });
     expect(result.current.ref).toStrictEqual({ current: null });
 
@@ -366,9 +368,11 @@ describe("useInView", () => {
     renderHelper();
     expect(console.error).not.toHaveBeenCalled();
 
+    // @ts-ignore
     delete global.IntersectionObserver;
     renderHelper();
     global.IntersectionObserver = mockIntersectionObserver;
+    // @ts-ignore
     delete global.IntersectionObserverEntry;
     renderHelper();
     global.IntersectionObserverEntry = jest.fn();

@@ -1,4 +1,11 @@
-import { RefObject, useState, useRef, useEffect, useCallback } from "react";
+import {
+  RefObject,
+  MutableRefObject,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 
 import useLatest from "./useLatest";
 
@@ -61,7 +68,7 @@ const useInView = <T extends HTMLElement>({
   ref: refOpt,
   root,
   rootMargin,
-  threshold,
+  threshold = 0,
   trackVisibility,
   delay,
   unobserveOnEnter = false,
@@ -76,18 +83,20 @@ const useInView = <T extends HTMLElement>({
   const prevInViewRef = useRef<boolean>(false);
   const prevPosRef = useRef<{ x?: number; y?: number }>({});
   const isObservingRef = useRef<boolean>(false);
-  const observerRef = useRef<IntersectionObserver>(null);
+  const observerRef: MutableRefObject<IntersectionObserver | null> = useRef(
+    null
+  );
   const warnedRef = useRef<boolean>(false);
-  const onChangeRef = useLatest<OnChange>(onChange);
-  const onEnterRef = useLatest<Callback>(onEnter);
-  const onLeaveRef = useLatest<Callback>(onLeave);
+  const onChangeRef = useLatest<OnChange | undefined>(onChange);
+  const onEnterRef = useLatest<Callback | undefined>(onEnter);
+  const onLeaveRef = useLatest<Callback | undefined>(onLeave);
   const refVar = useRef<T>(null);
   const ref = refOpt || refVar;
 
   const observe = useCallback((): void => {
     if (isObservingRef.current || !observerRef.current) return;
 
-    observerRef.current.observe(ref.current);
+    observerRef.current.observe(ref.current as Element);
     isObservingRef.current = true;
   }, [ref]);
 
@@ -99,14 +108,14 @@ const useInView = <T extends HTMLElement>({
   }, []);
 
   useEffect(() => {
-    if (!ref.current) return (): void => null;
+    if (!ref.current) return () => null;
 
     if (
       !("IntersectionObserver" in window) ||
       !("IntersectionObserverEntry" in window)
     ) {
       console.error(observerErr);
-      return (): void => null;
+      return () => null;
     }
 
     // eslint-disable-next-line compat/compat
@@ -127,11 +136,15 @@ const useInView = <T extends HTMLElement>({
 
         if (min > 0) inView = intersectionRatio >= min;
 
+        // @ts-expect-error
         if (x < prevPosRef.current.x) scrollDirection.horizontal = "left";
+        // @ts-expect-error
         if (x > prevPosRef.current.x) scrollDirection.horizontal = "right";
         prevPosRef.current.x = x;
 
+        // @ts-expect-error
         if (y < prevPosRef.current.y) scrollDirection.vertical = "up";
+        // @ts-expect-error
         if (y > prevPosRef.current.y) scrollDirection.vertical = "down";
         prevPosRef.current.y = y;
 
