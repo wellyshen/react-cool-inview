@@ -23,7 +23,7 @@ describe("useInView", () => {
   const disconnect = jest.fn();
   const mockIntersectionObserver = jest.fn((cb, opts) => ({
     ...opts,
-    observe: (): void => {
+    observe: () => {
       callback = cb;
       observe();
     },
@@ -41,7 +41,7 @@ describe("useInView", () => {
     isIntersecting = observerEvent.isIntersecting,
     boundingClientRect = observerEvent.boundingClientRect,
     isVisible = observerEvent.isVisible,
-  } = {}): void => {
+  } = {}) => {
     callback([
       { intersectionRatio, isIntersecting, boundingClientRect, isVisible },
     ]);

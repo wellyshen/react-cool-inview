@@ -25,7 +25,7 @@ export default ({ string, direction }: Props): JSX.Element => {
     }
   }, [string, direction]);
 
-  const handleTransitionEnd = (): void => {
+  const handleTransitionEnd = () => {
     setStrs(["", string, ""]);
     setY(defaultY);
   };

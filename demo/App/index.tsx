@@ -35,7 +35,7 @@ const App: FC = () => {
       <Card
         key={emoji}
         string={emoji}
-        onEnter={(str: string, dir: string): void => {
+        onEnter={(str: string, dir: string) => {
           setState({ str, dir });
         }}
       />

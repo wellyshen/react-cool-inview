@@ -93,14 +93,14 @@ const useInView = <T extends HTMLElement>({
   const refVar = useRef<T>(null);
   const ref = refOpt || refVar;
 
-  const observe = useCallback((): void => {
+  const observe = useCallback(() => {
     if (isObservingRef.current || !observerRef.current) return;
 
     observerRef.current.observe(ref.current as Element);
     isObservingRef.current = true;
   }, [ref]);
 
-  const unobserve = useCallback((): void => {
+  const unobserve = useCallback(() => {
     if (!isObservingRef.current || !observerRef.current) return;
 
     observerRef.current.disconnect();
@@ -182,7 +182,7 @@ const useInView = <T extends HTMLElement>({
 
     observe();
 
-    return (): void => {
+    return () => {
       unobserve();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
