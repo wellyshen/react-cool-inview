@@ -38,13 +38,10 @@ declare module "react-cool-inview" {
     onLeave?: Callback;
   }
 
-  interface Return<T> {
+  interface Return<T> extends Readonly<Omit<BaseEvent, "entry">> {
     ref: RefObject<T>;
     readonly inView: boolean;
-    readonly scrollDirection: ScrollDirection;
     readonly entry?: IntersectionObserverEntryV2;
-    readonly observe: () => void;
-    readonly unobserve: () => void;
   }
 
   const useInView: <T extends HTMLElement>(options?: Options<T>) => Return<T>;
