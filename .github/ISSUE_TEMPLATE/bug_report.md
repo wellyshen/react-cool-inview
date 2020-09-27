@@ -17,6 +17,10 @@ Steps to reproduce the behavior, please provide code snippets or a repository:
 2. Click on '....'
 3. See error
 
+## CodeSandbox Link
+
+Show me the bug on [CodeSandbox](https://codesandbox.io).
+
 ## Expected Behavior
 
 Tell me what should happen.
