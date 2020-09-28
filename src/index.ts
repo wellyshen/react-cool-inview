@@ -52,8 +52,8 @@ export interface Options<T> {
 }
 interface Return<T> extends Readonly<Omit<BaseEvent, "entry">> {
   ref: RefObject<T>;
-  readonly inView: boolean;
-  readonly entry?: IntersectionObserverEntryV2;
+  inView: boolean;
+  entry?: IntersectionObserverEntryV2;
 }
 interface State {
   inView: boolean;
