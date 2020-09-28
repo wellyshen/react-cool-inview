@@ -22,8 +22,8 @@ interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
   readonly isVisible?: boolean;
 }
 interface ScrollDirection {
-  vertical?: "up" | "down";
-  horizontal?: "left" | "right";
+  readonly vertical?: "up" | "down";
+  readonly horizontal?: "left" | "right";
 }
 interface BaseEvent {
   entry: IntersectionObserverEntryV2;
@@ -50,7 +50,7 @@ export interface Options<T> {
   onEnter?: Callback;
   onLeave?: Callback;
 }
-interface Return<T> extends Readonly<Omit<BaseEvent, "entry">> {
+interface Return<T> extends Omit<BaseEvent, "entry"> {
   ref: RefObject<T>;
   inView: boolean;
   entry?: IntersectionObserverEntryV2;

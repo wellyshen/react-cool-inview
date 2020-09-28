@@ -6,8 +6,8 @@ declare module "react-cool-inview" {
   }
 
   interface ScrollDirection {
-    vertical?: "up" | "down";
-    horizontal?: "left" | "right";
+    readonly vertical?: "up" | "down";
+    readonly horizontal?: "left" | "right";
   }
 
   export interface BaseEvent {
@@ -38,7 +38,7 @@ declare module "react-cool-inview" {
     onLeave?: Callback;
   }
 
-  interface Return<T> extends Readonly<Omit<BaseEvent, "entry">> {
+  interface Return<T> extends Omit<BaseEvent, "entry"> {
     ref: RefObject<T>;
     inView: boolean;
     entry?: IntersectionObserverEntryV2;
