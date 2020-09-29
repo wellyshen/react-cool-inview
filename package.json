@@ -112,7 +112,6 @@
       "welly"
     ],
     "rules": {
-      "no-use-before-define": "off",
       "no-console": [
         "warn",
         {
@@ -175,7 +174,7 @@
     "@types/react-dom": "^16.9.8",
     "babel-plugin-emotion": "^10.0.33",
     "eslint": "^7.2.0",
-    "eslint-config-welly": "^1.4.9",
+    "eslint-config-welly": "^1.4.10",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "lint-staged": "^10.4.0",
@@ -197,7 +196,7 @@
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.1.2",
-    "ts-jest": "^26.4.0",
+    "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   },
   "peerDependencies": {
