@@ -5,7 +5,7 @@ export default <T>(val: T): RefObject<T> => {
 
   useEffect(() => {
     ref.current = val;
-  }, [val]);
+  });
 
   return ref;
 };
