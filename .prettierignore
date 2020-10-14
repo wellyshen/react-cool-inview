@@ -1,0 +1,6 @@
+*.log
+demo/.dev
+public
+dist
+coverage
+.size-snapshot.json
