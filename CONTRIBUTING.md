@@ -14,9 +14,8 @@ Please note we have a [code of conduct](https://github.com/wellyshen/react-cool-
 4. Ensure the test suite passes by running `yarn test`.
 5. Update the [README.md](https://github.com/wellyshen/react-cool-inview/blob/master/README.md) with details of changes to the interface.
 6. Update the [demo app](https://github.com/wellyshen/react-cool-inview/tree/master/demo/App) if needed.
-7. Format your code with [Prettier](https://prettier.io).
-8. Make sure your code lints by running `yarn lint`.
-9. Make sure your code passes type check by running `yarn type-check`.
+7. Make sure your code lints by running `yarn lint`.
+8. Make sure your code passes type check by running `yarn type-check`.
 
 ## Development Workflow
 
@@ -42,7 +41,7 @@ After cloning REACT COOL INVIEW, run `yarn` to fetch its dependencies. Then, you
 
 ## Style Guide
 
-We use an automatic code formatter called [Prettier](https://prettier.io). Run `yarn lint` after making any changes to the code. Then, our linter will catch most issues that may exist in your code.
+We use [ESLint](https://eslint.org), [StyleLint](https://stylelint.io) and [Prettier](https://prettier.io) for code style and formatting. Run `yarn lint` after making any changes to the code. Then, our linter will catch most issues that may exist in your code.
 
 However, there are still some styles that the linter cannot pick up. If you are unsure about something, looking at [Airbnb’s Style Guide](https://github.com/airbnb/javascript) will guide you in the right direction.
 

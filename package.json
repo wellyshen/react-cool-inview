@@ -57,9 +57,10 @@
   },
   "scripts": {
     "dev": "yarn clean:dev && rollup -c rollup/config.js -w --environment BUILD:dev",
+    "lint": "run-s lint:*",
     "lint:code": "eslint --fix . --ext .js,.ts,.tsx",
     "lint:style": "stylelint --fix \"**/*.{css,ts,tsx}\"",
-    "lint": "run-p lint:*",
+    "lint:format": "prettier -w . -u --loglevel silent",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check --watch",
     "test": "jest",
@@ -126,16 +127,10 @@
     "dist"
   ],
   "stylelint": {
-    "plugins": [
-      "stylelint-prettier"
-    ],
     "extends": [
       "stylelint-config-standard",
-      "stylelint-prettier/recommended"
+      "stylelint-config-prettier"
     ],
-    "rules": {
-      "prettier/prettier": true
-    },
     "ignoreFiles": [
       "public/**/*.css",
       "coverage/**/*.css"
@@ -191,7 +186,6 @@
     "stylelint": "^13.7.2",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-prettier": "^1.1.2",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   },
