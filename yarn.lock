@@ -3676,22 +3676,22 @@ eslint-config-airbnb@^18.2.0:
     object.assign "^4.1.0"
     object.entries "^1.1.2"
 
-eslint-config-prettier@^6.12.0:
-  version "6.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.12.0.tgz#9eb2bccff727db1c52104f0b49e87ea46605a0d2"
-  integrity sha512-9jWPlFlgNwRUYVoujvWTQ1aMO8o6648r+K7qU7K5Jmkbyqav1fuEZC0COYpGBxyiAJb65Ra9hrmFx19xRGwXWw==
+eslint-config-prettier@^6.13.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.13.0.tgz#207d88796b5624e5bb815bbbdfc5891ceb9ebffa"
+  integrity sha512-LcT0i0LSmnzqK2t764pyIt7kKH2AuuqKRTtJTdddWxOiUja9HdG5GXBVF2gmCTvVYWVsTu8J2MhJLVGRh+pj8w==
   dependencies:
     get-stdin "^6.0.0"
 
 eslint-config-welly@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.6.0.tgz#1a8fb156bc84b64b90ac588de924415e90626f4b"
-  integrity sha512-HteRJOb1B0EFg+g1DkXIJkmfJl1krFUJzTuJIzuYiZKhHJS+eyWJ6wGRnxe4m2rUmg8AuJH2z+MiEG2svjHqyQ==
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.6.1.tgz#2f8a01183094666ba0fd904c01f3f170fd73c265"
+  integrity sha512-TJyNluPZ9ZX3Ht5hjkqu3dosC6aGNorUzwgqXx1TIaz9swuy/MTtjhri4LfQjjvSWU66UF7Npm/OCxNGfxnt9w==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.1"
     "@typescript-eslint/parser" "^4.4.1"
     eslint-config-airbnb "^18.2.0"
-    eslint-config-prettier "^6.12.0"
+    eslint-config-prettier "^6.13.0"
     eslint-import-resolver-typescript "^2.3.0"
     eslint-plugin-compat "^3.8.0"
     eslint-plugin-emotion "^10.0.27"
@@ -3701,7 +3701,7 @@ eslint-config-welly@^1.6.0:
     eslint-plugin-jsx-a11y "^6.3.0"
     eslint-plugin-react "^7.20.0"
     eslint-plugin-react-hooks "^4"
-    eslint-plugin-testing-library "^3.9.1"
+    eslint-plugin-testing-library "^3.9.2"
     read-pkg-up "^7.0.1"
 
 eslint-import-resolver-node@^0.3.4:
@@ -3823,7 +3823,7 @@ eslint-plugin-react@^7.20.0:
     resolve "^1.17.0"
     string.prototype.matchall "^4.0.2"
 
-eslint-plugin-testing-library@^3.9.1:
+eslint-plugin-testing-library@^3.9.2:
   version "3.9.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-3.9.2.tgz#ea94048fcc4bf2936588af229d78017c780e9dd6"
   integrity sha512-79oWT8dIPerbm4fdZj/QkeKB43P3XgSNbBWLnBi+Li0n+CFEvW078Q962VWeXXqHHofuXJeVOXg7grjiw849BQ==
