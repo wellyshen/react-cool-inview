@@ -138,9 +138,6 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "moduleNameMapper": {
-      "\\.(apng|bmp|gif|ico|cur|jpg|jpeg|jfif|pjpeg|pjp|png|svg|tif|tiff|webp)$": "<rootDir>/__mocks__/file.ts"
-    },
     "collectCoverageFrom": [
       "src/*.(ts|tsx)",
       "!src/*.d.ts"
