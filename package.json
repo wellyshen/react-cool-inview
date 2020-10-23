@@ -61,7 +61,7 @@
     "lint:code": "eslint --fix . --ext .js,.ts,.tsx",
     "lint:style": "stylelint --fix \"**/*.{css,ts,tsx}\"",
     "lint:format": "prettier -w . -u --loglevel silent",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc",
     "type-check:watch": "yarn type-check --watch",
     "test": "jest",
     "test:watch": "yarn test --watch",
