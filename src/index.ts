@@ -1,11 +1,4 @@
-import {
-  RefObject,
-  MutableRefObject,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-} from "react";
+import { RefObject, useState, useRef, useEffect, useCallback } from "react";
 
 import useLatest from "./useLatest";
 
@@ -80,9 +73,7 @@ const useInView = <T extends HTMLElement>({
   const prevInViewRef = useRef<boolean>(false);
   const prevPosRef = useRef<{ x?: number; y?: number }>({});
   const isObservingRef = useRef<boolean>(false);
-  const observerRef: MutableRefObject<IntersectionObserver | null> = useRef(
-    null
-  );
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const warnedRef = useRef<boolean>(false);
   const onChangeRef = useLatest<OnChange | undefined>(onChange);
   const onEnterRef = useLatest<Callback | undefined>(onEnter);
