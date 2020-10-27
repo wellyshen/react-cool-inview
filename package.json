@@ -90,7 +90,12 @@
   },
   "babel": {
     "presets": [
-      "@babel/env",
+      [
+        "@babel/preset-env",
+        {
+          "loose": true
+        }
+      ],
       "@babel/typescript",
       "@babel/react"
     ],
