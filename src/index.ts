@@ -3,9 +3,9 @@ import { RefObject, useState, useRef, useEffect, useCallback } from "react";
 import useLatest from "./useLatest";
 
 export const observerErr =
-  "💡react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersection-observer-polyfill";
+  "💡 react-cool-inview: the browser doesn't support Intersection Observer, please install polyfill: https://github.com/wellyshen/react-cool-inview#intersection-observer-polyfill";
 export const observerWarn =
-  "💡react-cool-inview: the browser doesn't support Intersection Observer v2, fallback to v1 behavior";
+  "💡 react-cool-inview: the browser doesn't support Intersection Observer v2, fallback to v1 behavior";
 
 interface IntersectionObserverInitV2 extends IntersectionObserverInit {
   readonly trackVisibility?: boolean;
