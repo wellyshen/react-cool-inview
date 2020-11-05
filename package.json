@@ -51,10 +51,6 @@
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": ">=10",
-    "npm": ">=6"
-  },
   "scripts": {
     "dev": "yarn clean:dev && rollup -c rollup/config.js -w --environment BUILD:dev",
     "lint": "run-s lint:*",
