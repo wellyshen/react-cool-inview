@@ -15,7 +15,6 @@ Please note we have a [code of conduct](https://github.com/wellyshen/react-cool-
 5. Update the [README.md](https://github.com/wellyshen/react-cool-inview/blob/master/README.md) with details of changes to the interface.
 6. Update the [demo app](https://github.com/wellyshen/react-cool-inview/tree/master/demo/App) if needed.
 7. Make sure your code lints by running `yarn lint`.
-8. Make sure your code passes type check by running `yarn type-check`.
 
 ## Development Workflow
 
@@ -23,10 +22,9 @@ After cloning REACT COOL INVIEW, run `yarn` to fetch its dependencies. Then, you
 
 - `yarn dev` runs the [demo app](https://github.com/wellyshen/react-cool-inview/tree/master/demo/App) as your playground at `localhost:10001`. Support live reloading.
 - `yarn lint:code` lints all `.js` and `.tsx?` files.
+- `yarn lint:type` runs the [Typescript](https://www.typescriptlang.org) type-checks.
 - `yarn lint:style` lints all `.css` and `.tsx?` (for [Emotion](https://emotion.sh)) files.
 - `yarn lint` lints both `code` and `style`.
-- `yarn type-check` runs the [Typescript](https://www.typescriptlang.org) typechecks.
-- `yarn type-check:watch` runs an interactive typechecks watcher (helpful in development).
 - `yarn test` runs the complete test suite.
 - `yarn test:watch` runs an interactive test watcher (helpful in development).
 - `yarn test:cov` runs the complete test suite with coverage report.
