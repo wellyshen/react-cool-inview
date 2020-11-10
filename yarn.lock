@@ -976,9 +976,9 @@
     "@babel/plugin-syntax-jsx" "^7.2.0"
 
 "@emotion/babel-preset-css-prop@^10.2.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@emotion/babel-preset-css-prop/-/babel-preset-css-prop-10.2.0.tgz#cddb662b0dace7ea62f69439965ea156a7a486b9"
-  integrity sha512-3I0CAZ+0fA/VjwNxL4/qfsgiuXtEM/Kvnl49oqSf51bl+kNxsHdypb0J/mdBY8OifuTbwjAOsQkRLVPdUtJN4Q==
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-preset-css-prop/-/babel-preset-css-prop-10.2.1.tgz#fb331355c1819367a6e5dd171879ae4957aa701a"
+  integrity sha512-4hudLJCfIrbpJZek5n69cwzu7GgCamza/whh/RgqXaI5ZWT8pFj1rR2KjQntzFFzTU7l9o+jdVPSpgCbrVG+VQ==
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.12.1"
     "@babel/plugin-transform-react-jsx-development" "^7.12.1"
