@@ -102,7 +102,7 @@
     "@types/jest": "^26.0.15",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
-    "babel-plugin-emotion": "^10.0.33",
+    "babel-plugin-emotion": "^11.0.0",
     "eslint": "^7.2.0",
     "eslint-config-welly": "^1.8.0",
     "husky": "^4.3.0",

@@ -153,14 +153,7 @@
   dependencies:
     "@babel/types" "^7.12.1"
 
-"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.10.4", "@babel/helper-module-imports@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.12.1.tgz#1644c01591a15a2f084dd6d092d9430eb1d1216c"
-  integrity sha512-ZeC1TlMSvikvJNy1v/wPIazCu3NdOwgYZLIkmIyAsGhqkNpiDoQQRmaCK8YP4Pq3GPTLPV9WXaPCJKvx06JxKA==
-  dependencies:
-    "@babel/types" "^7.12.1"
-
-"@babel/helper-module-imports@^7.7.0":
+"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.10.4", "@babel/helper-module-imports@^7.12.1", "@babel/helper-module-imports@^7.7.0":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.12.5.tgz#1bfc0229f794988f76ed0a4d4e90860850b54dfb"
   integrity sha512-SR713Ogqg6++uexFRORf/+nPXMmWIn80TALu0uaFb+iQIUoR7bOC7zBWyzBs5b3tBBJXuyD0cRu1F15GyzjOWA==
@@ -2324,7 +2317,7 @@ babel-plugin-dynamic-import-node@^2.3.3:
   dependencies:
     object.assign "^4.1.0"
 
-babel-plugin-emotion@^10.0.27, babel-plugin-emotion@^10.0.33:
+babel-plugin-emotion@^10.0.27:
   version "10.0.33"
   resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-10.0.33.tgz#ce1155dcd1783bbb9286051efee53f4e2be63e03"
   integrity sha512-bxZbTTGz0AJQDHm8k6Rf3RQJ8tX2scsfsRyKVgAbiUPUNIRtlK+7JxP+TAd1kRLABFxe0CFm2VdK4ePkoA9FxQ==
@@ -2339,6 +2332,11 @@ babel-plugin-emotion@^10.0.27, babel-plugin-emotion@^10.0.33:
     escape-string-regexp "^1.0.5"
     find-root "^1.1.0"
     source-map "^0.5.7"
+
+babel-plugin-emotion@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-11.0.0.tgz#f362c9fe05493821ab8995cd5a8e7be6504b73a9"
+  integrity sha512-cVD32sIXlidaqQBr7vw0uD2o58uBeD8jILDJ2yAGT1fOmgYcE5iX27bTVMV6meiUZarIAh1iAyTqrEWV+V2dqQ==
 
 babel-plugin-istanbul@^6.0.0:
   version "6.0.0"
