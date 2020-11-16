@@ -83,73 +83,15 @@
     "*.{css,ts,tsx}": "stylelint --fix",
     "**/*": "prettier --write --ignore-unknown"
   },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "loose": true
-        }
-      ],
-      "@babel/typescript",
-      "@babel/react"
-    ],
-    "env": {
-      "development": {
-        "presets": [
-          "@emotion/babel-preset-css-prop"
-        ],
-        "plugins": [
-          "emotion"
-        ]
-      }
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "welly"
-    ],
-    "rules": {
-      "no-console": [
-        "warn",
-        {
-          "allow": [
-            "warn",
-            "error"
-          ]
-        }
-      ],
-      "emotion/jsx-import": "off"
-    }
-  },
-  "eslintIgnore": [
-    "public",
-    "dist"
-  ],
-  "stylelint": {
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-prettier"
-    ],
-    "ignoreFiles": [
-      "public/**/*.css",
-      "coverage/**/*.css"
-    ]
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "collectCoverageFrom": [
-      "src/*.(ts|tsx)",
-      "!src/*.d.ts"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
     "@babel/preset-typescript": "^7.12.1",
-    "@emotion/babel-preset-css-prop": "^10.2.0",
+    "@emotion/babel-plugin": "^11.0.0",
+    "@emotion/babel-preset-css-prop": "^11.0.0",
     "@emotion/core": "^10.1.1",
+    "@emotion/react": "^11.0.0",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-html": "^0.2.0",
@@ -162,7 +104,7 @@
     "@types/react-dom": "^16.9.9",
     "babel-plugin-emotion": "^10.0.33",
     "eslint": "^7.2.0",
-    "eslint-config-welly": "^1.7.0",
+    "eslint-config-welly": "^1.8.0",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.1",
@@ -173,7 +115,7 @@
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.33.1",
+    "rollup": "^2.33.2",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-postcss": "^3.1.8",

@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/typescript",
+    "@babel/react"
+  ],
+  "env": {
+    "development": {
+      "presets": ["@emotion/babel-preset-css-prop"],
+      "plugins": ["@emotion"]
+    }
+  }
+}
