@@ -3753,9 +3753,9 @@ eslint-config-prettier@^6.15.0:
     get-stdin "^6.0.0"
 
 eslint-config-welly@^1.8.0:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.8.1.tgz#2c92284dbbbeddc395397f096cc0ca94c2c7651a"
-  integrity sha512-+K6l2kYUHxEfcQdOHqoekGSfzy0Nb4ov480INWRmUkisVq2oykKQIsweHAYIm+az5WAPSB4S/JstNQ+E3pTp/A==
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.8.3.tgz#662be0d6a5f379ec87de70567722cfdd7ace88ba"
+  integrity sha512-lKOMx7AIdP5ENl9gLD114VlH+/XcAvAijZOmEoKPHewAugif4mqhqiO6Iv7vamQZOYplVOaHntaR/w00aHTBZw==
   dependencies:
     "@emotion/eslint-plugin" "^11.0.0"
     "@typescript-eslint/eslint-plugin" "^4.8.1"
