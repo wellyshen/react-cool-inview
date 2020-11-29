@@ -9,7 +9,7 @@ describe("useInView", () => {
     ref = target,
     ...rest
   }: Options<HTMLDivElement> = {}) =>
-    renderHook(() => useInView({ ref, ...rest })).result;
+    renderHook(() => useInView({ ref, ...rest }));
 
   interface Event {
     intersectionRatio?: number;
@@ -58,6 +58,11 @@ describe("useInView", () => {
     inView: observerEvent.isIntersecting,
   };
 
+  beforeEach(() => {
+    observe.mockClear();
+    disconnect.mockClear();
+  });
+
   beforeAll(() => {
     global.IntersectionObserver = mockIntersectionObserver;
     global.IntersectionObserverEntry = jest.fn();
@@ -95,21 +100,21 @@ describe("useInView", () => {
   });
 
   it("should return workable unobserve method", () => {
-    const result = renderHelper();
+    const { result } = renderHelper();
     result.current.unobserve();
-    expect(disconnect).toHaveBeenCalledTimes(2);
+    expect(disconnect).toHaveBeenCalledTimes(1);
   });
 
   it("should return workable observe method", () => {
-    const result = renderHelper();
+    const { result } = renderHelper();
     result.current.unobserve();
     result.current.observe();
-    expect(observe).toHaveBeenCalledTimes(4);
+    expect(observe).toHaveBeenCalledTimes(2);
   });
 
   it("should return workable ref", () => {
     // @ts-expect-error
-    const result = renderHelper({ ref: null });
+    const { result } = renderHelper({ ref: null });
     expect(result.current.ref).toStrictEqual({ current: null });
 
     result.current.ref = target;
@@ -117,28 +122,28 @@ describe("useInView", () => {
   });
 
   it("should return inView correctly", () => {
-    let result = renderHelper();
+    let { result } = renderHelper();
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ isIntersecting: true });
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ threshold: 0.5 });
+    result = renderHelper({ threshold: 0.5 }).result;
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ intersectionRatio: 0.6 });
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ threshold: [0, 1] });
+    result = renderHelper({ threshold: [0, 1] }).result;
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ isIntersecting: true });
     });
     expect(result.current.inView).toBeTruthy();
 
-    result = renderHelper({ threshold: [0.5, 1] });
+    result = renderHelper({ threshold: [0.5, 1] }).result;
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ intersectionRatio: 0.6 });
@@ -147,7 +152,7 @@ describe("useInView", () => {
   });
 
   it("should return inView with intersection observer v2 correctly", () => {
-    const result = renderHelper({ trackVisibility: true });
+    const { result } = renderHelper({ trackVisibility: true });
     act(() => {
       triggerObserverCb({ isIntersecting: true, isVisible: false });
     });
@@ -159,8 +164,8 @@ describe("useInView", () => {
     expect(result.current.inView).toBeTruthy();
   });
 
-  it("should return scrollDidrection correctly", () => {
-    const result = renderHelper();
+  it("should return scrollDirection correctly", () => {
+    const { result } = renderHelper();
     expect(result.current.scrollDirection).toStrictEqual({});
 
     act(() => {
@@ -192,7 +197,7 @@ describe("useInView", () => {
   });
 
   it("should return entry correctly", () => {
-    const result = renderHelper();
+    const { result } = renderHelper();
     expect(result.current.entry).toBeUndefined();
 
     const e = {
@@ -212,12 +217,13 @@ describe("useInView", () => {
     act(() => {
       triggerObserverCb({ isIntersecting: true });
     });
-    expect(disconnect).toHaveBeenCalledTimes(12);
+    expect(disconnect).toHaveBeenCalledTimes(1);
   });
 
   it("should stop observe when un-mount", () => {
-    renderHelper();
-    expect(disconnect).toHaveBeenCalled();
+    const { unmount } = renderHelper();
+    unmount();
+    expect(disconnect).toHaveBeenCalledTimes(1);
   });
 
   it("should trigger onChange", () => {
@@ -239,8 +245,8 @@ describe("useInView", () => {
       scrollDirection: { vertical: "down" },
       entry: { ...changeEvent.entry, isIntersecting, boundingClientRect },
     });
-    expect(disconnect).toHaveBeenCalledTimes(15);
-    expect(observe).toHaveBeenCalledTimes(16);
+    expect(disconnect).toHaveBeenCalledTimes(2);
+    expect(observe).toHaveBeenCalledTimes(3);
   });
 
   it("should trigger onChange with intersection observer v2", () => {
@@ -285,8 +291,8 @@ describe("useInView", () => {
       scrollDirection: { vertical: "down" },
       entry: { ...baseEvent.entry, isIntersecting, boundingClientRect },
     });
-    expect(disconnect).toHaveBeenCalledTimes(18);
-    expect(observe).toHaveBeenCalledTimes(19);
+    expect(disconnect).toHaveBeenCalledTimes(1);
+    expect(observe).toHaveBeenCalledTimes(2);
   });
 
   it("should trigger onEnter with intersection observer v2", () => {
@@ -328,8 +334,8 @@ describe("useInView", () => {
       scrollDirection: { vertical: "down" },
       entry: { ...baseEvent.entry, isIntersecting: false, boundingClientRect },
     });
-    expect(disconnect).toHaveBeenCalledTimes(21);
-    expect(observe).toHaveBeenCalledTimes(22);
+    expect(disconnect).toHaveBeenCalledTimes(1);
+    expect(observe).toHaveBeenCalledTimes(2);
   });
 
   it("should trigger onLeave with intersection observer v2", () => {
@@ -381,7 +387,7 @@ describe("useInView", () => {
   });
 
   it("should use intersectionRatio instead of isIntersecting", () => {
-    const result = renderHelper();
+    const { result } = renderHelper();
     expect(result.current.inView).toBeFalsy();
     act(() => {
       callback([
