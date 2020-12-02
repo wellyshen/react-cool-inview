@@ -1642,7 +1642,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@^4.8.2":
+"@typescript-eslint/eslint-plugin@^4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.9.0.tgz#8fde15743413661fdc086c9f1f5d74a80b856113"
   integrity sha512-WrVzGMzzCrgrpnQMQm4Tnf+dk+wdl/YbgIgd5hKGa2P+lnJ2MON+nQnbwgbxtN9QDLi8HO+JAq0/krMnjQK6Cw==
@@ -1690,7 +1690,7 @@
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@^4.8.2":
+"@typescript-eslint/parser@^4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-4.9.0.tgz#bb65f1214b5e221604996db53ef77c9d62b09249"
   integrity sha512-QRSDAV8tGZoQye/ogp28ypb8qpsZPV6FOLD+tbN4ohKUWHD2n/u0Q2tIBnCsGwQCiD94RdtLkcqpdK4vKcLCCw==
@@ -3784,20 +3784,20 @@ eslint-config-prettier@^6.15.0:
     get-stdin "^6.0.0"
 
 eslint-config-welly@^1.8.0:
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.8.4.tgz#74eb85264fc08b66ba2de271944f52aaa95c0679"
-  integrity sha512-mP++JnkLvOl98nb/N+cKzitB9FEtp61/DDlHMRRGXEB0bQ/1JwbEwKtDTR9iwJMVpNkKARcETGmGmzJ5HE/J9A==
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-welly/-/eslint-config-welly-1.8.5.tgz#16c803f49ab5b6320d656258d91b2e4902cef97a"
+  integrity sha512-gP53FxiBNU2UK+YQtKVk9MkhkCgiMg04DdBO24VxE+VVNXvb1fCvs5KbBgny0jk2wykwOofi2niPnCEE37msIA==
   dependencies:
     "@emotion/eslint-plugin" "^11.0.0"
-    "@typescript-eslint/eslint-plugin" "^4.8.2"
-    "@typescript-eslint/parser" "^4.8.2"
+    "@typescript-eslint/eslint-plugin" "^4.9.0"
+    "@typescript-eslint/parser" "^4.9.0"
     eslint-config-airbnb "^18.2.1"
     eslint-config-prettier "^6.15.0"
     eslint-import-resolver-typescript "^2.3.0"
     eslint-plugin-compat "^3.8.0"
     eslint-plugin-import "^2.22.1"
     eslint-plugin-jest "^24.1.3"
-    eslint-plugin-jest-dom "^3.3.0"
+    eslint-plugin-jest-dom "^3.5.0"
     eslint-plugin-jsx-a11y "^6.4.1"
     eslint-plugin-react "^7.21.5"
     eslint-plugin-react-hooks "^4"
@@ -3864,10 +3864,10 @@ eslint-plugin-import@^2.22.1:
     resolve "^1.17.0"
     tsconfig-paths "^3.9.0"
 
-eslint-plugin-jest-dom@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-3.3.0.tgz#5be14f8c303b7e8551b426bc7ac8a152d01736ae"
-  integrity sha512-/7LqlMPiZh4SHy8YXSHilcx/zy7m5Fb7rl4AlzjIY8+amsGP2nZq9WIbMv0JYYVeq20p5+44GmWO6dCZcdLj4A==
+eslint-plugin-jest-dom@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest-dom/-/eslint-plugin-jest-dom-3.5.0.tgz#e5198d3aa30eca0b902b09e018df5a3b65c4e932"
+  integrity sha512-23+G4noSZRSN2znHMYBIOGBuRbNaxzL/o4WUelOJD9gL7jlpVJCczE89vE5nFt01cs7PRdP+wA4N6f0l+q1DTA==
   dependencies:
     "@babel/runtime" "^7.9.6"
     "@testing-library/dom" "^7.28.1"
