@@ -31,5 +31,5 @@ Have you done all of these things?
 
 - [ ] Documentation added
 - [ ] Tests
-- [ ] Typescript definitions updated
+- [ ] TypeScript definitions updated
 - [ ] Ready to be merged
