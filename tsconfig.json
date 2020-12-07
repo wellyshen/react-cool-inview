@@ -30,6 +30,5 @@
     "noImplicitReturns": true,
     // Report errors for fallthrough cases in switch statement
     "noFallthroughCasesInSwitch": true
-  },
-  "exclude": ["node_modules", "dist/index.d.ts"]
+  }
 }
