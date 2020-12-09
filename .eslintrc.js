@@ -7,5 +7,6 @@ module.exports = {
         allow: ["warn", "error"],
       },
     ],
+    "react/react-in-jsx-scope": "off",
   },
 };

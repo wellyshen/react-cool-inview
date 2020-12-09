@@ -1,10 +1,9 @@
 ---
 name: "\U0001F914 Questions and Help"
 about: This issue tracker is not for questions. Please ask questions at https://stackoverflow.com/questions/tagged/react.
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 GitHub Issues are reserved for Bug reports and Feature requests. Support requests that are created as issues are likely to be closed. We want to make sure you are able to find the help you seek. Please take a look at the following resources.

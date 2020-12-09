@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { Global, css } from "@emotion/react";
 import normalize from "normalize.css";
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 import useInView from "../../src";
 import { card, font } from "./styles";
 
