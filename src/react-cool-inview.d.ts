@@ -42,6 +42,7 @@ declare module "react-cool-inview" {
     ref: RefObject<T>;
     inView: boolean;
     entry?: IntersectionObserverEntryV2;
+    updatePosition?: () => void;
   }
 
   const useInView: <T extends HTMLElement>(options?: Options<T>) => Return<T>;

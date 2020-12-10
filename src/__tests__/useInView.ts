@@ -190,6 +190,16 @@ describe("useInView", () => {
 
     act(() => {
       triggerObserverCb();
+      // @ts-expect-error
+      Element.prototype.getBoundingClientRect = () => ({ x: 20, y: 20 });
+      result.current.updatePosition();
+      triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
+    });
+    expect(result.current.scrollDirection.vertical).toBe("up");
+    expect(result.current.scrollDirection.horizontal).toBe("left");
+
+    act(() => {
+      triggerObserverCb();
       triggerObserverCb();
     });
     expect(result.current.scrollDirection.vertical).toBeUndefined();
