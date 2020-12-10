@@ -97,6 +97,7 @@ const useInView = <T extends HTMLElement>({
 
   const updatePosition = useCallback(() => {
     if (!ref.current) return;
+
     const { x, y } = ref.current.getBoundingClientRect();
     prevPosRef.current = { x, y };
   }, [ref]);
