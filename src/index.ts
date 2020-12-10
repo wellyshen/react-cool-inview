@@ -46,6 +46,7 @@ interface Return<T> extends Omit<BaseEvent, "entry"> {
   ref: RefObject<T>;
   inView: boolean;
   entry?: IntersectionObserverEntryV2;
+  updatePosition: () => void;
 }
 interface State {
   inView: boolean;
@@ -94,6 +95,12 @@ const useInView = <T extends HTMLElement>({
     isObservingRef.current = false;
   }, []);
 
+  const updatePosition = useCallback(() => {
+    if (!ref.current) return;
+    const { x, y } = ref.current.getBoundingClientRect();
+    prevPosRef.current = { x, y };
+  }, [ref]);
+
   useEffect(() => {
     if (!ref.current) return () => null;
 
@@ -120,8 +127,7 @@ const useInView = <T extends HTMLElement>({
           : threshold;
         let inView =
           isIntersecting !== undefined ? isIntersecting : intersectionRatio > 0;
-
-        if (min > 0) inView = intersectionRatio >= min;
+        inView = min > 0 ? intersectionRatio >= min : inView;
 
         // @ts-expect-error
         if (x < prevPosRef.current.x) scrollDirection.horizontal = "left";
@@ -186,7 +192,7 @@ const useInView = <T extends HTMLElement>({
     unobserve,
   ]);
 
-  return { ref, ...state, observe, unobserve };
+  return { ref, ...state, observe, unobserve, updatePosition };
 };
 
 export default useInView;

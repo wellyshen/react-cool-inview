@@ -56,7 +56,6 @@ $ npm install --save react-cool-inview
 To monitor an element enters or leaves the viewport by the `inView` state and useful sugar events.
 
 ```js
-import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
@@ -85,7 +84,6 @@ const App = () => {
 It's super easy to build an image lazy-loading component with `react-cool-inview` to boost the performance of your web app.
 
 ```js
-import React from "react";
 import useInView from "react-cool-inview";
 
 const LazyImage = ({ width, height, ...rest }) => {
@@ -111,7 +109,7 @@ const LazyImage = ({ width, height, ...rest }) => {
 Infinite scrolling is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
 
 ```js
-import React, { useState } from "react";
+import { useState } from "react";
 import useInView from "react-cool-inview";
 import axios from "axios";
 
@@ -147,7 +145,7 @@ const App = () => {
 Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. We can use [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
 
 ```js
-import React, { useState } from "react";
+import { useState } from "react";
 import useInView from "react-cool-inview";
 import { FixedSizeList as List } from "react-window";
 import axios from "axios";
@@ -200,7 +198,6 @@ const App = () => {
 Another great use case is to trigger CSS animations once they are visible to the users.
 
 ```js
-import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
@@ -224,7 +221,6 @@ const App = () => {
 `react-cool-inview` can also play as an impression tracker, helps you fire an analytic event when a user sees an element or advertisement.
 
 ```js
-import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
@@ -248,7 +244,6 @@ const App = () => {
 `react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`.
 
 ```js
-import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
@@ -276,6 +271,32 @@ const App = () => {
 };
 ```
 
+If you jump to a section (via `scrollTo`, `scrollTop` etc.) and encounter the wrong value of the `scrollDirection`. You can use the `updatePosition` to correct the behavior.
+
+```js
+import { useEffect } from "react";
+import useInView from "react-cool-inview";
+
+const App = () => {
+  const { ref, scrollDirection, updatePosition } = useInView({
+    threshold: [0.2, 0.4, 0.6, 0.8, 1],
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 500);
+    updatePosition(); // Make sure the target element's position has been updated after the "window.scrollTo"
+  }, []);
+
+  return (
+    <div ref={ref}>
+      <div>{`You're scrolling ${
+        scrollDirection.vertical === "up" ? "⬆️" : "⬇️"
+      }`}</div>
+    </div>
+  );
+};
+```
+
 ## Intersection Observer v2
 
 The Intersection Observer v1 can perfectly tell you when an element is scrolled into the viewport, but it doesn't tell you whether the element is covered by something else on the page or whether the element has any visual effects applied on it (like `transform`, `opacity`, `filter` etc.) that can make it invisible. The main concern that has surfaced is how this kind of knowledge could be helpful in preventing [clickjacking](https://en.wikipedia.org/wiki/Clickjacking) and UI redress attacks (read this [article](https://developers.google.com/web/updates/2019/02/intersectionobserver-v2) to learn more).
@@ -291,7 +312,6 @@ When using the v2, there're something we need to know:
 To use Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
 
 ```js
-import React from "react";
 import useInView from "react-cool-inview";
 
 const App = () => {
@@ -342,6 +362,7 @@ It's returned with the following properties.
 | `entry`           | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
 | `unobserve`       | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
 | `observe`         | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
+| `updatePosition`  | function |         | To update the current position of the target element for [some cases](#scroll-direction).                                                                                                                                                                                                                                                                                                         |
 
 ### Parameter
 
