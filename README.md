@@ -29,7 +29,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - 🔩 Supports custom `refs` for [some reasons](#use-your-own-ref).
 - 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
 - 🗄️ Server-side rendering compatibility.
-- 🦠 Tiny size ([~ 1.1KB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
+- 🦠 Tiny size ([~ 1.2KB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`
 
 ## Requirement
 
