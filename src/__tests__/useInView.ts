@@ -59,8 +59,7 @@ describe("useInView", () => {
   };
 
   beforeEach(() => {
-    observe.mockClear();
-    disconnect.mockClear();
+    jest.clearAllMocks();
   });
 
   beforeAll(() => {
