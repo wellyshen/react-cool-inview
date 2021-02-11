@@ -392,14 +392,13 @@ describe("useInView", () => {
     renderHelper();
     global.IntersectionObserver = mockIntersectionObserver;
     expect(console.error).toHaveBeenCalledTimes(1);
+    expect(console.error).toHaveBeenCalledWith(observerErr);
 
     // @ts-ignore
     delete global.IntersectionObserverEntry;
     renderHelper();
     global.IntersectionObserverEntry = jest.fn();
     expect(console.error).toHaveBeenCalledTimes(2);
-
-    expect(console.error).toHaveBeenCalledWith(observerErr);
   });
 
   it("should use intersectionRatio instead of isIntersecting", () => {
