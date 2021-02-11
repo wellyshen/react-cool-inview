@@ -296,7 +296,8 @@ describe("useInView", () => {
       triggerObserverCb({ isIntersecting, boundingClientRect });
       triggerObserverCb({ isIntersecting });
     });
-    expect(onEnter).toHaveBeenNthCalledWith(1, {
+    expect(onEnter).toHaveBeenCalledTimes(1);
+    expect(onEnter).toHaveBeenCalledWith({
       ...baseEvent,
       scrollDirection: { vertical: "down" },
       entry: { ...baseEvent.entry, isIntersecting, boundingClientRect },
@@ -339,7 +340,8 @@ describe("useInView", () => {
       triggerObserverCb({ isIntersecting: false, boundingClientRect });
       triggerObserverCb({ isIntersecting: false });
     });
-    expect(onLeave).toHaveBeenNthCalledWith(1, {
+    expect(onLeave).toHaveBeenCalledTimes(1);
+    expect(onLeave).toHaveBeenCalledWith({
       ...baseEvent,
       scrollDirection: { vertical: "down" },
       entry: { ...baseEvent.entry, isIntersecting: false, boundingClientRect },
@@ -375,7 +377,8 @@ describe("useInView", () => {
       triggerObserverCb();
       triggerObserverCb();
     });
-    expect(console.warn).toHaveBeenNthCalledWith(1, observerWarn);
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith(observerWarn);
   });
 
   it("should throw intersection observer error", () => {
@@ -388,12 +391,15 @@ describe("useInView", () => {
     delete global.IntersectionObserver;
     renderHelper();
     global.IntersectionObserver = mockIntersectionObserver;
+    expect(console.error).toHaveBeenCalledTimes(1);
+
     // @ts-ignore
     delete global.IntersectionObserverEntry;
     renderHelper();
     global.IntersectionObserverEntry = jest.fn();
+    expect(console.error).toHaveBeenCalledTimes(2);
 
-    expect(console.error).toHaveBeenNthCalledWith(2, observerErr);
+    expect(console.error).toHaveBeenCalledWith(observerErr);
   });
 
   it("should use intersectionRatio instead of isIntersecting", () => {
