@@ -229,7 +229,7 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.12.11.tgz#c9a1f021917dcb5ccf0d4e453e399022981fc9ed"
   integrity sha512-np/lG3uARFybkoHokJUmf1QfEvRVCPbmQeUQpKow5cQ3xWrV9i3rUHodKDJPQfTVX61qKi+UdYk8kik84n7XOw==
 
-"@babel/helper-validator-option@^7.12.11", "@babel/helper-validator-option@^7.12.16":
+"@babel/helper-validator-option@^7.12.16":
   version "7.12.16"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-option/-/helper-validator-option-7.12.16.tgz#f73cbd3bbba51915216c5dea908e9b206bb10051"
   integrity sha512-uCgsDBPUQDvzr11ePPo4TVEocxj8RXjUVSC/Y8N1YpVAI/XDdUwGJu78xmlGhTxj2ntaWM7n9LQdRtyhOzT2YQ==
@@ -1292,9 +1292,9 @@
     resolve "^1.17.0"
 
 "@rollup/plugin-html@^0.2.0":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-html/-/plugin-html-0.2.2.tgz#9705d961759e7ee763dc2c694d1e86bbc0902648"
-  integrity sha512-qOBjZQ1v0vneKe7ES0K74NNY/yzCMPkUz5Hg/AyLR/fc8HVuAx+G9dmzUJoDg0Zfh6s5M4U0MCpU3jbUi+csTw==
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-html/-/plugin-html-0.2.3.tgz#bed48fc18dbde345c0ef09b0b53a165d7bd3b7cd"
+  integrity sha512-efx8Ud1FWaHmj3Es5parp6uRt1DPyKq9A8t1GEZoNsYB4UTQQIL8PsjxcJOlH+P3QKRsSv1rIJhiMvuG4+kfwg==
 
 "@rollup/plugin-node-resolve@^10.0.0":
   version "10.0.0"
