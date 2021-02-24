@@ -218,7 +218,6 @@ describe("useInView", () => {
     act(() => {
       triggerObserverCb(e);
     });
-    // @ts-expect-error
     expect(result.current.entry).toStrictEqual(e);
   });
 
