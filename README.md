@@ -348,7 +348,7 @@ const { inView } = useInView({ ref });
 
 This hook supports [TypeScript](https://www.typescriptlang.org), you can tell the hook what type of element you are going to observe via the [generic type](https://www.typescriptlang.org/docs/handbook/generics.html):
 
-```tsx
+```ts
 import useInView from "react-cool-inview";
 
 const App = () => {
