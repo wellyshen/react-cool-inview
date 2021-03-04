@@ -61,7 +61,7 @@ const useInView = <T extends HTMLElement>({
   threshold = 0,
   trackVisibility,
   delay,
-  unobserveOnEnter = false,
+  unobserveOnEnter,
   onChange,
   onEnter,
   onLeave,
