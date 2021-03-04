@@ -27,7 +27,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - 🖱️ Supports [scroll direction](#scroll-direction), cool right?
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
 - 🔩 Supports custom `refs` for [some reasons](#use-your-own-ref).
-- 📜 Supports [TypeScript](https://www.typescriptlang.org) type definition.
+- 📜 Supports [TypeScript](#working-in-typescript) type definition.
 - 🗄️ Server-side rendering compatibility.
 - 🦔 Tiny size ([~ 1.2KB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`
 
@@ -342,6 +342,20 @@ In case of you had a ref already or you want to share a ref for other purposes. 
 ```js
 const ref = useRef();
 const { inView } = useInView({ ref });
+```
+
+## Working in TypeScript
+
+This hook supports [TypeScript](https://www.typescriptlang.org), you can tell the hook what type of element you are going to observe via the [generic type](https://www.typescriptlang.org/docs/handbook/generics.html):
+
+```tsx
+import useInView from "react-cool-inview";
+
+const App = () => {
+  const props = useInView<HTMLDivElement>();
+
+  return <div ref={ref} />;
+};
 ```
 
 ## API
