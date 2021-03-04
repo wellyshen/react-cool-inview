@@ -352,7 +352,7 @@ This hook supports [TypeScript](https://www.typescriptlang.org), you can tell th
 import useInView from "react-cool-inview";
 
 const App = () => {
-  const props = useInView<HTMLDivElement>();
+  const { ref } = useInView<HTMLDivElement>();
 
   return <div ref={ref} />;
 };
