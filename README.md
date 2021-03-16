@@ -271,7 +271,7 @@ const App = () => {
 };
 ```
 
-If you jump to a section (via `scrollTop` etc.) and encounter the wrong value of the `scrollDirection`. You can use the `updatePosition` to correct the behavior.
+If you jump to a section by the [Element.scrollTop](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop) and encounter the wrong value of the `scrollDirection`. You can use `updatePosition` method to correct the behavior.
 
 ```js
 import { useEffect } from "react";
