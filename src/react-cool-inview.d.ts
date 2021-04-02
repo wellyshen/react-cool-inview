@@ -10,22 +10,24 @@ declare module "react-cool-inview" {
     readonly horizontal?: "left" | "right";
   }
 
-  export interface BaseEvent {
+  export interface Event<T extends HTMLElement | null = HTMLElement> {
     entry: IntersectionObserverEntryV2;
     scrollDirection: ScrollDirection;
-    observe: () => void;
+    observe: (element?: T) => void;
     unobserve: () => void;
   }
 
-  export interface ChangeEvent extends BaseEvent {
-    inView: boolean;
+  export interface OnChange<T extends HTMLElement | null = HTMLElement> {
+    (event: Event<T> & { inView: boolean }): void;
   }
 
-  export interface Callback<T = BaseEvent> {
-    (event: T): void;
+  export interface OnEnter<T extends HTMLElement | null = HTMLElement> {
+    (event: Event<T>): void;
   }
 
-  interface Options<T> {
+  export type OnLeave<T extends HTMLElement | null = HTMLElement> = OnEnter<T>;
+
+  interface Options<T extends HTMLElement | null> {
     ref?: RefObject<T>;
     root?: HTMLElement;
     rootMargin?: string;
@@ -33,19 +35,22 @@ declare module "react-cool-inview" {
     trackVisibility?: boolean;
     delay?: number;
     unobserveOnEnter?: boolean;
-    onChange?: Callback<ChangeEvent>;
-    onEnter?: Callback;
-    onLeave?: Callback;
+    onChange?: OnChange<T>;
+    onEnter?: OnEnter<T>;
+    onLeave?: OnLeave<T>;
   }
 
-  interface Return<T> extends Omit<BaseEvent, "entry"> {
+  interface Return<T extends HTMLElement | null>
+    extends Omit<Event<T>, "entry"> {
     ref: RefObject<T>;
     inView: boolean;
     entry?: IntersectionObserverEntryV2;
     updatePosition?: () => void;
   }
 
-  const useInView: <T extends HTMLElement>(options?: Options<T>) => Return<T>;
+  const useInView: <T extends HTMLElement | null = HTMLElement>(
+    options?: Options<T>
+  ) => Return<T>;
 
   export default useInView;
 }

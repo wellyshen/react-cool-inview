@@ -18,17 +18,11 @@ interface ScrollDirection {
   readonly vertical?: "up" | "down";
   readonly horizontal?: "left" | "right";
 }
-interface BaseEvent {
+interface Event<T> {
   entry: IntersectionObserverEntryV2;
   scrollDirection: ScrollDirection;
-  observe: () => void;
+  observe: (element?: T) => void;
   unobserve: () => void;
-}
-interface ChangeEvent extends BaseEvent {
-  inView: boolean;
-}
-interface Callback<T = BaseEvent> {
-  (event: T): void;
 }
 export interface Options<T> {
   ref?: RefObject<T>;
@@ -38,11 +32,11 @@ export interface Options<T> {
   trackVisibility?: boolean;
   delay?: number;
   unobserveOnEnter?: boolean;
-  onChange?: Callback<ChangeEvent>;
-  onEnter?: Callback;
-  onLeave?: Callback;
+  onChange?: (event: Event<T> & { inView: boolean }) => void;
+  onEnter?: (event: Event<T>) => void;
+  onLeave?: (event: Event<T>) => void;
 }
-interface Return<T> extends Omit<BaseEvent, "entry"> {
+interface Return<T> extends Omit<Event<T>, "entry"> {
   ref: RefObject<T>;
   inView: boolean;
   entry?: IntersectionObserverEntryV2;
@@ -54,7 +48,7 @@ interface State {
   entry?: IntersectionObserverEntryV2;
 }
 
-const useInView = <T extends HTMLElement>({
+const useInView = <T extends HTMLElement | null>({
   ref: refOpt,
   root,
   rootMargin,
@@ -72,27 +66,26 @@ const useInView = <T extends HTMLElement>({
   });
   const prevInViewRef = useRef<boolean>(false);
   const prevPosRef = useRef<{ x?: number; y?: number }>({});
-  const isObservingRef = useRef<boolean>(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const warnedRef = useRef<boolean>(false);
   const onChangeRef = useLatest(onChange);
   const onEnterRef = useLatest(onEnter);
   const onLeaveRef = useLatest(onLeave);
   const refVar = useRef<T>(null);
-  const ref = refOpt || refVar;
+  let ref = useRef<T | null>(refVar?.current);
+  ref = refOpt || ref;
 
-  const observe = useCallback(() => {
-    if (isObservingRef.current || !observerRef.current) return;
-
-    observerRef.current.observe(ref.current as Element);
-    isObservingRef.current = true;
-  }, [ref]);
+  const observe = useCallback(
+    (element?: T) => {
+      if (element) ref.current = element;
+      if (observerRef.current && ref.current)
+        observerRef.current.observe(ref.current as HTMLElement);
+    },
+    [ref]
+  );
 
   const unobserve = useCallback(() => {
-    if (!isObservingRef.current || !observerRef.current) return;
-
-    observerRef.current.disconnect();
-    isObservingRef.current = false;
+    if (observerRef.current) observerRef.current.disconnect();
   }, []);
 
   const updatePosition = useCallback(() => {
@@ -104,7 +97,6 @@ const useInView = <T extends HTMLElement>({
 
   useEffect(() => {
     if (!ref.current) return () => null;
-
     if (
       !("IntersectionObserver" in window) ||
       !("IntersectionObserverEntry" in window)
@@ -176,9 +168,7 @@ const useInView = <T extends HTMLElement>({
 
     observe();
 
-    return () => {
-      unobserve();
-    };
+    return () => unobserve();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     ref,
