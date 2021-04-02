@@ -58,9 +58,7 @@ describe("useInView", () => {
     inView: observerEvent.isIntersecting,
   };
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  beforeEach(() => jest.clearAllMocks());
 
   beforeAll(() => {
     global.IntersectionObserver = mockIntersectionObserver;
