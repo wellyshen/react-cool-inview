@@ -14,8 +14,6 @@
     // Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports.
     // Implies "allowSyntheticDefaultImports". Recommended by TS
     "esModuleInterop": true,
-    // Skip type checking of declaration files. Recommended by TS
-    "skipLibCheck": true,
     // Disallow inconsistently-cased references to the same file. Recommended by TS
     "forceConsistentCasingInFileNames": true,
     // Do not emit outputs
