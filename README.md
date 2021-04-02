@@ -337,6 +337,55 @@ const App = () => {
 };
 ```
 
+## Conditional Component
+
+There're two ways to use `react-cool-inview` with a conditional component.
+
+Option 1, we can lazily start observing via the `observe` method:
+
+```js
+import { useState } from "react";
+import useInView from "react-cool-inview";
+
+const App = () => {
+  const [show, setShow] = useState(false);
+  const { observe, inView } = useInView();
+
+  return (
+    <>
+      <button onClick={() => setShow(!show)}>Toggle</button>
+      {show && (
+        <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>
+      )}
+    </>
+  );
+};
+```
+
+Option 2, wrap the hook into the conditional component:
+
+```js
+import { useState } from "react";
+import useInView from "react-cool-inview";
+
+const MyComponent = () => {
+  const { ref, inView } = useInView();
+
+  return <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>;
+};
+
+const App = () => {
+  const [show, setShow] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setShow(!show)}>Toggle</button>
+      {show && <MyComponent />}
+    </>
+  );
+};
+```
+
 ## Use Your Own `ref`
 
 In case of you had a ref already or you want to share a ref for other purposes. You can pass in the ref instead of using the one provided by this hook.
@@ -353,10 +402,18 @@ This hook supports [TypeScript](https://www.typescriptlang.org), you can tell th
 ```ts
 import useInView from "react-cool-inview";
 
+// Use `ref` method
 const App = () => {
   const { ref } = useInView<HTMLDivElement>();
 
   return <div ref={ref} />;
+};
+
+// Use `observe` method
+const App = () => {
+  const { observe } = useInView<HTMLDivElement | null>();
+
+  return <div ref={observe} />;
 };
 ```
 
@@ -377,7 +434,7 @@ It's returned with the following properties.
 | `scrollDirection` | object   |         | The scroll direction of the target element. Which contains `vertical` and `horizontal` properties. See [scroll direction](#scroll-direction) for more information.                                                                                                                                                                                                                                |
 | `entry`           | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
 | `unobserve`       | function |         | To stop observing the target element.                                                                                                                                                                                                                                                                                                                                                             |
-| `observe`         | function |         | To re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                                                             |
+| `observe`         | function |         | To [lazily start](#conditional-component) or re-start observing the target element once it's stopped observing.                                                                                                                                                                                                                                                                                   |
 | `updatePosition`  | function |         | To update the current position of the target element for [some cases](#scroll-direction).                                                                                                                                                                                                                                                                                                         |
 
 ### Parameter
