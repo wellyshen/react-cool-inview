@@ -3,13 +3,9 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import useInView, { Options, observerErr, observerWarn } from "..";
 
 describe("useInView", () => {
-  const el = document.createElement("div");
-  const target = { current: el };
-  const renderHelper = ({
-    ref = target,
-    ...rest
-  }: Options<HTMLDivElement> = {}) =>
-    renderHook(() => useInView({ ref, ...rest }));
+  const target = document.createElement("div");
+  const renderHelper = (args: Options<HTMLDivElement> = {}) =>
+    renderHook(() => useInView(args));
 
   interface Event {
     intersectionRatio?: number;
@@ -66,14 +62,13 @@ describe("useInView", () => {
   });
 
   it("should not start observe if the target isn't set", () => {
-    // @ts-expect-error
-    renderHelper({ ref: null });
+    renderHelper();
     expect(observe).not.toHaveBeenCalled();
   });
 
   it("should set the options of intersection observer correctly", () => {
     const args = {
-      root: el,
+      root: target,
       rootMargin: "0",
       threshold: 0,
       trackVisibility: true,
@@ -96,30 +91,24 @@ describe("useInView", () => {
     expect(delay).toBe(args.delay);
   });
 
+  it("should return workable observe method", () => {
+    const { result } = renderHelper();
+    result.current.observe(target);
+    expect(observe).toHaveBeenCalledTimes(1);
+
+    result.current.observe();
+    expect(observe).toHaveBeenCalledTimes(2);
+  });
+
   it("should return workable unobserve method", () => {
     const { result } = renderHelper();
     result.current.unobserve();
     expect(disconnect).toHaveBeenCalledTimes(1);
   });
 
-  it("should return workable observe method", () => {
-    const { result } = renderHelper();
-    result.current.unobserve();
-    result.current.observe();
-    expect(observe).toHaveBeenCalledTimes(2);
-  });
-
-  it("should return workable ref", () => {
-    // @ts-expect-error
-    const { result } = renderHelper({ ref: null });
-    expect(result.current.ref).toEqual({ current: null });
-
-    result.current.ref = target;
-    expect(result.current.ref).toEqual(target);
-  });
-
   it("should return inView correctly", () => {
     let { result } = renderHelper();
+    result.current.observe(target);
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ isIntersecting: true });
@@ -127,6 +116,7 @@ describe("useInView", () => {
     expect(result.current.inView).toBeTruthy();
 
     result = renderHelper({ threshold: 0.5 }).result;
+    result.current.observe(target);
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ intersectionRatio: 0.6 });
@@ -134,6 +124,7 @@ describe("useInView", () => {
     expect(result.current.inView).toBeTruthy();
 
     result = renderHelper({ threshold: [0, 1] }).result;
+    result.current.observe(target);
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ isIntersecting: true });
@@ -141,6 +132,7 @@ describe("useInView", () => {
     expect(result.current.inView).toBeTruthy();
 
     result = renderHelper({ threshold: [0.5, 1] }).result;
+    result.current.observe(target);
     expect(result.current.inView).toBeFalsy();
     act(() => {
       triggerObserverCb({ intersectionRatio: 0.6 });
@@ -150,6 +142,7 @@ describe("useInView", () => {
 
   it("should return inView with intersection observer v2 correctly", () => {
     const { result } = renderHelper({ trackVisibility: true });
+    result.current.observe(target);
     act(() => {
       triggerObserverCb({ isIntersecting: true, isVisible: false });
     });
@@ -163,6 +156,7 @@ describe("useInView", () => {
 
   it("should return scrollDirection correctly", () => {
     const { result } = renderHelper();
+    result.current.observe(target);
     expect(result.current.scrollDirection).toEqual({});
 
     act(() => {
@@ -205,6 +199,7 @@ describe("useInView", () => {
 
   it("should return entry correctly", () => {
     const { result } = renderHelper();
+    result.current.observe(target);
     expect(result.current.entry).toBeUndefined();
 
     const e = {
@@ -220,7 +215,8 @@ describe("useInView", () => {
   });
 
   it("should stop observe on-enter when set the unobserveOnEnter to true", () => {
-    renderHelper({ unobserveOnEnter: true });
+    const { result } = renderHelper({ unobserveOnEnter: true });
+    result.current.observe(target);
     act(() => {
       triggerObserverCb({ isIntersecting: true });
     });
@@ -238,7 +234,8 @@ describe("useInView", () => {
       e.unobserve();
       e.observe();
     });
-    renderHelper({ onChange });
+    const { result } = renderHelper({ onChange });
+    result.current.observe(target);
     const isIntersecting = true;
     const boundingClientRect = { y: 10 };
     act(() => {
@@ -258,7 +255,8 @@ describe("useInView", () => {
 
   it("should trigger onChange with intersection observer v2", () => {
     const onChange = jest.fn();
-    renderHelper({ trackVisibility: true, onChange });
+    const { result } = renderHelper({ trackVisibility: true, onChange });
+    result.current.observe(target);
     const isIntersecting = true;
     let isVisible = false;
     act(() => {
@@ -285,7 +283,8 @@ describe("useInView", () => {
       e.unobserve();
       e.observe();
     });
-    renderHelper({ onEnter });
+    const { result } = renderHelper({ onEnter });
+    result.current.observe(target);
     const isIntersecting = true;
     const boundingClientRect = { y: 10 };
     act(() => {
@@ -305,7 +304,8 @@ describe("useInView", () => {
 
   it("should trigger onEnter with intersection observer v2", () => {
     const onEnter = jest.fn();
-    renderHelper({ trackVisibility: true, onEnter });
+    const { result } = renderHelper({ trackVisibility: true, onEnter });
+    result.current.observe(target);
     const isIntersecting = true;
     let isVisible = false;
     act(() => {
@@ -330,7 +330,8 @@ describe("useInView", () => {
       e.unobserve();
       e.observe();
     });
-    renderHelper({ onLeave });
+    const { result } = renderHelper({ onLeave });
+    result.current.observe(target);
     const boundingClientRect = { y: 10 };
     act(() => {
       triggerObserverCb({ isIntersecting: true });
@@ -349,7 +350,8 @@ describe("useInView", () => {
 
   it("should trigger onLeave with intersection observer v2", () => {
     const onLeave = jest.fn();
-    renderHelper({ trackVisibility: true, onLeave });
+    const { result } = renderHelper({ trackVisibility: true, onLeave });
+    result.current.observe(target);
     act(() => {
       triggerObserverCb({ isIntersecting: true, isVisible: false });
       triggerObserverCb({ isIntersecting: false, isVisible: false });
@@ -369,7 +371,8 @@ describe("useInView", () => {
   it("should throw intersection observer v2 warn", () => {
     console.warn = jest.fn();
 
-    renderHelper({ trackVisibility: true });
+    const { result } = renderHelper({ trackVisibility: true });
+    result.current.observe(target);
     act(() => {
       triggerObserverCb();
       triggerObserverCb();
@@ -400,6 +403,7 @@ describe("useInView", () => {
 
   it("should use intersectionRatio instead of isIntersecting", () => {
     const { result } = renderHelper();
+    result.current.observe(target);
     expect(result.current.inView).toBeFalsy();
     act(() => {
       callback([

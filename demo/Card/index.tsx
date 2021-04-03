@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default ({ string, onEnter }: Props): JSX.Element => {
-  const { ref } = useInView<HTMLDivElement>({
+  const { observe } = useInView<HTMLDivElement | null>({
     threshold: 0.5,
     onEnter: ({ scrollDirection }) => {
       onEnter(string, scrollDirection.vertical || "");
@@ -15,7 +15,7 @@ export default ({ string, onEnter }: Props): JSX.Element => {
   });
 
   return (
-    <div css={card} ref={ref}>
+    <div css={card} ref={observe}>
       <span css={font}>{string}</span>
     </div>
   );
