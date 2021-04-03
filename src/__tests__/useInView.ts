@@ -112,10 +112,10 @@ describe("useInView", () => {
   it("should return workable ref", () => {
     // @ts-expect-error
     const { result } = renderHelper({ ref: null });
-    expect(result.current.ref).toStrictEqual({ current: null });
+    expect(result.current.ref).toEqual({ current: null });
 
     result.current.ref = target;
-    expect(result.current.ref).toStrictEqual(target);
+    expect(result.current.ref).toEqual(target);
   });
 
   it("should return inView correctly", () => {
@@ -163,7 +163,7 @@ describe("useInView", () => {
 
   it("should return scrollDirection correctly", () => {
     const { result } = renderHelper();
-    expect(result.current.scrollDirection).toStrictEqual({});
+    expect(result.current.scrollDirection).toEqual({});
 
     act(() => {
       triggerObserverCb();
@@ -216,7 +216,7 @@ describe("useInView", () => {
     act(() => {
       triggerObserverCb(e);
     });
-    expect(result.current.entry).toStrictEqual(e);
+    expect(result.current.entry).toEqual(e);
   });
 
   it("should stop observe on-enter when set the unobserveOnEnter to true", () => {
