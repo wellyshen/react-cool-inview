@@ -110,6 +110,8 @@ const LazyImage = ({ width, height, ...rest }) => {
 
 Infinite scrolling is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
 
+> 💡 When the target is rendered based on asynchronous data, we need to use the `observe` API to lazily start observing.
+
 ```js
 import { useState } from "react";
 import useInView from "react-cool-inview";
@@ -117,7 +119,7 @@ import axios from "axios";
 
 const App = () => {
   const [todos, setTodos] = useState(["todo-1", "todo-2", "..."]);
-  const { ref } = useInView({
+  const { observe } = useInView({
     // For better UX, we can grow the root margin so the data will be loaded before a user sees the loading indicator
     rootMargin: "50px 0px",
     // When the loading indicator comes to the viewport
@@ -135,10 +137,10 @@ const App = () => {
 
   return (
     <div>
-      {todos.map((todo) => (
-        <div>{todo}</div>
+      {todos.map((todo, idx) => (
+        // Use the `observe` API to lazily start observing
+        <div ref={idx === todos.length - 1 ? observe : null}>{todo}</div>
       ))}
-      <div ref={ref}>Loading...</div>
     </div>
   );
 };
@@ -154,12 +156,11 @@ import axios from "axios";
 
 const Row = ({ index, data, style }) => {
   const { todos, handleLoadingInView } = data;
-  const isLast = index === todos.length;
   const { ref } = useInView({ onEnter: handleLoadingInView });
 
   return (
-    <div style={style} ref={isLast ? ref : null}>
-      {isLast ? "Loading..." : todos[index]}
+    <div style={style} ref={index === todos.length - 1 ? ref : null}>
+      {todos[index]}
     </div>
   );
 };
@@ -184,7 +185,7 @@ const App = () => {
   return (
     <List
       height={150}
-      itemCount={todos.length + 1} // Last one is for the loading indicator
+      itemCount={todos.length}
       itemSize={35}
       width={300}
       itemData={{ todos, handleLoadingInView }}
@@ -371,7 +372,7 @@ import useInView from "react-cool-inview";
 const MyComponent = () => {
   const { ref, inView } = useInView();
 
-  return <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>;
+  return <div ref={ref}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>;
 };
 
 const App = () => {
