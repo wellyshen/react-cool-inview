@@ -96,7 +96,6 @@ const useInView = <T extends HTMLElement | null>({
   }, [ref]);
 
   useEffect(() => {
-    if (!ref.current) return () => null;
     if (
       !("IntersectionObserver" in window) ||
       !("IntersectionObserverEntry" in window)
@@ -171,7 +170,6 @@ const useInView = <T extends HTMLElement | null>({
     return () => unobserve();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    ref,
     unobserveOnEnter,
     root,
     rootMargin,
