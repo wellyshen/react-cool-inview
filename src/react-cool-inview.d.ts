@@ -1,6 +1,4 @@
 declare module "react-cool-inview" {
-  import { RefObject } from "react";
-
   interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
     readonly isVisible?: boolean;
   }
@@ -28,7 +26,6 @@ declare module "react-cool-inview" {
   export type OnLeave<T extends HTMLElement | null = HTMLElement> = OnEnter<T>;
 
   interface Options<T extends HTMLElement | null> {
-    ref?: RefObject<T>;
     root?: HTMLElement;
     rootMargin?: string;
     threshold?: number | number[];
@@ -42,7 +39,6 @@ declare module "react-cool-inview" {
 
   interface Return<T extends HTMLElement | null>
     extends Omit<Event<T>, "entry"> {
-    ref: RefObject<T>;
     inView: boolean;
     entry?: IntersectionObserverEntryV2;
     updatePosition?: () => void;

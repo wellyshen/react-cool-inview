@@ -1,4 +1,4 @@
-import { RefObject, useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import useLatest from "./useLatest";
 
@@ -25,7 +25,6 @@ interface Event<T> {
   unobserve: () => void;
 }
 export interface Options<T> {
-  ref?: RefObject<T>;
   root?: HTMLElement;
   rootMargin?: string;
   threshold?: number | number[];
@@ -37,7 +36,6 @@ export interface Options<T> {
   onLeave?: (event: Event<T>) => void;
 }
 interface Return<T> extends Omit<Event<T>, "entry"> {
-  ref: RefObject<T>;
   inView: boolean;
   entry?: IntersectionObserverEntryV2;
   updatePosition: () => void;
@@ -49,7 +47,6 @@ interface State {
 }
 
 const useInView = <T extends HTMLElement | null>({
-  ref: refOpt,
   root,
   rootMargin,
   threshold = 0,
@@ -71,18 +68,13 @@ const useInView = <T extends HTMLElement | null>({
   const onChangeRef = useLatest(onChange);
   const onEnterRef = useLatest(onEnter);
   const onLeaveRef = useLatest(onLeave);
-  const refVar = useRef<T>(null);
-  let ref = useRef<T | null>(refVar?.current);
-  ref = refOpt || ref;
+  const ref = useRef<T>();
 
-  const observe = useCallback(
-    (element?: T) => {
-      if (element) ref.current = element;
-      if (observerRef.current && ref.current)
-        observerRef.current.observe(ref.current as HTMLElement);
-    },
-    [ref]
-  );
+  const observe = useCallback((element?: T) => {
+    if (element) ref.current = element;
+    if (observerRef.current && ref.current)
+      observerRef.current.observe(ref.current as HTMLElement);
+  }, []);
 
   const unobserve = useCallback(() => {
     if (observerRef.current) observerRef.current.disconnect();
@@ -181,7 +173,7 @@ const useInView = <T extends HTMLElement | null>({
     unobserve,
   ]);
 
-  return { ref, ...state, observe, unobserve, updatePosition };
+  return { ...state, observe, unobserve, updatePosition };
 };
 
 export default useInView;
