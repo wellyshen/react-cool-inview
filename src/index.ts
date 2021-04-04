@@ -77,7 +77,10 @@ const useInView = <T extends HTMLElement | null>({
   }, []);
 
   const unobserve = useCallback(() => {
-    if (observerRef.current) observerRef.current.disconnect();
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      prevPosRef.current = {};
+    }
   }, []);
 
   const updatePosition = useCallback(() => {

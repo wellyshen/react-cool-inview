@@ -169,15 +169,23 @@ describe("useInView", () => {
       triggerObserverCb();
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
-    expect(result.current.scrollDirection.vertical).toBe("down");
-    expect(result.current.scrollDirection.horizontal).toBe("right");
+    expect(result.current.scrollDirection).toEqual({
+      vertical: "down",
+      horizontal: "right",
+    });
 
     act(() => {
       triggerObserverCb();
       triggerObserverCb({ boundingClientRect: { x: -10, y: -10 } });
     });
-    expect(result.current.scrollDirection.vertical).toBe("up");
-    expect(result.current.scrollDirection.horizontal).toBe("left");
+    expect(result.current.scrollDirection).toEqual({
+      vertical: "up",
+      horizontal: "left",
+    });
+
+    result.current.unobserve();
+    act(() => triggerObserverCb());
+    expect(result.current.scrollDirection).toEqual({});
 
     act(() => {
       triggerObserverCb();
@@ -230,10 +238,7 @@ describe("useInView", () => {
   });
 
   it("should trigger onChange", () => {
-    const onChange = jest.fn((e) => {
-      e.unobserve();
-      e.observe();
-    });
+    const onChange = jest.fn();
     const { result } = renderHelper({ onChange });
     result.current.observe(target);
     const isIntersecting = true;
@@ -249,8 +254,6 @@ describe("useInView", () => {
       scrollDirection: { vertical: "down" },
       entry: { ...changeEvent.entry, isIntersecting, boundingClientRect },
     });
-    expect(disconnect).toHaveBeenCalledTimes(2);
-    expect(observe).toHaveBeenCalledTimes(3);
   });
 
   it("should trigger onChange with intersection observer v2", () => {
