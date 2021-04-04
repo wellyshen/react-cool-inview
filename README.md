@@ -407,6 +407,10 @@ The `options` provides the following configurations and event callbacks for you.
 | `onEnter`          | function           |          | It's invoked when the target element enters the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                 |
 | `onLeave`          | function           |          | It's invoked when the target element leaves the viewport. The callback receives an event object which the same with the [return object](#return-object) of the hook except for `inView`. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                 |
 
+## `rootMargin` Not Working As Expected?
+
+If your web app is running in an `<iframe>` or you have a custom `root`, the viewport won't be the current `document`. Read the [doc](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#The_intersection_root_and_root_margin) to understand how do **root and root margin** work.
+
 ## Intersection Observer Polyfill
 
 [Intersection Observer has good support amongst browsers](https://caniuse.com/#feat=intersectionobserver), but it's not universal. You'll need to polyfill browsers that don't support it. Polyfills is something you should do consciously at the application level. Therefore `react-cool-inview` doesn't include it.
