@@ -117,15 +117,15 @@ const useInView = <T extends HTMLElement | null>({
         inView = min > 0 ? intersectionRatio >= min : inView;
 
         // @ts-expect-error
-        if (x < prevPosRef.current.x) scrollDirection.horizontal = "left";
+        if (x < prevPosRef.current.x) scrollDirection.horizontal = "right";
         // @ts-expect-error
-        if (x > prevPosRef.current.x) scrollDirection.horizontal = "right";
+        if (x > prevPosRef.current.x) scrollDirection.horizontal = "left";
         prevPosRef.current.x = x;
 
         // @ts-expect-error
-        if (y < prevPosRef.current.y) scrollDirection.vertical = "up";
+        if (y < prevPosRef.current.y) scrollDirection.vertical = "down";
         // @ts-expect-error
-        if (y > prevPosRef.current.y) scrollDirection.vertical = "down";
+        if (y > prevPosRef.current.y) scrollDirection.vertical = "up";
         prevPosRef.current.y = y;
 
         const e = { entry, scrollDirection, observe, unobserve };
