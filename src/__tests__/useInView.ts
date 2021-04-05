@@ -170,8 +170,8 @@ describe("useInView", () => {
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
     expect(result.current.scrollDirection).toEqual({
-      vertical: "down",
-      horizontal: "right",
+      vertical: "up",
+      horizontal: "left",
     });
 
     act(() => {
@@ -179,8 +179,8 @@ describe("useInView", () => {
       triggerObserverCb({ boundingClientRect: { x: -10, y: -10 } });
     });
     expect(result.current.scrollDirection).toEqual({
-      vertical: "up",
-      horizontal: "left",
+      vertical: "down",
+      horizontal: "right",
     });
 
     result.current.unobserve();
@@ -194,8 +194,8 @@ describe("useInView", () => {
       result.current.updatePosition();
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
-    expect(result.current.scrollDirection.vertical).toBe("up");
-    expect(result.current.scrollDirection.horizontal).toBe("left");
+    expect(result.current.scrollDirection.vertical).toBe("down");
+    expect(result.current.scrollDirection.horizontal).toBe("right");
 
     act(() => {
       triggerObserverCb();
@@ -251,7 +251,7 @@ describe("useInView", () => {
     expect(onChange).toHaveBeenLastCalledWith({
       ...changeEvent,
       inView: isIntersecting,
-      scrollDirection: { vertical: "down" },
+      scrollDirection: { vertical: "up" },
       entry: { ...changeEvent.entry, isIntersecting, boundingClientRect },
     });
   });
@@ -298,7 +298,7 @@ describe("useInView", () => {
     expect(onEnter).toHaveBeenCalledTimes(1);
     expect(onEnter).toHaveBeenCalledWith({
       ...baseEvent,
-      scrollDirection: { vertical: "down" },
+      scrollDirection: { vertical: "up" },
       entry: { ...baseEvent.entry, isIntersecting, boundingClientRect },
     });
     expect(disconnect).toHaveBeenCalledTimes(1);
@@ -344,7 +344,7 @@ describe("useInView", () => {
     expect(onLeave).toHaveBeenCalledTimes(1);
     expect(onLeave).toHaveBeenCalledWith({
       ...baseEvent,
-      scrollDirection: { vertical: "down" },
+      scrollDirection: { vertical: "up" },
       entry: { ...baseEvent.entry, isIntersecting: false, boundingClientRect },
     });
     expect(disconnect).toHaveBeenCalledTimes(1);
