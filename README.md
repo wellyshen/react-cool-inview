@@ -118,9 +118,9 @@ import axios from "axios";
 const App = () => {
   const [todos, setTodos] = useState(["todo-1", "todo-2", "..."]);
   const { observe } = useInView({
-    // For better UX, we can grow the root margin so the data will be loaded before a user sees the loading indicator
+    // For better UX, we can grow the root margin so the data will be loaded earlier
     rootMargin: "50px 0px",
-    // When the loading indicator comes to the viewport
+    // When the last item comes to the viewport
     onEnter: ({ unobserve, observe }) => {
       // Pause observe when loading data
       unobserve();
