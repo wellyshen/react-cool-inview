@@ -70,18 +70,24 @@ const useInView = <T extends HTMLElement | null>({
   const onLeaveRef = useLatest(onLeave);
   const ref = useRef<T>();
 
-  const observe = useCallback((element?: T) => {
-    if (element) ref.current = element;
-    if (observerRef.current && ref.current)
-      observerRef.current.observe(ref.current as HTMLElement);
-  }, []);
-
   const unobserve = useCallback(() => {
     if (observerRef.current) {
       observerRef.current.disconnect();
       prevPosRef.current = {};
     }
   }, []);
+
+  const observe = useCallback(
+    (element?: T) => {
+      if (element) {
+        unobserve();
+        ref.current = element;
+      }
+      if (observerRef.current && ref.current)
+        observerRef.current.observe(ref.current as HTMLElement);
+    },
+    [unobserve]
+  );
 
   const updatePosition = useCallback(() => {
     if (!ref.current) return;
