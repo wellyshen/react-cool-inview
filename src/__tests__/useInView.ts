@@ -94,6 +94,7 @@ describe("useInView", () => {
   it("should return workable observe method", () => {
     const { result } = renderHelper();
     result.current.observe(target);
+    expect(disconnect).toHaveBeenCalledTimes(1);
     expect(observe).toHaveBeenCalledTimes(1);
 
     result.current.observe();
@@ -228,7 +229,7 @@ describe("useInView", () => {
     act(() => {
       triggerObserverCb({ isIntersecting: true });
     });
-    expect(disconnect).toHaveBeenCalledTimes(1);
+    expect(disconnect).toHaveBeenCalledTimes(2);
   });
 
   it("should stop observe when un-mount", () => {
@@ -282,10 +283,7 @@ describe("useInView", () => {
   });
 
   it("should trigger onEnter", () => {
-    const onEnter = jest.fn((e) => {
-      e.unobserve();
-      e.observe();
-    });
+    const onEnter = jest.fn();
     const { result } = renderHelper({ onEnter });
     result.current.observe(target);
     const isIntersecting = true;
@@ -301,8 +299,6 @@ describe("useInView", () => {
       scrollDirection: { vertical: "up" },
       entry: { ...baseEvent.entry, isIntersecting, boundingClientRect },
     });
-    expect(disconnect).toHaveBeenCalledTimes(1);
-    expect(observe).toHaveBeenCalledTimes(2);
   });
 
   it("should trigger onEnter with intersection observer v2", () => {
@@ -329,10 +325,7 @@ describe("useInView", () => {
   });
 
   it("should trigger onLeave", () => {
-    const onLeave = jest.fn((e) => {
-      e.unobserve();
-      e.observe();
-    });
+    const onLeave = jest.fn();
     const { result } = renderHelper({ onLeave });
     result.current.observe(target);
     const boundingClientRect = { y: 10 };
@@ -347,8 +340,6 @@ describe("useInView", () => {
       scrollDirection: { vertical: "up" },
       entry: { ...baseEvent.entry, isIntersecting: false, boundingClientRect },
     });
-    expect(disconnect).toHaveBeenCalledTimes(1);
-    expect(observe).toHaveBeenCalledTimes(2);
   });
 
   it("should trigger onLeave with intersection observer v2", () => {
