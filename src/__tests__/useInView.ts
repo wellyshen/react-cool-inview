@@ -171,8 +171,8 @@ describe("useInView", () => {
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
     expect(result.current.scrollDirection).toEqual({
-      vertical: "up",
-      horizontal: "left",
+      vertical: "down",
+      horizontal: "right",
     });
 
     act(() => {
@@ -180,8 +180,8 @@ describe("useInView", () => {
       triggerObserverCb({ boundingClientRect: { x: -10, y: -10 } });
     });
     expect(result.current.scrollDirection).toEqual({
-      vertical: "down",
-      horizontal: "right",
+      vertical: "up",
+      horizontal: "left",
     });
 
     result.current.unobserve();
@@ -195,8 +195,8 @@ describe("useInView", () => {
       result.current.updatePosition();
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });
     });
-    expect(result.current.scrollDirection.vertical).toBe("down");
-    expect(result.current.scrollDirection.horizontal).toBe("right");
+    expect(result.current.scrollDirection.vertical).toBe("up");
+    expect(result.current.scrollDirection.horizontal).toBe("left");
 
     act(() => {
       triggerObserverCb();
@@ -252,7 +252,7 @@ describe("useInView", () => {
     expect(onChange).toHaveBeenLastCalledWith({
       ...changeEvent,
       inView: isIntersecting,
-      scrollDirection: { vertical: "up" },
+      scrollDirection: { vertical: "down" },
       entry: { ...changeEvent.entry, isIntersecting, boundingClientRect },
     });
   });
@@ -296,7 +296,7 @@ describe("useInView", () => {
     expect(onEnter).toHaveBeenCalledTimes(1);
     expect(onEnter).toHaveBeenCalledWith({
       ...baseEvent,
-      scrollDirection: { vertical: "up" },
+      scrollDirection: { vertical: "down" },
       entry: { ...baseEvent.entry, isIntersecting, boundingClientRect },
     });
   });
@@ -337,7 +337,7 @@ describe("useInView", () => {
     expect(onLeave).toHaveBeenCalledTimes(1);
     expect(onLeave).toHaveBeenCalledWith({
       ...baseEvent,
-      scrollDirection: { vertical: "up" },
+      scrollDirection: { vertical: "down" },
       entry: { ...baseEvent.entry, isIntersecting: false, boundingClientRect },
     });
   });

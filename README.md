@@ -26,7 +26,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - 🚀 Monitors elements with highly-performant and non-main-thread blocking way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
 - 🎣 Easy to use, based on React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
 - 🎛 Super flexible [API](#api) design which can cover [all the cases](#usage) that you need.
-- 🖱️ Supports [scroll direction](#scroll-direction), cool right?
+- 🖱️ Supports [scroll direction](#scrolling-direction), cool right?
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
 - 📜 Supports [TypeScript](#working-in-typescript) type definition.
 - 🗄️ Server-side rendering compatibility.
@@ -239,9 +239,9 @@ const App = () => {
 };
 ```
 
-## Scroll Direction
+## Scrolling Direction
 
-`react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`.
+`react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`. In addition, the value of the properties will sync with the scrolling direction of the viewport.
 
 ```js
 import useInView from "react-cool-inview";
@@ -387,9 +387,9 @@ It's returned with the following properties.
 | `observe`         | function |         | To set a target element for monitoring or re-start observing the current target element.                                                                                                                                                                                                                                                                                                          |
 | `unobserve`       | function |         | To stop observing the current target element.                                                                                                                                                                                                                                                                                                                                                     |
 | `inView`          | boolean  |         | The visible state of the target element. If it's `true`, the target element has become at least as visible as the threshold that was passed. If it's `false`, the target element is no longer as visible as the given threshold. Supports [Intersection Observer v2](#intersection-observer-v2).                                                                                                  |
-| `scrollDirection` | object   |         | The scroll direction of the target element. Which contains `vertical` and `horizontal` properties. See [scroll direction](#scroll-direction) for more information.                                                                                                                                                                                                                                |
+| `scrollDirection` | object   |         | The scroll direction of the target element. Which contains `vertical` and `horizontal` properties. See [scroll direction](#scrolling-direction) for more information.                                                                                                                                                                                                                             |
 | `entry`           | object   |         | The [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) of the target element. Which may contain the [isVisible](https://w3c.github.io/IntersectionObserver/v2/#dom-intersectionobserverentry-isvisible) property of the Intersection Observer v2, depends on the [browser compatibility](https://caniuse.com/#feat=intersectionobserver-v2). |
-| `updatePosition`  | function |         | To update the current position of the target element for [some cases](#scroll-direction).                                                                                                                                                                                                                                                                                                         |
+| `updatePosition`  | function |         | To update the current position of the target element for [some cases](#scrolling-direction).                                                                                                                                                                                                                                                                                                      |
 
 ### Parameter
 
