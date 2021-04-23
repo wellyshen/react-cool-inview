@@ -448,6 +448,12 @@ Be aware that the callback of the `onChange` event is executed on the main threa
 onChange = (event) => requestIdleCallback(() => this.handleChange(event));
 ```
 
+## Articles / Blog Posts
+
+> 💡 If you have written any blog post or article about `react-cool-inview`, please open a PR to add it here.
+
+- Featured on [React Status #187](https://react.statuscode.com/issues/187).
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
