@@ -98,7 +98,20 @@ describe("useInView", () => {
     expect(observe).toHaveBeenCalledTimes(1);
 
     result.current.observe();
+    expect(disconnect).toHaveBeenCalledTimes(1);
     expect(observe).toHaveBeenCalledTimes(2);
+  });
+
+  it("should not observe repeatedly", () => {
+    const { result } = renderHelper();
+    result.current.observe(target);
+    expect(disconnect).toHaveBeenCalledTimes(1);
+
+    result.current.observe(target);
+    expect(disconnect).toHaveBeenCalledTimes(1);
+
+    result.current.observe(document.createElement("div"));
+    expect(disconnect).toHaveBeenCalledTimes(2);
   });
 
   it("should return workable unobserve method", () => {

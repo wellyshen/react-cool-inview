@@ -79,7 +79,7 @@ const useInView = <T extends HTMLElement | null>({
 
   const observe = useCallback(
     (element?: T) => {
-      if (element) {
+      if (element && element !== ref.current) {
         unobserve();
         ref.current = element;
       }
