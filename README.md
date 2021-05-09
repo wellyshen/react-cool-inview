@@ -81,6 +81,8 @@ const App = () => {
 };
 ```
 
+> 💡 You don't have to call `unobserve` when the component is unmounted, this hook will handle it for you.
+
 ### Lazy-loading Images
 
 It's super easy to build an image lazy-loading component with `react-cool-inview` to boost the performance of your web app.
