@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default ({ string, onEnter }: Props): JSX.Element => {
-  const { observe } = useInView<HTMLDivElement | null>({
+  const { observe } = useInView<HTMLDivElement>({
     threshold: 0.5,
     onEnter: ({ scrollDirection }) => {
       onEnter(string, scrollDirection.vertical || "");

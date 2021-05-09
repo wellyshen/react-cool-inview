@@ -18,10 +18,13 @@ interface ScrollDirection {
   readonly vertical?: "up" | "down";
   readonly horizontal?: "left" | "right";
 }
+interface Observe<T> {
+  (element?: T | null): void;
+}
 interface Event<T> {
   entry: IntersectionObserverEntryV2;
   scrollDirection: ScrollDirection;
-  observe: (element?: T) => void;
+  observe: Observe<T>;
   unobserve: () => void;
 }
 export interface Options<T> {
@@ -77,8 +80,8 @@ const useInView = <T extends HTMLElement | null>({
     }
   }, []);
 
-  const observe = useCallback(
-    (element?: T) => {
+  const observe = useCallback<Observe<T>>(
+    (element) => {
       if (element && element !== ref.current) {
         unobserve();
         ref.current = element;
