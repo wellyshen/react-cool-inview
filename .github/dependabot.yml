@@ -1,47 +1,47 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "21:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: postcss
-    versions:
-    - 8.2.13
-  - dependency-name: stylelint
-    versions:
-    - 13.13.0
-  - dependency-name: "@types/react"
-    versions:
-    - 17.0.4
-  - dependency-name: "@types/jest"
-    versions:
-    - 26.0.20
-    - 26.0.23
-  - dependency-name: husky
-    versions:
-    - 5.0.9
-    - 5.1.1
-    - 6.0.0
-  - dependency-name: "@rollup/plugin-commonjs"
-    versions:
-    - 18.0.0
-  - dependency-name: stylelint-config-standard
-    versions:
-    - 21.0.0
-  - dependency-name: "@testing-library/react-hooks"
-    versions:
-    - 5.0.3
-  - dependency-name: "@rollup/plugin-node-resolve"
-    versions:
-    - 11.1.0
-    - 11.1.1
-    - 11.2.0
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "21:00"
-  open-pull-requests-limit: 10
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "21:00"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: postcss
+        versions:
+          - 8.2.13
+      - dependency-name: stylelint
+        versions:
+          - 13.13.0
+      - dependency-name: "@types/react"
+        versions:
+          - 17.0.4
+      - dependency-name: "@types/jest"
+        versions:
+          - 26.0.20
+          - 26.0.23
+      - dependency-name: husky
+        versions:
+          - 5.0.9
+          - 5.1.1
+          - 6.0.0
+      - dependency-name: "@rollup/plugin-commonjs"
+        versions:
+          - 18.0.0
+      - dependency-name: stylelint-config-standard
+        versions:
+          - 21.0.0
+      - dependency-name: "@testing-library/react-hooks"
+        versions:
+          - 5.0.3
+      - dependency-name: "@rollup/plugin-node-resolve"
+        versions:
+          - 11.1.0
+          - 11.1.1
+          - 11.2.0
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "21:00"
+    open-pull-requests-limit: 10
