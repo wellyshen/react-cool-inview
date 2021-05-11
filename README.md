@@ -374,6 +374,8 @@ const App = () => {
 };
 ```
 
+> 💡 For more available types, please [check it out](https://github.com/wellyshen/react-cool-inview/blob/master/src/react-cool-inview.d.ts).
+
 ## API
 
 ```js
