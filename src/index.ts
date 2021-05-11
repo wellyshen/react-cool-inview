@@ -66,7 +66,7 @@ const useInView = <T extends HTMLElement | null>({
   });
   const prevInViewRef = useRef<boolean>(false);
   const prevPosRef = useRef<{ x?: number; y?: number }>({});
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>();
   const warnedRef = useRef<boolean>(false);
   const onChangeRef = useLatest(onChange);
   const onEnterRef = useLatest(onEnter);
