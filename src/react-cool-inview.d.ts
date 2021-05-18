@@ -1,9 +1,10 @@
 declare module "react-cool-inview" {
-  interface IntersectionObserverEntryV2 extends IntersectionObserverEntry {
+  export interface IntersectionObserverEntryV2
+    extends IntersectionObserverEntry {
     readonly isVisible?: boolean;
   }
 
-  interface ScrollDirection {
+  export interface ScrollDirection {
     readonly vertical?: "up" | "down";
     readonly horizontal?: "left" | "right";
   }
@@ -25,7 +26,7 @@ declare module "react-cool-inview" {
 
   export type OnLeave<T extends HTMLElement | null = HTMLElement> = OnEnter<T>;
 
-  interface Options<T extends HTMLElement | null> {
+  export interface Options<T extends HTMLElement | null> {
     root?: HTMLElement;
     rootMargin?: string;
     threshold?: number | number[];
@@ -37,7 +38,7 @@ declare module "react-cool-inview" {
     onLeave?: OnLeave<T>;
   }
 
-  interface Return<T extends HTMLElement | null>
+  export interface Return<T extends HTMLElement | null>
     extends Omit<Event<T>, "entry"> {
     inView: boolean;
     entry?: IntersectionObserverEntryV2;
