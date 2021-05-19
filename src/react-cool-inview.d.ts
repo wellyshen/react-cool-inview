@@ -10,8 +10,8 @@ declare module "react-cool-inview" {
   }
 
   export interface Event<T extends HTMLElement | null = HTMLElement> {
-    entry: IntersectionObserverEntryV2;
-    scrollDirection: ScrollDirection;
+    readonly entry: IntersectionObserverEntryV2;
+    readonly scrollDirection: ScrollDirection;
     observe: (element?: T | null) => void;
     unobserve: () => void;
   }

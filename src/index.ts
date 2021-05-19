@@ -22,8 +22,8 @@ interface Observe<T> {
   (element?: T | null): void;
 }
 interface Event<T> {
-  entry: IntersectionObserverEntryV2;
-  scrollDirection: ScrollDirection;
+  readonly entry: IntersectionObserverEntryV2;
+  readonly scrollDirection: ScrollDirection;
   observe: Observe<T>;
   unobserve: () => void;
 }
