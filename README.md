@@ -337,9 +337,9 @@ const App = () => {
 };
 ```
 
-## How to Share the `ref`?
+## How to Share A `ref`?
 
-You can share the ref as follows:
+You can share a `ref` as follows:
 
 ```js
 import { useRef } from "react";
