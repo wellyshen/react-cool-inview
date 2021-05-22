@@ -30,7 +30,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
 - 📜 Supports [TypeScript](#working-in-typescript) type definition.
 - 🗄️ Server-side rendering compatibility.
-- 🦔 Tiny size ([~ 1.1kB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`
+- 🦔 Tiny size ([~ 1.1kB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
 
 ## Requirement
 
