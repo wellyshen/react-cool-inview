@@ -11,7 +11,7 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 [![npm version](https://img.shields.io/npm/v/react-cool-inview?style=flat-square)](https://www.npmjs.com/package/react-cool-inview)
 [![npm downloads](https://img.shields.io/npm/dm/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
 [![npm downloads](https://img.shields.io/npm/dt/react-cool-inview?style=flat-square)](https://www.npmtrends.com/react-cool-inview)
-[![gzip size](https://img.shields.io/github/license/wellyshen/react-cool-inview?style=flat-square)](https://bundlephobia.com/result?p=react-cool-inview)
+[![gzip size](https://badgen.net/bundlephobia/minzip/react-cool-inview?label=gzip%20size&style=flat-square)](https://bundlephobia.com/result?p=react-cool-inview)
 [![MIT licensed](https://img.shields.io/github/license/wellyshen/react-cool-inview?style=flat-square)](https://raw.githubusercontent.com/wellyshen/react-cool-inview/master/LICENSE)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange?style=flat-square)](#contributors-)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
