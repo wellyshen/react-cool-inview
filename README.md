@@ -1,6 +1,6 @@
 # <em><b>REACT COOL INVIEW</b></em>
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with highly-performant way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scrolling](#infinite-scrolling) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions), and more. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with highly-performant way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scroll](#infinite-scroll) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions), and more. Try it you will 👍🏻 it!
 
 ❤️ it? ⭐️ it on [GitHub](https://github.com/wellyshen/react-cool-inview/stargazers) or [Tweet](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩) about it.
 
@@ -108,9 +108,9 @@ const LazyImage = ({ width, height, ...rest }) => {
 
 > 💡 Looking for a comprehensive image component? Try [react-cool-img](https://github.com/wellyshen/react-cool-img), it's my other component library.
 
-### Infinite Scrolling
+### Infinite Scroll
 
-Infinite scrolling is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
+Infinite scroll is a popular design technique like Facebook and Twitter feed etc., new content being loaded as you scroll down a page. The basic concept as below.
 
 ```js
 import { useState } from "react";
@@ -145,55 +145,7 @@ const App = () => {
 };
 ```
 
-Compare to pagination, infinite scrolling provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. We can use [react-window](https://github.com/bvaughn/react-window) to address the problem by the technique of [DOM recycling](https://developers.google.com/web/updates/2016/07/infinite-scroller).
-
-```js
-import { useState } from "react";
-import useInView from "react-cool-inview";
-import { FixedSizeList as List } from "react-window";
-import axios from "axios";
-
-const Row = ({ index, data, style }) => {
-  const { todos, handleLoadingInView } = data;
-  const { observe } = useInView({ onEnter: handleLoadingInView });
-
-  return (
-    <div style={style} ref={index === todos.length - 1 ? observe : null}>
-      {todos[index]}
-    </div>
-  );
-};
-
-const App = () => {
-  const [todos, setTodos] = useState(["todo-1", "todo-2", "..."]);
-  const [isFetching, setIsFetching] = useState(false);
-
-  const handleLoadingInView = () => {
-    // Row component is dynamically created by react-window, we need to use the "isFetching" flag
-    // instead of unobserve/observe to avoid re-fetching data
-    if (!isFetching)
-      axios.get("/todos").then((res) => {
-        setTodos([...todos, ...res.todos]);
-        setIsFetching(false);
-      });
-
-    setIsFetching(true);
-  };
-
-  // Leverage the power of react-window to help us address the performance bottleneck
-  return (
-    <List
-      height={150}
-      itemCount={todos.length}
-      itemSize={35}
-      width={300}
-      itemData={{ todos, handleLoadingInView }}
-    >
-      {Row}
-    </List>
-  );
-};
-```
+> 💡 Compare to pagination, infinite scroll provides a seamless experience for users and it’s easy to see the appeal. But when it comes to render a large lists, performance will be a problem. But don't worry, [react-cool-virtual](https://github.com/wellyshen/react-cool-virtual) can help you out!
 
 ### Trigger Animations
 
