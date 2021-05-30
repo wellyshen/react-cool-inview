@@ -314,11 +314,9 @@ const App = () => {
 
 ## Working in TypeScript
 
-This hook supports [TypeScript](https://www.typescriptlang.org), you can tell the hook what type of element you are going to observe via the [generic type](https://www.typescriptlang.org/docs/handbook/generics.html):
+This hook supports [TypeScript](https://www.typescriptlang.org), you can tell the hook what type of element you are going to observe through the [generic type](https://www.typescriptlang.org/docs/handbook/generics.html):
 
 ```ts
-import useInView from "react-cool-inview";
-
 const App = () => {
   const { observe } = useInView<HTMLDivElement>();
 
