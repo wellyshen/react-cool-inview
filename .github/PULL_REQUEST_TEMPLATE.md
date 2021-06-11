@@ -12,7 +12,7 @@
 
 ## What
 
-What changes are being made? (e.g. feature, bug, docs etc.)
+What changes are being made? (e.g. feature, bug, docs, etc.)
 
 ## Why
 
