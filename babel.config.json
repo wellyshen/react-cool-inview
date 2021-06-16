@@ -14,7 +14,7 @@
   ],
   "env": {
     "development": {
-      "plugins": ["@emotion/babel-plugin"]
+      "plugins": ["@emotion"]
     }
   }
 }
