@@ -64,10 +64,10 @@ const useInView = <T extends HTMLElement | null>({
     inView: false,
     scrollDirection: {},
   });
-  const prevInViewRef = useRef<boolean>(false);
+  const prevInViewRef = useRef(false);
   const prevPosRef = useRef<{ x?: number; y?: number }>({});
   const observerRef = useRef<IntersectionObserver | null>();
-  const warnedRef = useRef<boolean>(false);
+  const warnedRef = useRef(false);
   const onChangeRef = useLatest(onChange);
   const onEnterRef = useLatest(onEnter);
   const onLeaveRef = useLatest(onLeave);
