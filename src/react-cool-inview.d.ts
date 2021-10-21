@@ -27,7 +27,7 @@ declare module "react-cool-inview" {
   export type OnLeave<T extends HTMLElement | null = HTMLElement> = OnEnter<T>;
 
   export interface Options<T extends HTMLElement | null> {
-    root?: HTMLElement;
+    root?: HTMLElement | null;
     rootMargin?: string;
     threshold?: number | number[];
     trackVisibility?: boolean;
