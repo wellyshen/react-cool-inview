@@ -28,7 +28,7 @@ interface Event<T> {
   unobserve: () => void;
 }
 export interface Options<T> {
-  root?: HTMLElement;
+  root?: HTMLElement | null;
   rootMargin?: string;
   threshold?: number | number[];
   trackVisibility?: boolean;
