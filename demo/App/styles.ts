@@ -7,6 +7,7 @@ const { sm, md, lg } = mq;
 export const root = css`
   body {
     font-family: "Roboto", sans-serif;
+
     h1 {
       font-family: "Bungee Shade", cursive;
     }
