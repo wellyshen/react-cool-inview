@@ -120,14 +120,12 @@ const App = () => {
     // For better UX, we can grow the root margin so the data will be loaded earlier
     rootMargin: "50px 0px",
     // When the last item comes to the viewport
-    onEnter: ({ unobserve, observe }) => {
+    onEnter: ({ unobserve }) => {
       // Pause observe when loading data
       unobserve();
       // Load more data
       axios.get("/todos").then((res) => {
         setTodos([...todos, ...res.todos]);
-        // Resume observe after loading data
-        observe();
       });
     },
   });
