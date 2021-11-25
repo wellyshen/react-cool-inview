@@ -415,6 +415,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/xregitx"><img src="https://avatars0.githubusercontent.com/u/5581875?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nhan Nguyen</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=xregitx" title="Code">💻</a></td>
     <td align="center"><a href="https://lumenstudio.dev/"><img src="https://avatars.githubusercontent.com/u/5436545?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yann Pringault</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/issues?q=author%3AKerumen" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/gabalafou"><img src="https://avatars.githubusercontent.com/u/317883?v=4?s=100" width="100px;" alt=""/><br /><sub><b>gabalafou</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=gabalafou" title="Documentation">📖</a></td>
   </tr>
 </table>
 
