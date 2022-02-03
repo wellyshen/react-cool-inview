@@ -108,6 +108,8 @@ const useInView = <T extends HTMLElement | null>({
       return () => null;
     }
 
+    let isActive = true;
+
     // eslint-disable-next-line compat/compat
     observerRef.current = new IntersectionObserver(
       ([entry]: IntersectionObserverEntryV2[]) => {
@@ -157,7 +159,7 @@ const useInView = <T extends HTMLElement | null>({
 
         if (onChangeRef.current) onChangeRef.current({ ...e, inView });
 
-        setState({ inView, scrollDirection, entry });
+        if (isActive) setState({ inView, scrollDirection, entry });
         prevInViewRef.current = inView;
       },
       {
@@ -171,7 +173,10 @@ const useInView = <T extends HTMLElement | null>({
 
     observe();
 
-    return () => unobserve();
+    return () => {
+      isActive = false;
+      unobserve();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     unobserveOnEnter,
