@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import useLatest from "./useLatest";
 
@@ -192,5 +192,15 @@ const useInView = <T extends HTMLElement | null>({
 
   return { ...state, observe, unobserve, updatePosition };
 };
+
+type InViewProps = {
+  children: React.ReactElement
+  options?: Options<any>
+}
+
+export const InView = ({ children, options }: InViewProps) => {
+  const { observe, ...rest } = useInView(options)
+  return React.cloneElement(children, { observe, ...rest })
+}
 
 export default useInView;
