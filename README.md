@@ -51,7 +51,7 @@ $ npm install --save react-cool-inview
 
 ### Basic usage
 
-Change the `HelloText` depending on whether it is in viewport or not:
+Changes `HelloText` when it enters the viewport:
 
 ```jsx
 import { InView } from "react-cool-inview"
@@ -61,11 +61,13 @@ const HelloText = ({ inView, observe }: any) => (
 )
 
 const App = () => (
-  <InView>
+  <InView unobserveOnEnter>
     <HelloText />
   </InView>
 )
 ```
+
+> 💡 `InView` passes `observe` and other props (listed below) to the `HelloText`.
 
 ### Using as a React Hook
 
