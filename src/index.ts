@@ -195,11 +195,10 @@ const useInView = <T extends HTMLElement | null>({
 
 type InViewProps = {
   children: React.ReactElement
-  options?: Options<any>
 }
 
-export const InView = ({ children, options }: InViewProps) => {
-  const { observe, ...rest } = useInView(options)
+export const InView = ({ children, ...props }: InViewProps) => {
+  const { observe, ...rest } = useInView(props)
   return React.cloneElement(children, { observe, ...rest })
 }
 
