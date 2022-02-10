@@ -193,7 +193,7 @@ const useInView = <T extends HTMLElement | null>({
   return { ...state, observe, unobserve, updatePosition };
 };
 
-type InViewProps = {
+export interface InViewProps extends Options<HTMLElement | null> {
   children: React.ReactElement
 }
 
