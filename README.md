@@ -49,7 +49,27 @@ $ npm install --save react-cool-inview
 
 > ⚠️ [Most modern browsers support Intersection Observer natively](https://caniuse.com/#feat=intersectionobserver). You can also [add polyfill](#intersection-observer-polyfill) for full browser support.
 
-### Basic Use Case
+### Basic usage
+
+Changes `HelloText` when it enters the viewport:
+
+```jsx
+import { InView } from "react-cool-inview"
+
+const HelloText = ({ inView, observe }: any) => (
+  <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>
+)
+
+const App = () => (
+  <InView unobserveOnEnter>
+    <HelloText />
+  </InView>
+)
+```
+
+> 💡 `InView` passes `observe` and other props (listed below) to the `HelloText`.
+
+### Using as a React Hook
 
 To monitor an element enters or leaves the viewport by the `inView` state and useful sugar events.
 
