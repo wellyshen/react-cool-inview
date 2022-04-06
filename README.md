@@ -1,6 +1,6 @@
 # <em><b>REACT COOL INVIEW</b></em>
 
-A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) that monitors an element enters or leaves the viewport (or another element) with highly-performant way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scroll](#infinite-scroll) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions), and more. Try it you will 👍🏻 it!
+A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) / component API that monitors an element enters or leaves the viewport (or another element) with highly-performant way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). It's lightweight and super flexible, which can cover all the cases that you need, like [lazy-loading images](#lazy-loading-images) and videos, [infinite scroll](#infinite-scroll) web app, [triggering animations](#trigger-animations), [tracking impressions](#track-impressions), and more. Try it you will 👍🏻 it!
 
 ❤️ it? ⭐️ it on [GitHub](https://github.com/wellyshen/react-cool-inview/stargazers) or [Tweet](https://twitter.com/intent/tweet?text=With%20@react-cool-inview,%20I%20can%20build%20a%20performant%20web%20app.%20Thanks,%20@Welly%20Shen%20🤩) about it.
 
@@ -21,13 +21,13 @@ A React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) t
 ## Features
 
 - 🚀 Monitors elements with highly-performant and non-main-thread blocking way, using [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
-- 🎣 Easy to use, based on React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook).
+- 🎣 Easy to use, based on React [hook](https://reactjs.org/docs/hooks-custom.html#using-a-custom-hook) / [component](#using-as-a-component).
 - 🎛 Super flexible [API](#api) design which can cover [all the cases](#usage) that you need.
 - 🖱️ Supports [scroll direction](#scrolling-direction), cool right?
 - ✌🏻 Supports [Intersection Observer v2](#intersection-observer-v2).
 - 📜 Supports [TypeScript](#working-in-typescript) type definition.
 - 🗄️ Server-side rendering compatibility.
-- 🦔 Tiny size ([~ 1.1kB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
+- 🦔 Tiny size ([~ 1.2kB gzipped](https://bundlephobia.com/result?p=react-cool-inview)). No external dependencies, aside for the `react`.
 
 ## Requirement
 
@@ -51,30 +51,10 @@ $ npm install --save react-cool-inview
 
 ### Basic usage
 
-Changes `HelloText` when it enters the viewport:
-
-```jsx
-import { InView } from "react-cool-inview"
-
-const HelloText = ({ inView, observe }: any) => (
-  <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>
-)
-
-const App = () => (
-  <InView unobserveOnEnter>
-    <HelloText />
-  </InView>
-)
-```
-
-> 💡 `InView` passes `observe` and other props (listed below) to the `HelloText`.
-
-### Using as a React Hook
-
 To monitor an element enters or leaves the viewport by the `inView` state and useful sugar events.
 
 ```js
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   const { observe, unobserve, inView, scrollDirection, entry } = useInView({
@@ -100,12 +80,32 @@ const App = () => {
 
 > 💡 You don't have to call `unobserve` when the component is unmounted, this hook will handle it for you.
 
+### Using as a Component
+
+Changes `HelloText` when it enters the viewport.
+
+```js
+import { InView } from "react-cool-inview";
+
+const HelloText = ({ inView, observe }: any) => (
+  <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>
+);
+
+const App = () => (
+  <InView unobserveOnEnter>
+    <HelloText />
+  </InView>
+);
+```
+
+> 💡 `InView` passes `observe` and other props (listed below) to the `HelloText`.
+
 ### Lazy-loading Images
 
 It's super easy to build an image lazy-loading component with `react-cool-inview` to boost the performance of your web app.
 
 ```js
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const LazyImage = ({ width, height, ...rest }) => {
   const { observe, inView } = useInView({
@@ -131,7 +131,7 @@ Infinite scroll is a popular design technique like Facebook and Twitter feed etc
 
 ```js
 import { useState } from "react";
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 import axios from "axios";
 
 const App = () => {
@@ -167,7 +167,7 @@ const App = () => {
 Another great use case is to trigger CSS animations once they are visible to the users.
 
 ```js
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   const { observe, inView } = useInView({
@@ -190,7 +190,7 @@ const App = () => {
 `react-cool-inview` can also play as an impression tracker, helps you fire an analytic event when a user sees an element or advertisement.
 
 ```js
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   const { observe } = useInView({
@@ -213,7 +213,7 @@ const App = () => {
 `react-cool-inview` not only monitors an element enters or leaves the viewport but also tells you its scroll direction by the `scrollDirection` object. The object contains vertical (y-axios) and horizontal (x-axios) properties, they're calculated whenever the target element meets a `threshold`. If there's no enough condition for calculating, the value of the properties will be `undefined`. In addition, the value of the properties will sync with the scrolling direction of the viewport.
 
 ```js
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   const {
@@ -244,7 +244,7 @@ If you jump to a section by the [Element.scrollTop](https://developer.mozilla.or
 
 ```js
 import { useEffect } from "react";
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   const { observe, scrollDirection, updatePosition } = useInView({
@@ -281,7 +281,7 @@ When using the v2, there're somethings we need to know:
 To use Intersection Observer v2, we must set the `trackVisibility` and `delay` options.
 
 ```js
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   // With Intersection Observer v2, the "inView" not only tells you the target
@@ -310,7 +310,7 @@ You can share a `ref` as follows:
 
 ```js
 import { useRef } from "react";
-import useInView from "react-cool-inview";
+import { useInView } from "react-cool-inview";
 
 const App = () => {
   const ref = useRef();
