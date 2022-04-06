@@ -82,7 +82,7 @@ const App = () => {
 
 ### Using as a Component
 
-Changes `HelloText` when it enters the viewport. The [parameter](#parameter) can be passed through the props.
+Changes `HelloText` when it enters the viewport. The [options](#parameter) can be passed through the props.
 
 ```js
 import { InView } from "react-cool-inview";
