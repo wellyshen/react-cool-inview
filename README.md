@@ -98,7 +98,7 @@ const App = () => (
 );
 ```
 
-> 💡 `InView` passes `observe` and other props (listed below) to the `HelloText`.
+> 💡 `InView` passes `observe` and other [props](#return-object) to the `HelloText`.
 
 ### Lazy-loading Images
 
