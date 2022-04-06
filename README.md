@@ -87,7 +87,7 @@ Changes `HelloText` when it enters the viewport.
 ```js
 import { InView } from "react-cool-inview";
 
-const HelloText = ({ inView, observe }: any) => (
+const HelloText = ({ inView, observe }) => (
   <div ref={observe}>{inView ? "Hello, I am 🤗" : "Bye, I am 😴"}</div>
 );
 
