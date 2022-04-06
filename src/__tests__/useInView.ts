@@ -82,7 +82,7 @@ describe("useInView", () => {
       threshold,
       trackVisibility,
       delay,
-      // @ts-expect-error
+      // @ts-ignore
       // eslint-disable-next-line compat/compat
     } = IntersectionObserver.mock.results[0].value;
     expect(root).toBe(args.root);
@@ -204,7 +204,7 @@ describe("useInView", () => {
 
     act(() => {
       triggerObserverCb();
-      // @ts-expect-error
+      // @ts-ignore
       Element.prototype.getBoundingClientRect = () => ({ x: 20, y: 20 });
       result.current.updatePosition();
       triggerObserverCb({ boundingClientRect: { x: 10, y: 10 } });

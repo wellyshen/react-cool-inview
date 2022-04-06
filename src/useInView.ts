@@ -44,7 +44,7 @@ export interface Options<T> {
   onLeave?: (event: Event<T>) => void;
 }
 
-interface Return<T> extends Omit<Event<T>, "entry"> {
+export interface Return<T> extends Omit<Event<T>, "entry"> {
   inView: boolean;
   entry?: IntersectionObserverEntryV2;
   updatePosition: () => void;
@@ -134,15 +134,15 @@ const useInView = <T extends HTMLElement | null>({
           isIntersecting !== undefined ? isIntersecting : intersectionRatio > 0;
         inView = min > 0 ? intersectionRatio >= min : inView;
 
-        // @ts-expect-error
+        // @ts-ignore
         if (x < prevPosRef.current.x) scrollDirection.horizontal = "left";
-        // @ts-expect-error
+        // @ts-ignore
         if (x > prevPosRef.current.x) scrollDirection.horizontal = "right";
         prevPosRef.current.x = x;
 
-        // @ts-expect-error
+        // @ts-ignore
         if (y < prevPosRef.current.y) scrollDirection.vertical = "up";
-        // @ts-expect-error
+        // @ts-ignore
         if (y > prevPosRef.current.y) scrollDirection.vertical = "down";
         prevPosRef.current.y = y;
 
