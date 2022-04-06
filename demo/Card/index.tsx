@@ -1,4 +1,4 @@
-import useInView from "../../src";
+import { useInView } from "../../src";
 import { card, font } from "./styles";
 
 interface Props {

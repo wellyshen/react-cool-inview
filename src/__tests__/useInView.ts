@@ -1,6 +1,7 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 
-import useInView, { Options, observerErr, observerWarn } from "..";
+import type { Options } from "../useInView";
+import useInView, { observerErr, observerWarn } from "../useInView";
 
 describe("useInView", () => {
   const target = document.createElement("div");

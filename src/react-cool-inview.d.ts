@@ -1,4 +1,6 @@
 declare module "react-cool-inview" {
+  import type { ReactElement } from "react";
+
   export interface IntersectionObserverEntryV2
     extends IntersectionObserverEntry {
     readonly isVisible?: boolean;
@@ -45,9 +47,11 @@ declare module "react-cool-inview" {
     updatePosition?: () => void;
   }
 
-  const useInView: <T extends HTMLElement | null = HTMLElement>(
+  export const useInView: <T extends HTMLElement | null = HTMLElement>(
     options?: Options<T>
   ) => Return<T>;
 
-  export default useInView;
+  export interface InViewProps extends Options<HTMLElement | null> {
+    children: ReactElement;
+  }
 }
