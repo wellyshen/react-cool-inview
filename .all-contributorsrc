@@ -52,6 +52,15 @@
         "bug",
         "infra"
       ]
+    },
+    {
+      "login": "max-sym",
+      "name": "Max",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32452032?v=4",
+      "profile": "https://github.com/max-sym",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
