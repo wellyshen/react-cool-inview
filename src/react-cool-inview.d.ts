@@ -1,5 +1,6 @@
 declare module "react-cool-inview" {
   import type { ReactElement } from "react";
+  import { createElement } from "react";
 
   export interface IntersectionObserverEntryV2
     extends IntersectionObserverEntry {
@@ -54,4 +55,6 @@ declare module "react-cool-inview" {
   export interface InViewProps extends Options<HTMLElement | null> {
     children: ReactElement;
   }
+
+  export const InView: (props: InViewProps) => ReturnType<typeof createElement>;
 }
