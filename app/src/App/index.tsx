@@ -1,11 +1,9 @@
 import { FC, useState } from "react";
-import { Global, css } from "@emotion/react";
-import normalize from "normalize.css";
 
 import GitHubCorner from "../GitHubCorner";
 import Slider from "../Slider";
 import Card from "../Card";
-import { root, container, title, subtitle, log, frame } from "./styles";
+import styles from "./styles.module.scss";
 
 interface State {
   str: string;
@@ -44,26 +42,18 @@ const App: FC = () => {
   const { str, dir } = state;
 
   return (
-    <>
-      <Global
-        styles={css`
-          ${normalize}
-          ${root}
-        `}
-      />
-      <div css={container}>
-        <GitHubCorner url="https://github.com/wellyshen/react-cool-inview" />
-        <h1 css={title}>REACT COOL INVIEW</h1>
-        <p css={subtitle}>
-          React hook to monitor an element enters or leaves the viewport (or
-          another element).
-        </p>
-        <div css={log}>
-          Hello! <Slider string={str} direction={dir} /> comes in.
-        </div>
-        <div css={frame}>{renderCards()}</div>
+    <div className={styles.container}>
+      <GitHubCorner url="https://github.com/wellyshen/react-cool-inview" />
+      <h1 className={styles.title}>REACT COOL INVIEW</h1>
+      <p className={styles.subtitle}>
+        React hook to monitor an element enters or leaves the viewport (or
+        another element).
+      </p>
+      <div className={styles.log}>
+        Hello! <Slider string={str} direction={dir} /> comes in.
       </div>
-    </>
+      <div className={styles.frame}>{renderCards()}</div>
+    </div>
   );
 };
 

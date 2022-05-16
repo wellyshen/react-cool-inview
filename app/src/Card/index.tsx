@@ -1,5 +1,6 @@
-import { useInView } from "../../src";
-import { card, font } from "./styles";
+import { useInView } from "react-cool-inview";
+
+import styles from "./styles.module.scss";
 
 interface Props {
   string: string;
@@ -15,8 +16,8 @@ export default ({ string, onEnter }: Props): JSX.Element => {
   });
 
   return (
-    <div css={card} ref={observe}>
-      <span css={font}>{string}</span>
+    <div className={styles.card} ref={observe}>
+      <span className={styles.font}>{string}</span>
     </div>
   );
 };

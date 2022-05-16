@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { slider, wrapper, font } from "./styles";
+import styles from "./styles.module.scss";
 
 interface Props {
   string: string;
@@ -31,15 +31,15 @@ export default ({ string, direction }: Props): JSX.Element => {
   };
 
   return (
-    <div css={slider}>
+    <div className={styles.slider}>
       <div
-        css={y !== defaultY && wrapper}
+        className={y !== defaultY ? styles.wrapper : ""}
         style={{ transform: `translate3d(0, ${y}, 0)` }}
         onTransitionEnd={handleTransitionEnd}
       >
         {strs.map((str, idx) => (
           // eslint-disable-next-line react/no-array-index-key
-          <div key={str + idx} css={font}>
+          <div key={str + idx} className={styles.font}>
             {str}
           </div>
         ))}

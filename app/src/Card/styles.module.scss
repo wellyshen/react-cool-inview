@@ -1,14 +1,12 @@
-import { css } from "@emotion/react";
-
-export const card = css`
+.card {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 20px 10px;
   height: 230px;
   background: #eee;
-`;
 
-export const font = css`
-  font-size: 6rem;
-`;
+  .font {
+    font-size: 6rem;
+  }
+}

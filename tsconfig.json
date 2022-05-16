@@ -30,5 +30,6 @@
     "noImplicitReturns": true,
     // Report errors for fallthrough cases in switch statement
     "noFallthroughCasesInSwitch": true
-  }
+  },
+  "include": ["src"]
 }

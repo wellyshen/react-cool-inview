@@ -1,15 +1,15 @@
-import { FC } from "react";
+import type { FC } from "react";
 
-import { github, octo, octoArm } from "./styles";
+import styles from "./styles.module.scss";
 
 interface Props {
   url: string;
 }
 
 const GitHubCorner: FC<Props> = ({ url }: Props) => (
-  <a css={github} href={url} aria-label="View source on GitHub">
+  <a className={styles.github} href={url} aria-label="View source on GitHub">
     <svg
-      css={octo}
+      className={styles.octo}
       width="80"
       height="80"
       viewBox="0 0 250 250"
@@ -17,7 +17,7 @@ const GitHubCorner: FC<Props> = ({ url }: Props) => (
     >
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
       <path
-        css={octoArm}
+        className={styles["octo-arm"]}
         d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
         fill="currentColor"
       />

@@ -1,0 +1,50 @@
+@import "../mixins/mq.scss";
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+
+.github {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  .octo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+    fill: #151513;
+    color: #fff;
+  }
+
+  .octo-arm {
+    transform-origin: 130px 106px;
+    animation: wave 560ms ease-in-out;
+
+    @include sm {
+      animation: none;
+    }
+  }
+
+  &:hover .octo-arm {
+    animation: none;
+
+    @include sm {
+      animation: wave 560ms ease-in-out;
+    }
+  }
+}

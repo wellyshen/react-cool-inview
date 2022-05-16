@@ -1,0 +1,51 @@
+{
+  "name": "demo-app",
+  "private": true,
+  "scripts": {
+    "link-pkg": "yarn link 'react-cool-inview'",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "run-s lint:*",
+    "lint:code": "eslint --fix . --ext .js,.ts,.tsx",
+    "lint:type": "tsc",
+    "lint:style": "stylelint --fix \"**/*.{css,scss}\"",
+    "lint:format": "prettier -w . -u --loglevel silent",
+    "clean": "rimraf build",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@types/node": "^16.11.33",
+    "@types/react": "^18.0.8",
+    "@types/react-dom": "^18.0.3",
+    "normalize.css": "^8.0.1",
+    "react": "^18.1.0",
+    "react-cool-inview": "latest",
+    "react-dom": "^18.1.0",
+    "react-scripts": "5.0.1",
+    "sass": "^1.51.0",
+    "typescript": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "^3.43.3",
+    "eslint-config-welly": "^1.13.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-scss": "^4.0.4",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "stylelint": "^14.8.2",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^25.0.0"
+  }
+}

@@ -1,20 +1,7 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "loose": true
-      }
-    ],
+    ["@babel/preset-env", { "loose": true }],
     "@babel/preset-typescript",
-    [
-      "@babel/preset-react",
-      { "runtime": "automatic", "importSource": "@emotion/react" }
-    ]
-  ],
-  "env": {
-    "development": {
-      "plugins": ["@emotion"]
-    }
-  }
+    "@babel/preset-react"
+  ]
 }

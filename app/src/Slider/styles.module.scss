@@ -1,0 +1,22 @@
+$width: 3rem;
+$height: 2.25rem;
+
+.slider {
+  display: inline-block;
+  width: $width;
+  height: $height;
+  overflow-y: hidden;
+
+  .wrapper {
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .font {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $width;
+    height: $height;
+    font-size: 1.75rem;
+  }
+}

@@ -1,6 +1,5 @@
 *.log
-demo/.dev
-public
+app
 dist
 coverage
 .size-snapshot.json

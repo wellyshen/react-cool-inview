@@ -41,8 +41,8 @@ jobs:
         run: yarn lint
       - name: Run test
         run: yarn test:cov
-      - name: Run build
-        run: yarn build:dist
+      - name: Run build package
+        run: yarn build:prod
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
@@ -69,13 +69,13 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Run build
+      - name: Run build demo app
         run: yarn build:demo
 
       - name: Netlify GitHub Action
         uses: netlify/actions/cli@master
         with:
-          args: deploy --prod --dir=public
+          args: deploy --prod --dir=app/build
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

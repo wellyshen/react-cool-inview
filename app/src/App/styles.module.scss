@@ -1,0 +1,68 @@
+@import "../mixins/mq.scss";
+
+body {
+  font-family: Roboto, sans-serif;
+
+  h1 {
+    font-family: "Bungee Shade", cursive;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 5%;
+  text-align: center;
+
+  @include sm {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  @include md {
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+  }
+
+  @include lg {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+
+  .title {
+    margin: 0 0 1rem;
+    font-size: 8vw;
+
+    @include md {
+      font-size: 4vw;
+    }
+  }
+
+  .subtitle {
+    margin: 0 0 5rem;
+    font-size: 3vw;
+
+    @include md {
+      font-size: 1.5vw;
+    }
+  }
+
+  .log {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .frame {
+    padding: 0 10px;
+    width: 90%;
+    max-width: 350px;
+    height: 300px;
+    border: 5px dashed;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
