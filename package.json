@@ -62,7 +62,6 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:cov": "yarn clean:cov && yarn test --coverage",
-    "test:update": "yarn test -u",
     "build:dev": "yarn clean:dist && rollup -c",
     "build:prod": "yarn clean:dist && yarn clean:size && rollup -c --environment BUILD:production",
     "build:demo": "cd app && yarn && yarn build",
