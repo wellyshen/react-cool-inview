@@ -23,7 +23,7 @@ You can test new features or debug an issue by the way that I'm using.
 1. Run `yarn link-pkg` to link the package into the [app directory](app).
 2. Run `yarn start` to create an `ESM` build and type definition file by `rollup` watch mode.
 3. Access the [app directory](app).
-4. In the **app directory**, run `yarn link-pkg` to link with the package then run `yarn start:dev` to start development.
+4. In the **app directory**, run `yarn link-pkg` to link with the package then run `yarn start` to start development.
 5. Try something cool via the [demo app](app/src).
 
 ## Development Workflow
