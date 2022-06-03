@@ -39,7 +39,6 @@ There're several useful commands that you can use during the development:
 - `yarn test` runs the complete test suite.
 - `yarn test:watch` runs an interactive test watcher (helpful in development).
 - `yarn test:cov` runs the complete test suite with coverage report.
-- `yarn test:update` updates the [Jest snapshots](src/__tests__/__snapshots__).
 - `yarn build:dev` creates a `dist` folder with an `ESM` build and type definition file for development.
 - `yarn build:prod` creates a `dist` folder with package builds (`CJS` & `ESM`) and type definition file. You can test the package locally via [yarn link](https://yarnpkg.com/lang/en/docs/cli/link).
 - `yarn clean:dist` deletes the `dist` build folder.
