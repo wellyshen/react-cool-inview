@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 interface Props {
   string: string;
   onEnter: (str: string, dir: string) => void;
-  root: HTMLDivElement|null;
+  root: HTMLDivElement | null;
 }
 
 export default ({ string, onEnter, root }: Props): JSX.Element => {

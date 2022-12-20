@@ -55,7 +55,9 @@ const App: FC = () => {
       <div className={styles.log}>
         Hello! <Slider string={str} direction={dir} /> comes in.
       </div>
-      <div ref={sliderRef} className={styles.frame}>{renderCards()}</div>
+      <div ref={sliderRef} className={styles.frame}>
+        {renderCards()}
+      </div>
     </div>
   );
 };
