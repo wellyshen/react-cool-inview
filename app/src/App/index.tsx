@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import GitHubCorner from "../GitHubCorner";
 import Slider from "../Slider";
@@ -28,6 +28,7 @@ const emojis = [
 
 const App: FC = () => {
   const [state, setState] = useState<State>({ str: emojis[0], dir: "" });
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const renderCards = (): JSX.Element[] =>
     emojis.map((emoji) => (
@@ -37,6 +38,7 @@ const App: FC = () => {
         onEnter={(str: string, dir: string) => {
           setState({ str, dir });
         }}
+        root={sliderRef.current}
       />
     ));
 
@@ -53,7 +55,7 @@ const App: FC = () => {
       <div className={styles.log}>
         Hello! <Slider string={str} direction={dir} /> comes in.
       </div>
-      <div className={styles.frame}>{renderCards()}</div>
+      <div ref={sliderRef} className={styles.frame}>{renderCards()}</div>
     </div>
   );
 };
