@@ -61,6 +61,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "SaidMarar",
+      "name": "SaidMarar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20561190?v=4",
+      "profile": "https://github.com/SaidMarar",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -68,5 +77,7 @@
   "projectOwner": "wellyshen",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }

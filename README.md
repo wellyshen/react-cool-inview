@@ -431,14 +431,17 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/xregitx"><img src="https://avatars0.githubusercontent.com/u/5581875?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nhan Nguyen</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=xregitx" title="Code">💻</a></td>
-    <td align="center"><a href="https://lumenstudio.dev/"><img src="https://avatars.githubusercontent.com/u/5436545?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yann Pringault</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/issues?q=author%3AKerumen" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/gabalafou"><img src="https://avatars.githubusercontent.com/u/317883?v=4?s=100" width="100px;" alt=""/><br /><sub><b>gabalafou</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=gabalafou" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/victorlacorte"><img src="https://avatars.githubusercontent.com/u/1683634?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Victor</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/issues?q=author%3Avictorlacorte" title="Bug reports">🐛</a> <a href="#infra-victorlacorte" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/max-sym"><img src="https://avatars.githubusercontent.com/u/32452032?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Max</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=max-sym" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://wellyshen.com"><img src="https://avatars1.githubusercontent.com/u/21308003?v=4?s=100" width="100px;" alt="Welly"/><br /><sub><b>Welly</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Code">💻</a> <a href="https://github.com/wellyshen/react-cool-inview/commits?author=wellyshen" title="Documentation">📖</a> <a href="#maintenance-wellyshen" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/xregitx"><img src="https://avatars0.githubusercontent.com/u/5581875?v=4?s=100" width="100px;" alt="Nhan Nguyen"/><br /><sub><b>Nhan Nguyen</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=xregitx" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://lumenstudio.dev/"><img src="https://avatars.githubusercontent.com/u/5436545?v=4?s=100" width="100px;" alt="Yann Pringault"/><br /><sub><b>Yann Pringault</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/issues?q=author%3AKerumen" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gabalafou"><img src="https://avatars.githubusercontent.com/u/317883?v=4?s=100" width="100px;" alt="gabalafou"/><br /><sub><b>gabalafou</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=gabalafou" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/victorlacorte"><img src="https://avatars.githubusercontent.com/u/1683634?v=4?s=100" width="100px;" alt="Victor"/><br /><sub><b>Victor</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/issues?q=author%3Avictorlacorte" title="Bug reports">🐛</a> <a href="#infra-victorlacorte" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/max-sym"><img src="https://avatars.githubusercontent.com/u/32452032?v=4?s=100" width="100px;" alt="Max"/><br /><sub><b>Max</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=max-sym" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SaidMarar"><img src="https://avatars.githubusercontent.com/u/20561190?v=4?s=100" width="100px;" alt="SaidMarar"/><br /><sub><b>SaidMarar</b></sub></a><br /><a href="https://github.com/wellyshen/react-cool-inview/commits?author=SaidMarar" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
